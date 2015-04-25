@@ -6,5 +6,6 @@ public Piece
 public:
 	King(int color);
 	virtual ~King();
+	virtual std::vector<Translation*> getPossibleMovements();
 };
 

@@ -14,3 +14,9 @@ King::King(int color) : Piece(color)
 King::~King()
 {
 }
+
+
+std::vector<Translation*> King::getPossibleMovements()
+{
+	return std::vector<Translation*>();
+}

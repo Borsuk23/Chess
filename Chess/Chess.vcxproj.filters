@@ -29,6 +29,15 @@
     <Filter Include="ChessEngine\Sources">
       <UniqueIdentifier>{7702f8f9-898e-4818-a7f4-0e47e8476c4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>{bfd10a22-6572-4a16-b47d-e733b959a0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Images">
+      <UniqueIdentifier>{55ebb632-1711-4cff-afce-f4d3d6f10508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views">
+      <UniqueIdentifier>{862d92d4-ecec-4c31-bb17-b92043b02572}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -73,6 +82,16 @@
     <ClCompile Include="Translation.cpp">
       <Filter>ChessEngine\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="GameBoard.xaml.cpp" />
+    <ClCompile Include="BoardViewModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldViewModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="BoolToVisible.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -114,6 +133,16 @@
     <ClInclude Include="Translation.h">
       <Filter>ChessEngine\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="GameBoard.xaml.h" />
+    <ClInclude Include="BoardViewModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldViewModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolToVisible.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -122,7 +151,11 @@
     <None Include="Chess_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainPage.xaml" />
-    <Page Include="GameBoard.xaml" />
+    <Page Include="GameBoard.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Filter>Views</Filter>
+    </Page>
   </ItemGroup>
 </Project>

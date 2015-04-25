@@ -74,6 +74,16 @@
         return ref new XamlSystemBaseType(typeName);
     }
 
+    if (typeName == L"Object")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
+    if (typeName == L"Boolean")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
     if (typeName == L"Chess.GameBoard")
     {
         ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
@@ -100,13 +110,47 @@
         return userType;
     }
 
+    if (typeName == L"Chess.FieldViewModel")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Object"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::Chess::FieldViewModel(); 
+            };
+        userType->AddMemberName(L"Highlighted");
+        userType->SetIsBindable();
+        userType->SetIsLocalType();
+        return userType;
+    }
+
     return nullptr;
 }
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
-    // No Local Properties
-    (void)longMemberName; // Unused parameter
+    if (longMemberName == L"Chess.FieldViewModel.Highlighted")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Highlighted", L"Boolean");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                auto value = ref new ::Platform::Box<::Platform::Boolean>(that->Highlighted);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
+                that->Highlighted = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
     return nullptr;
 }
 
