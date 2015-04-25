@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>db9b8ccc-003b-4672-8f75-fa8f79e25571</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>30dd81a7-604e-4448-a398-222e85fc5108</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Filter Include="ChessEngine">
+      <UniqueIdentifier>{524524d1-57f8-4c26-8098-42f1962696ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChessEngine\Headers">
+      <UniqueIdentifier>{7fc09357-a677-4381-9b6f-69d6a9801473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChessEngine\Sources">
+      <UniqueIdentifier>{7702f8f9-898e-4818-a7f4-0e47e8476c4a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Bishop.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="King.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Rook.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Queen.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Piece.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Translation.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="Bishop.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="King.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rook.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Queen.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Piece.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Translation.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Chess_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainPage.xaml" />
+    <Page Include="GameBoard.xaml" />
+  </ItemGroup>
+</Project>
