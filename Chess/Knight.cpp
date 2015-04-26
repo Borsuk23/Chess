@@ -10,3 +10,10 @@ Knight::Knight(int color) : Piece(color)
 Knight::~Knight()
 {
 }
+
+
+
+std::vector<Translation*> Knight::getPossibleMovements()
+{
+	return std::vector<Translation*>();
+}

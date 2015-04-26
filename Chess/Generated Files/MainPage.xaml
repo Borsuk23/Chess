@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBox HorizontalAlignment="Left" Margin="372,242,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="69" Width="204"/>
         <TextBox HorizontalAlignment="Left" Margin="372,364,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="433,484,0,0" VerticalAlignment="Top"/>
+        <Button x:ConnectionId='1' x:Name="startGameButton" Content="Rozpocznij grę" HorizontalAlignment="Left" Margin="433,484,0,0" VerticalAlignment="Top"                              />
 
     </Grid>
 </Page>

@@ -6,6 +6,8 @@
 #pragma once
 
 #include "GameBoard.g.h"
+#include "FieldViewModel.h"
+#include "BoolToVisible.h"
 
 namespace Chess
 {
@@ -17,5 +19,6 @@ namespace Chess
 	{
 	public:
 		GameBoard();
+		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 	};
 }

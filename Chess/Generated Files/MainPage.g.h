@@ -8,6 +8,15 @@
 //     the code is regenerated.
 //------------------------------------------------------------------------------
 
+namespace Windows {
+    namespace UI {
+        namespace Xaml {
+            namespace Controls {
+                ref class Button;
+            }
+        }
+    }
+}
 
 namespace Chess
 {
@@ -21,6 +30,7 @@ namespace Chess
     private:
         bool _contentLoaded;
     
+        private: ::Windows::UI::Xaml::Controls::Button^ startGameButton;
     };
 }
 

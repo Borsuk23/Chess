@@ -17,5 +17,7 @@ namespace Chess
 	public:
 		MainPage();
 
+	private:
+		void startGameButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

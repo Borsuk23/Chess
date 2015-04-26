@@ -6,5 +6,6 @@ public Piece
 public:
 	Knight(int color);
 	virtual ~Knight();
+	virtual std::vector<Translation*> getPossibleMovements();
 };
 

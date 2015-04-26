@@ -22,6 +22,8 @@ void ::Chess::GameBoard::InitializeComponent()
     // Call LoadComponent on ms-appx:///GameBoard.xaml
     ::Windows::UI::Xaml::Application::LoadComponent(this, ref new ::Windows::Foundation::Uri(L"ms-appx:///GameBoard.xaml"), ::Windows::UI::Xaml::Controls::Primitives::ComponentResourceLocation::Application);
 
+    // Get the Rectangle named 'A7'
+    A7 = safe_cast<::Windows::UI::Xaml::Shapes::Rectangle^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"A7"));
 }
 
 void ::Chess::GameBoard::Connect(int connectionId, Platform::Object^ target)

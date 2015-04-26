@@ -133,7 +133,10 @@
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardViewModel.h" />
+    <ClInclude Include="BoolToVisible.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="FieldViewModel.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBoard.xaml.h">
       <DependentUpon>GameBoard.xaml</DependentUpon>
@@ -183,7 +186,10 @@
     </ClCompile>
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardViewModel.cpp" />
+    <ClCompile Include="BoolToVisible.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="FieldViewModel.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameBoard.xaml.cpp">
       <DependentUpon>GameBoard.xaml</DependentUpon>

@@ -6,5 +6,6 @@ public Piece
 public:
 	Bishop(int color);
 	virtual ~Bishop();
+	virtual std::vector<Translation*> getPossibleMovements();
 };
 

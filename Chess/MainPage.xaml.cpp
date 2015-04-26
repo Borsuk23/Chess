@@ -4,6 +4,7 @@
 //
 
 #include "pch.h"
+#include "GameBoard.xaml.h"
 #include "MainPage.xaml.h"
 
 using namespace Chess;
@@ -16,6 +17,7 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Controls::Primitives;
 using namespace Windows::UI::Xaml::Data;
 using namespace Windows::UI::Xaml::Input;
+using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 
@@ -24,4 +26,14 @@ using namespace Windows::UI::Xaml::Navigation;
 MainPage::MainPage()
 {
 	InitializeComponent();
+}
+
+
+void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (this->Frame != nullptr)
+	{
+		this->Frame->Navigate(TypeName(GameBoard::typeid));
+	}
+
 }

@@ -25,3 +25,15 @@ GameBoard::GameBoard()
 {
 	InitializeComponent();
 }
+
+
+void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
+{
+	auto Field = ref new FieldViewModel(1);
+	Binding^ binding = ref new Binding();
+	binding->Source = Field;
+	binding->Path = ref new PropertyPath("Highlighted");
+	binding->Mode = BindingMode::OneWay;
+	binding->Converter = ref new BoolToVisible();
+	A7->SetBinding(A7->VisibilityProperty, binding);
+;}
