@@ -40,3 +40,9 @@ void Field::placePiece(Piece* piece)
 void Field::removeFromSelectedField()
 {
 }
+
+
+
+//void Field::attachViewModel(FieldViewModel^ viewModel) {
+//	this->viewModel = viewModel;
+//}

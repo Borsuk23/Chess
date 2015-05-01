@@ -79,6 +79,11 @@
         return ref new XamlSystemBaseType(typeName);
     }
 
+    if (typeName == L"String")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
     if (typeName == L"Boolean")
     {
         return ref new XamlSystemBaseType(typeName);
@@ -119,6 +124,7 @@
             {
                 return ref new ::Chess::FieldViewModel(); 
             };
+        userType->AddMemberName(L"PieceOnField");
         userType->AddMemberName(L"Highlighted");
         userType->SetIsBindable();
         userType->SetIsLocalType();
@@ -130,6 +136,25 @@
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
+    if (longMemberName == L"Chess.FieldViewModel.PieceOnField")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceOnField", L"String");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                return that->PieceOnField;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                that->PieceOnField = (::Platform::String^)value;
+            };
+        return xamlMember;
+    }
+
     if (longMemberName == L"Chess.FieldViewModel.Highlighted")
     {
         ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Highlighted", L"Boolean");

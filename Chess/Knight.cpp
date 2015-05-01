@@ -20,6 +20,7 @@ Knight::Knight(int color) : Piece(color)
 
 Knight::~Knight()
 {
+
 }
 
 

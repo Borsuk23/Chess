@@ -1,5 +1,8 @@
 #pragma once
 #include "Piece.h"
+#include "FieldViewModel.h"
+
+using namespace Chess;
 class Field
 {
 private:
@@ -12,9 +15,11 @@ public:
 	virtual ~Field();
 	void placePiece(Piece* piece);
 	void removeFromSelectedField();
-private:
 	bool isHighlighted();
 	Piece* checkField();
+// void attachViewModel(FieldViewModel^ viewModel);
+private:
+//	FieldViewModel^ viewModel;
 	void setHighlighted(bool value);
 
 };

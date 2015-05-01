@@ -4,10 +4,10 @@
 //
 
 #include "pch.h"
-#include "GameBoard.xaml.h"
+
 #include "MainPage.xaml.h"
 
-using namespace Chess;
+using namespace Chess::Navigation;
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -33,6 +33,8 @@ void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::U
 {
 	if (this->Frame != nullptr)
 	{
+		GameStartParameters^ players = ref new GameStartParameters;
+
 		this->Frame->Navigate(TypeName(GameBoard::typeid));
 	}
 
