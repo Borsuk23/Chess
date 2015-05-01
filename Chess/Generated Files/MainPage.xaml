@@ -7,11 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox HorizontalAlignment="Left" Margin="372,242,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="69" Width="204"/>
-        <TextBox HorizontalAlignment="Left" Margin="372,364,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <Button x:ConnectionId='1' x:Name="startGameButton" Content="Rozpocznij grę" HorizontalAlignment="Left" Margin="433,484,0,0" VerticalAlignment="Top"                              />
-
+    <Grid >
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill"  ImageSource="chess2.png" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <TextBox HorizontalAlignment="Center" Margin="0,300,0,0" TextWrapping="Wrap" Text="Enter your nickname" VerticalAlignment="top"  Height="30" Width="253" x:Name="whitePlayerNick"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,400,0,0" TextWrapping="Wrap" Text="Enter your nickname" VerticalAlignment="Top"  Width="253" x:Name="blackPlayerNick"/>
+            <Button x:ConnectionId='1' x:Name="startGameButton" Content="Start Game" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top"                               Width="150" Height="50" Background="Black"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,250,0,0" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,350,0,0" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
+            <Image HorizontalAlignment="Center" Source="title.png" Height="150" Margin="0,60,0,0" Width="350" VerticalAlignment="Top"/>
+        </Grid>
     </Grid>
 </Page>
 

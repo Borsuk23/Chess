@@ -4,9 +4,16 @@
 
 King::King(int color) : Piece(color)
 {
-	possibleMovements = std::vector<Translation*>(8); //jak w Player
+	possibleMovements = std::vector<Translation*>(8); 
 	possibleMovements = {
 		new Translation(0,1),
+		new Translation(1, 1),
+		new Translation(1, 0),
+		new Translation(1, -1),
+		new Translation(0, -1),
+		new Translation(-1, -1),
+		new Translation(-1, 0),
+		new Translation(-1, 1),
 	};
 }
 
