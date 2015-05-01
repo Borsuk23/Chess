@@ -6,7 +6,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
+    <!--<Page.Resources>
+        <DataTemplate x:Key="chessField">
+            <Grid Grid.Column="{Binding }" Grid.Row="{Binding}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="GreenYellow" Grid.Column="0" Grid.Row="0" Opacity="0.6"/> 
+                <Image Source="{Binding }" Grid.Column="0" Grid.Row="0"></Image>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>-->
 
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
