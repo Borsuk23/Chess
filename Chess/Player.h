@@ -14,7 +14,9 @@ private:
 	std::vector < Piece* > capturedPieces;
 public:
 	void capturePiece(Piece* piece);
-	void checkPiece(Piece* piece);
+	bool checkPiece(Piece* piece);
+	void Player::removeCapturedPiece(Piece* piece);
+	Piece* Player::getLastCapturedPiece();
 	std::vector < Piece* > getPieces();
 };
 

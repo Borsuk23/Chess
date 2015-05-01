@@ -41,8 +41,61 @@ Board::~Board()
 }
 
 
-void Board::userAction(int x, int y, Player* player)
+int Board::userAction(int x, int y, Player* player)
 {
+	Piece* currentPiece;
+	//sprawdzenie czy 1 czy 2 klikniecie
+	if (pieceSelected != NULL)
+	{
+		//obsluga 2 klikniecia
+		if (fields[x][y]->isHighlighted() == true) //jesli bylo podswietlone czyli to 2 klikniecie
+		{
+			currentPiece = fields[x][y]->checkField();
+			if (currentPiece == pieceSelected) //jesli to moja figura
+			{
+				clearSelection();
+				return 3;
+			}
+			else if (currentPiece != NULL)
+			{
+				player->capturePiece(currentPiece);
+				fields[x][y]->placePiece(pieceSelected); //nowo klikniete pole
+				fieldSelected->removeFromSelectedField(); //pole przy pierwszym kliknieciu
+				return 5;
+			}
+			else
+			{
+				fields[x][y]->placePiece(pieceSelected);
+				fieldSelected->removeFromSelectedField();
+				return 4;
+			}
+				
+			
+		}
+		else
+			return 1;
+	}
+	//obsluga 1 klikniecia
+	else
+	{
+		currentPiece = fields[x][y]->checkField();
+		//jesli cos tu stoi
+		if (currentPiece != NULL)
+		{
+			//jesli obecnego gracza
+			if (player->checkPiece(currentPiece) == true)
+			{
+				pieceSelected = currentPiece;
+				fieldSelected = fields[x][y];
+				calculatePossibleMovements(x, y);
+				return 2;
+			}
+			else
+				return 1;
+		}
+		else
+			return 1;
+	}
 }
 
 
@@ -54,9 +107,34 @@ Field* Board::checkField(int x, int y)
 
 void Board::clearSelection()
 {
+	pieceSelected = NULL;
+	//odznacza wszystkie podswietlone wczesniej
+	for (int i = 0; i <= 7; i++)
+	{
+		for (int j = 0; j <= 7; j++)
+		{
+			fields[i][j]->setHighlighted(false);
+		}
+	}
 }
 
 
 void Board::calculatePossibleMovements(int x, int y)
 {
+	std::vector<Translation*> possibleTranslations;
+	possibleTranslations = pieceSelected->getPossibleMovements();
+	std::vector<Translation*>::iterator it;
+	int tempX, tempY;
+	//sprawdza wszystkie mozliwe kombinacje
+	for (it = possibleTranslations.begin(); it < possibleTranslations.end(); it++)
+	{
+		tempX = x + (*it)->x;
+		tempY = y + (*it)->y;
+		//podswietla tylko te, ktore sie mieszcza w planszy
+		if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
+		{
+			fields[x][y]->setHighlighted(true);
+		}
+		//blokowanie ruchu jak stoi moj pionek 
+	}
 }
