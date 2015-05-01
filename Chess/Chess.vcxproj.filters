@@ -158,4 +158,27 @@
       <Filter>Views</Filter>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.jpg">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="..\chess.jpeg">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="..\chess2.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="..\title.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="..\logo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\logo_duze.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

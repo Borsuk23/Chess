@@ -111,6 +111,9 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
     </ClCompile>
+    <Manifest>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -175,10 +178,23 @@
     <None Include="Chess_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Logo.scale-100.png" />
+    <Image Include="..\chess.jpeg" />
+    <Image Include="..\chess2.png" />
+    <Image Include="..\logo.png" />
+    <Image Include="..\logo.scale-150.png" />
+    <Image Include="..\title.png" />
+    <Image Include="Assets\Logo.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\logo_duze.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\SmallLogo.scale-100.png" />
     <Image Include="Assets\StoreLogo.scale-100.png" />
-    <Image Include="Assets\SplashScreen.scale-100.png" />
+    <Image Include="Assets\SplashScreen.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="background.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp">

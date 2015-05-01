@@ -12,6 +12,7 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
+                ref class TextBox;
                 ref class Button;
             }
         }
@@ -30,6 +31,8 @@ namespace Chess
     private:
         bool _contentLoaded;
     
+        private: ::Windows::UI::Xaml::Controls::TextBox^ whitePlayerNick;
+        private: ::Windows::UI::Xaml::Controls::TextBox^ blackPlayerNick;
         private: ::Windows::UI::Xaml::Controls::Button^ startGameButton;
     };
 }

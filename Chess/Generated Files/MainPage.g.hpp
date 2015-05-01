@@ -22,6 +22,10 @@ void ::Chess::MainPage::InitializeComponent()
     // Call LoadComponent on ms-appx:///MainPage.xaml
     ::Windows::UI::Xaml::Application::LoadComponent(this, ref new ::Windows::Foundation::Uri(L"ms-appx:///MainPage.xaml"), ::Windows::UI::Xaml::Controls::Primitives::ComponentResourceLocation::Application);
 
+    // Get the TextBox named 'whitePlayerNick'
+    whitePlayerNick = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"whitePlayerNick"));
+    // Get the TextBox named 'blackPlayerNick'
+    blackPlayerNick = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"blackPlayerNick"));
     // Get the Button named 'startGameButton'
     startGameButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"startGameButton"));
 }
