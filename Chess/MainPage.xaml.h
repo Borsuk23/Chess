@@ -6,6 +6,8 @@
 #pragma once
 
 #include "MainPage.g.h"
+#include "GameBoard.xaml.h"
+#include "GameStartParameters.h"
 
 namespace Chess
 {
