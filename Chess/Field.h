@@ -17,10 +17,11 @@ public:
 	void removeFromSelectedField();
 	bool isHighlighted();
 	Piece* checkField();
+	void setHighlighted(bool value);
 // void attachViewModel(FieldViewModel^ viewModel);
 private:
 //	FieldViewModel^ viewModel;
-	void setHighlighted(bool value);
+
 private:
 	
 
