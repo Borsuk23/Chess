@@ -32,7 +32,7 @@ Player::Player(int color, std::string nickName)
 		new Pawn(color), 
 		new Pawn(color)
 	};
-	capturedPieces = std::vector<Piece*>(16);
+	capturedPieces = std::vector<Piece*>();
 }
 
 
@@ -43,11 +43,36 @@ Player::~Player()
 
 void Player::capturePiece(Piece* piece)
 {
+	capturedPieces.push_back(piece); //dodaje zbita figure na koniec wektora capturedPieces
+}
+
+void Player::removeCapturedPiece(Piece* piece)
+{
+	std::vector<Piece*>::iterator it;
+	//szuka czy figura znajduje sie w wektorze figur gracza
+	it = std::find(pieces.begin(), pieces.end(), piece);
+	//jesli tak to ja usuwa
+	if (it != pieces.end())
+		pieces.erase(it);
+}
+
+Piece* Player::getLastCapturedPiece()
+{
+	std::vector<Piece*>::reverse_iterator it;
+	//szuka czy figura znajduje sie w wektorze figur gracza
+	it = capturedPieces.rbegin();
+	return *it; //wskaznik na iterator - na Piece
 }
 
 
-void Player::checkPiece(Piece* piece)
+bool Player::checkPiece(Piece* piece)
 {
+	std::vector<Piece*>::iterator it;
+	//szuka czy figura znajduje sie w wektorze figur gracza
+	it = std::find(pieces.begin(), pieces.end(), piece);
+	if (it == pieces.end())
+		return false;
+	return true;
 }
 
 std::vector < Piece* > Player::getPieces()

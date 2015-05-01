@@ -11,10 +11,10 @@ public:
 	virtual ~Board();
 private:
 	Piece* pieceSelected;
-	Field* fieldSelected;
+	Field* fieldSelected; //obecnie klikniete pole
 	std::vector<std::vector<Field*>> fields;
 public:
-	void userAction(int x, int y, Player* player);
+	int userAction(int x, int y, Player* player);
 private:
 	Field* checkField(int x, int y);
 	void clearSelection();

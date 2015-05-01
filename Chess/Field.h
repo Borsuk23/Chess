@@ -8,7 +8,7 @@ class Field
 private:
 	Piece* pieceOnField;
 	bool highlighted;
-	int color;
+	int color; //0 bialy, 1 czarny
 
 public:
 	Field(int color);	//towrzac obiekt typu filed od razu podaje kolor pola
@@ -21,6 +21,8 @@ public:
 private:
 //	FieldViewModel^ viewModel;
 	void setHighlighted(bool value);
+private:
+	
 
 };
 
