@@ -7,6 +7,7 @@ using namespace WUXD;
 FieldViewModel::FieldViewModel()
 {
 	Highlighted = 0;
+	PieceOnField = "";
 }
 
 
@@ -29,6 +30,17 @@ void FieldViewModel::Highlighted::set(Platform::Boolean value)
 	{
 		m_Highlighted = value;
 		NotifyPropertyChanged("Highlighted");
+	}
+}
+
+Platform::String^ FieldViewModel::PieceOnField::get(){ return m_PieceOnField; }
+
+void FieldViewModel::PieceOnField::set(Platform::String^ value)
+{
+	if (m_PieceOnField != value)
+	{
+		m_PieceOnField = value;
+		NotifyPropertyChanged("PieceOnField");
 	}
 }
 
