@@ -18,12 +18,5 @@ public:
 	bool isHighlighted();
 	Piece* checkField();
 	void setHighlighted(bool value);
-// void attachViewModel(FieldViewModel^ viewModel);
-private:
-//	FieldViewModel^ viewModel;
-
-private:
-	
-
 };
 

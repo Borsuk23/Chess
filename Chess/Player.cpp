@@ -67,7 +67,15 @@ Piece* Player::getLastCapturedPiece()
 
 bool Player::checkPiece(Piece* piece)
 {
+	
 	std::vector<Piece*>::iterator it;
+	//it = pieces.begin();
+	//for (it; it < pieces.end(); it++)
+	//{
+	//	if ((*it)->_id == piece->_id)
+	//		return true;
+	//}
+	//return false;
 	//szuka czy figura znajduje sie w wektorze figur gracza
 	it = std::find(pieces.begin(), pieces.end(), piece);
 	if (it == pieces.end())

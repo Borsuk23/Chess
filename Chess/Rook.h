@@ -7,5 +7,6 @@ public:
 	Rook(int color);
 	virtual ~Rook();
 	virtual std::vector<Translation*> getPossibleMovements();
+	virtual Platform::String^ getName();
 };
 

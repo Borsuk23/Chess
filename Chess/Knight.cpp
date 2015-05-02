@@ -29,3 +29,8 @@ std::vector<Translation*> Knight::getPossibleMovements()
 {
 	return possibleMovements;
 }
+
+Platform::String^ Knight::getName()
+{
+	return "Knight";
+}

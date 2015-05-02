@@ -15,6 +15,7 @@ private:
 	std::vector<std::vector<Field*>> fields;
 public:
 	int userAction(int x, int y, Player* player);
+	std::vector<std::vector<Field*>> getFields();
 private:
 	Field* checkField(int x, int y);
 	void clearSelection();

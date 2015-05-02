@@ -5,7 +5,7 @@
 Piece::Piece(int color)
 {
 	this->color = color;
-
+	this->_id = (int) this;
 }
 
 
