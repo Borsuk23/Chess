@@ -2,10 +2,18 @@
 #include "Translation.h"
 
 
-Translation::Translation(int x,int y)
+Translation::Translation(int row, int column)
 {
-	this->x = x;
-	this->y = y;
+	this->row = row;
+	this->column = column;
+	this->captureOnly = false;
+}
+
+Translation::Translation(int row, int column, bool captureOnly)
+{
+	this->row = row;
+	this->column = column;
+	this->captureOnly = captureOnly;
 }
 
 

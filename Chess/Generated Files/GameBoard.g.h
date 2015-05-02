@@ -17,15 +17,6 @@ namespace Windows {
         }
     }
 }
-namespace Windows {
-    namespace UI {
-        namespace Xaml {
-            namespace Shapes {
-                ref class Rectangle;
-            }
-        }
-    }
-}
 
 namespace Chess
 {
@@ -40,7 +31,6 @@ namespace Chess
         bool _contentLoaded;
     
         private: ::Windows::UI::Xaml::Controls::Grid^ Board;
-        private: ::Windows::UI::Xaml::Shapes::Rectangle^ A7;
     };
 }
 
