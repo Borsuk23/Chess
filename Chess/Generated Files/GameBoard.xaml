@@ -113,7 +113,6 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Rectangle Fill="Ivory" Grid.Column="0" Grid.Row="0"/>
-                <Rectangle x:Name ="A7" Fill="GreenYellow" Grid.Column="0" Grid.Row="0" Opacity="0.6" />
                 <Rectangle Fill="DimGray" Grid.Column="1" Grid.Row="0"/>
                 <Rectangle Fill="Ivory" Grid.Column="2" Grid.Row="0"/>
                 <Rectangle Fill="DimGray" Grid.Column="3" Grid.Row="0"/>
@@ -253,9 +252,6 @@
             </Grid>
            
         </Grid>
-       
-
-
     </Grid>
 </Page>
 
