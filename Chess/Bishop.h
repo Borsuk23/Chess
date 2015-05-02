@@ -7,5 +7,6 @@ public:
 	Bishop(int color);
 	virtual ~Bishop();
 	virtual std::vector<Translation*> getPossibleMovements();
+	virtual Platform::String^ getName();
 };
 

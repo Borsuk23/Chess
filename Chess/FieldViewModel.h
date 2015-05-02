@@ -1,14 +1,15 @@
 #pragma once
 #include "Field.h"
+#include "Piece.h"
 
 namespace Chess {
 	namespace WUXD = Windows::UI::Xaml::Data;
+	
 	[WUXD::Bindable]
 	public ref  class FieldViewModel sealed : WUXD::INotifyPropertyChanged
 	{
 	public:
 		FieldViewModel();
-		FieldViewModel(bool highlighted);
 		virtual ~FieldViewModel();
 
 		property Platform::Boolean Highlighted {
@@ -27,6 +28,7 @@ namespace Chess {
 		void NotifyPropertyChanged(Platform::String^ prop);
 		Platform::Boolean m_Highlighted;
 		Platform::String^ m_PieceOnField;
+		
 	};
 }
 

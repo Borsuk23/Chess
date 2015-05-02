@@ -45,9 +45,3 @@ void Field::removeFromSelectedField()
 {
 	pieceOnField = NULL;
 }
-
-
-
-//void Field::attachViewModel(FieldViewModel^ viewModel) {
-//	this->viewModel = viewModel;
-//}

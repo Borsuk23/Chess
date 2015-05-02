@@ -21,5 +21,14 @@ Pawn::~Pawn()
 
 std::vector<Translation*> Pawn::getPossibleMovements()
 {
-	return std::vector<Translation*>();
+	return possibleMovements;
+}
+
+
+Platform::String^ Pawn::getName()
+{
+	if (color == 0)
+		return "White Pawn";
+	else
+		return "Black Pawn";
 }

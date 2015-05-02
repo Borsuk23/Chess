@@ -18,10 +18,10 @@ Game::~Game()
 }
 
 
-void Game::userAction(int x, int y)
+void Game::userAction(int row, int column)
 {
 	int exit;
-	exit = board->userAction(x, y, currentPlayer);
+	exit = board->userAction(row, column, currentPlayer);
 	switch (exit)
 	{
 	case 0:
@@ -44,4 +44,8 @@ void Game::removeCapturedPieces()
 	Piece* capturedPiece;
 	capturedPiece = currentPlayer->getLastCapturedPiece();
 	players[(turnNumber + 1) % 2]->removeCapturedPiece(capturedPiece);  //drugiego gracza
+}
+
+Board* Game::getBoard() {
+	return this->board;
 }

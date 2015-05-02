@@ -7,5 +7,6 @@ public:
 	King(int color);
 	virtual ~King();
 	virtual std::vector<Translation*> getPossibleMovements();
+	virtual Platform::String^ getName();
 };
 

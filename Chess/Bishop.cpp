@@ -46,5 +46,11 @@ Bishop::~Bishop()
 
 std::vector<Translation*> Bishop::getPossibleMovements()
 {
-	return std::vector<Translation*>();
+	return possibleMovements;
+}
+
+
+Platform::String^ Bishop::getName()
+{
+	return "Bishop";
 }

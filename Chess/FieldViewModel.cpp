@@ -10,13 +10,6 @@ FieldViewModel::FieldViewModel()
 	PieceOnField = "";
 }
 
-
-FieldViewModel::FieldViewModel(bool highlighted)
-{
-	Highlighted = highlighted;
-}
-
-
 FieldViewModel::~FieldViewModel()
 {
 }
@@ -44,9 +37,9 @@ void FieldViewModel::PieceOnField::set(Platform::String^ value)
 	}
 }
 
-
 void FieldViewModel::NotifyPropertyChanged(Platform::String^ prop)
 {
 	PropertyChangedEventArgs^ args = ref new PropertyChangedEventArgs(prop);
 	PropertyChanged(this, args);
 }
+

@@ -25,5 +25,11 @@ King::~King()
 
 std::vector<Translation*> King::getPossibleMovements()
 {
-	return std::vector<Translation*>();
+	return possibleMovements;
+}
+
+
+Platform::String^ King::getName()
+{
+	return "King";
 }

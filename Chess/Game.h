@@ -7,6 +7,7 @@ public:
 	Game(std::string whitePlayerNickName, std::string blackPlayerNickName); 
 	virtual ~Game();
 	void userAction(int x, int y);
+	Board* getBoard();
 private:
 	void changeTurn();
 	void removeCapturedPieces();

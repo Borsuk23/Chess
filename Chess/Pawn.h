@@ -7,5 +7,6 @@ public:
 	Pawn(int color);
 	virtual ~Pawn();
 	virtual std::vector<Translation*> getPossibleMovements();
+	virtual Platform::String^ getName();
 };
 

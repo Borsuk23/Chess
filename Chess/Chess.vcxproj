@@ -136,7 +136,6 @@
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
-    <ClInclude Include="BoardViewModel.h" />
     <ClInclude Include="BoolToVisible.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldViewModel.h" />
@@ -203,7 +202,6 @@
     </ClCompile>
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="BoardViewModel.cpp" />
     <ClCompile Include="BoolToVisible.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldViewModel.cpp" />

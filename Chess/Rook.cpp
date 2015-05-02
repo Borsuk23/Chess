@@ -47,5 +47,11 @@ Rook::~Rook()
 
 std::vector<Translation*> Rook::getPossibleMovements()
 {
-	return std::vector<Translation*>();
+	return possibleMovements;
+}
+
+
+Platform::String^ Rook::getName()
+{
+	return "Rook";
 }

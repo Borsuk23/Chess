@@ -83,9 +83,6 @@
       <Filter>ChessEngine\Sources</Filter>
     </ClCompile>
     <ClCompile Include="GameBoard.xaml.cpp" />
-    <ClCompile Include="BoardViewModel.cpp">
-      <Filter>ViewModels</Filter>
-    </ClCompile>
     <ClCompile Include="FieldViewModel.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
@@ -137,9 +134,6 @@
       <Filter>ChessEngine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="GameBoard.xaml.h" />
-    <ClInclude Include="BoardViewModel.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="FieldViewModel.h">
       <Filter>ViewModels</Filter>
     </ClInclude>

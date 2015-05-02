@@ -23,8 +23,8 @@ Board::Board(Player* playerWhite, Player* playerBlack)
 	std::vector<Piece*> whites = playerWhite->getPieces();
 	for (int i = 0; i < 8; i++)
 	{
-		fields[0][7 - i]->placePiece(blacks[i]);
-		fields[1][7 - i]->placePiece(blacks[i+8]);
+		fields[0][i]->placePiece(blacks[i]);
+		fields[1][i]->placePiece(blacks[i+8]);
 	}
 	
 	for (int i = 0; i < 8; i++)
@@ -41,35 +41,39 @@ Board::~Board()
 }
 
 
-int Board::userAction(int x, int y, Player* player)
+int Board::userAction(int row, int column, Player* player)
 {
 	Piece* currentPiece;
 	//sprawdzenie czy 1 czy 2 klikniecie
 	if (pieceSelected != NULL)
 	{
 		//obsluga 2 klikniecia
-		if (fields[x][y]->isHighlighted() == true) //jesli bylo podswietlone czyli to 2 klikniecie
+		if (fields[row][column]->isHighlighted() == true) //jesli bylo podswietlone czyli to 2 klikniecie
 		{
-			currentPiece = fields[x][y]->checkField();
+			currentPiece = fields[row][column]->checkField();
 			if (currentPiece == pieceSelected) //jesli to moja figura
 			{
 				clearSelection();
+				pieceSelected = NULL;
 				return 3;
 			}
 			else if (currentPiece != NULL)
 			{
 				player->capturePiece(currentPiece);
-				fields[x][y]->placePiece(pieceSelected); //nowo klikniete pole
+				fields[row][column]->placePiece(pieceSelected); //nowo klikniete pole
 				fieldSelected->removeFromSelectedField(); //pole przy pierwszym kliknieciu
+				clearSelection();
+				pieceSelected = NULL;
 				return 5;
 			}
 			else
 			{
-				fields[x][y]->placePiece(pieceSelected);
+				fields[row][column]->placePiece(pieceSelected);
 				fieldSelected->removeFromSelectedField();
+				clearSelection();
+				pieceSelected = NULL;
 				return 4;
 			}
-				
 			
 		}
 		else
@@ -78,7 +82,7 @@ int Board::userAction(int x, int y, Player* player)
 	//obsluga 1 klikniecia
 	else
 	{
-		currentPiece = fields[x][y]->checkField();
+		currentPiece = fields[row][column]->checkField();
 		//jesli cos tu stoi
 		if (currentPiece != NULL)
 		{
@@ -86,8 +90,9 @@ int Board::userAction(int x, int y, Player* player)
 			if (player->checkPiece(currentPiece) == true)
 			{
 				pieceSelected = currentPiece;
-				fieldSelected = fields[x][y];
-				calculatePossibleMovements(x, y);
+				fields[row][column]->setHighlighted(true);
+				fieldSelected = fields[row][column];
+				calculatePossibleMovements(row, column);
 				return 2;
 			}
 			else
@@ -99,7 +104,7 @@ int Board::userAction(int x, int y, Player* player)
 }
 
 
-Field* Board::checkField(int x, int y)
+Field* Board::checkField(int row, int column)
 {
 	return NULL;
 }
@@ -119,7 +124,7 @@ void Board::clearSelection()
 }
 
 
-void Board::calculatePossibleMovements(int x, int y)
+void Board::calculatePossibleMovements(int row, int column)
 {
 	std::vector<Translation*> possibleTranslations;
 	possibleTranslations = pieceSelected->getPossibleMovements();
@@ -128,13 +133,19 @@ void Board::calculatePossibleMovements(int x, int y)
 	//sprawdza wszystkie mozliwe kombinacje
 	for (it = possibleTranslations.begin(); it < possibleTranslations.end(); it++)
 	{
-		tempX = x + (*it)->x;
-		tempY = y + (*it)->y;
+		tempX = row + (*it)->x;
+		tempY = column + (*it)->y;
 		//podswietla tylko te, ktore sie mieszcza w planszy
 		if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
 		{
-			fields[x][y]->setHighlighted(true);
+			fields[tempX][tempY]->setHighlighted(true);
 		}
 		//blokowanie ruchu jak stoi moj pionek 
 	}
+}
+
+
+std::vector<std::vector<Field*>> Board::getFields()
+{
+	return this->fields;
 }

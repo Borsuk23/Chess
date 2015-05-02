@@ -74,5 +74,10 @@ Queen::~Queen()
 
 std::vector<Translation*> Queen::getPossibleMovements()
 {
-	return std::vector<Translation*>();
+	return possibleMovements;
+}
+
+Platform::String^ Queen::getName()
+{
+	return "Queen";
 }

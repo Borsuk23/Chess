@@ -7,5 +7,6 @@ public:
 	Queen(int color);
 	virtual ~Queen();
 	virtual std::vector<Translation*> getPossibleMovements();
+	virtual Platform::String^ getName();
 };
 
