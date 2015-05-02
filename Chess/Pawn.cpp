@@ -8,8 +8,8 @@ Pawn::Pawn(int color) : Piece(color)
 	possibleMovements = {
 		new Translation(-1, 0),
 		new Translation(-2, 0), //pierwszy ruch moze byc o 2
-		new Translation(-1, -1), //bicie
 		new Translation(-1, 1), //bicie
+		new Translation(-1, -1), //bicie
 	};
 }
 

@@ -133,8 +133,8 @@ void Board::calculatePossibleMovements(int row, int column)
 	//sprawdza wszystkie mozliwe kombinacje
 	for (it = possibleTranslations.begin(); it < possibleTranslations.end(); it++)
 	{
-		tempX = row + (*it)->x;
-		tempY = column + (*it)->y;
+		tempX = row + (*it)->row;
+		tempY = column + (*it)->column;
 		//podswietla tylko te, ktore sie mieszcza w planszy
 		if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
 		{

@@ -1,8 +1,10 @@
 class Translation
 {
 public:
-	int x;
-	int y;
-	Translation(int x,int y);
+	int row;
+	int column;
+	int captureOnly;
+	Translation(int row, int column);
+	Translation(int row, int column, bool captureOnly);
 	virtual ~Translation();
 };
