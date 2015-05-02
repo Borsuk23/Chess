@@ -142,6 +142,10 @@ void Board::calculatePossibleMovements(int row, int column)
 		}
 		//blokowanie ruchu jak stoi moj pionek 
 	}
+
+	//podwojny for najpierw po kierunkach pozniej po polach i break jak spotka moja
+	//przekazywac playera do calculateposmov
+	//std::vector<std::vector<translation>> gora, skos, prawo, skos itp
 }
 
 
