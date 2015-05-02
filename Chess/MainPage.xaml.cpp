@@ -39,3 +39,9 @@ void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::U
 	}
 
 }
+
+
+void Chess::MainPage::whitePlayerNick_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+
+}

@@ -186,5 +186,44 @@
     <Image Include="..\logo.scale-150.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\SmallLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_bishop.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_king.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_knight.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_pawn.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_queen.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\black_rook.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_bishop.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_king.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_knight.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_pawn.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_queen.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\Chess_symbols\white_rook.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>
