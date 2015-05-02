@@ -178,20 +178,20 @@
     <None Include="Chess_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\Chess_symbols\black_bishop.png" />
-    <Image Include="..\..\Chess_symbols\black_king.png" />
-    <Image Include="..\..\Chess_symbols\black_knight.png" />
-    <Image Include="..\..\Chess_symbols\black_pawn.png" />
-    <Image Include="..\..\Chess_symbols\black_queen.png" />
-    <Image Include="..\..\Chess_symbols\black_rook.png" />
-    <Image Include="..\..\Chess_symbols\white_bishop.png" />
-    <Image Include="..\..\Chess_symbols\white_king.png" />
-    <Image Include="..\..\Chess_symbols\white_knight.png" />
-    <Image Include="..\..\Chess_symbols\white_pawn.png" />
-    <Image Include="..\..\Chess_symbols\white_queen.png" />
-    <Image Include="..\..\Chess_symbols\white_rook.png" />
     <Image Include="..\chess.jpeg" />
     <Image Include="..\chess2.png" />
+    <Image Include="..\Chess_symbols\black_bishop.png" />
+    <Image Include="..\Chess_symbols\black_king.png" />
+    <Image Include="..\Chess_symbols\black_knight.png" />
+    <Image Include="..\Chess_symbols\black_pawn.png" />
+    <Image Include="..\Chess_symbols\black_queen.png" />
+    <Image Include="..\Chess_symbols\black_rook.png" />
+    <Image Include="..\Chess_symbols\white_bishop.png" />
+    <Image Include="..\Chess_symbols\white_king.png" />
+    <Image Include="..\Chess_symbols\white_knight.png" />
+    <Image Include="..\Chess_symbols\white_pawn.png" />
+    <Image Include="..\Chess_symbols\white_queen.png" />
+    <Image Include="..\Chess_symbols\white_rook.png" />
     <Image Include="..\logo.png" />
     <Image Include="..\logo.scale-150.png" />
     <Image Include="..\SmallLogo.png" />
