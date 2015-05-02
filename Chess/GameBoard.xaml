@@ -19,7 +19,22 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="46,107,45,105" TextAlignment="Center" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,60" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -97,78 +112,79 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Rectangle Fill="White" Grid.Column="0" Grid.Row="0" />
-                <Rectangle Fill="Black" Grid.Column="1" Grid.Row="0"/>
-                <Rectangle Fill="White" Grid.Column="2" Grid.Row="0"/>
-                <Rectangle Fill="Black" Grid.Column="3" Grid.Row="0"/>
-                <Rectangle Fill="White" Grid.Column="4" Grid.Row="0"/>
-                <Rectangle Fill="Black" Grid.Column="5" Grid.Row="0"/>
-                <Rectangle Fill="White" Grid.Column="6" Grid.Row="0"/>
-                <Rectangle Fill="Black" Grid.Column="7" Grid.Row="0"/>
-                <Rectangle Fill="Black" Grid.Column="0" Grid.Row="1"/>
-                <Rectangle Fill="White" Grid.Column="1" Grid.Row="1"/>
-                <Rectangle Fill="Black" Grid.Column="2" Grid.Row="1"/>
-                <Rectangle Fill="White" Grid.Column="3" Grid.Row="1"/>
-                <Rectangle Fill="Black" Grid.Column="4" Grid.Row="1"/>
-                <Rectangle Fill="White" Grid.Column="5" Grid.Row="1"/>
-                <Rectangle Fill="Black" Grid.Column="6" Grid.Row="1"/>
-                <Rectangle Fill="White" Grid.Column="7" Grid.Row="1"/>
+                <Rectangle Fill="Ivory" Grid.Column="0" Grid.Row="0"/>
+                <Rectangle x:Name ="A7" Fill="GreenYellow" Grid.Column="0" Grid.Row="0" Opacity="0.6" />
+                <Rectangle Fill="DimGray" Grid.Column="1" Grid.Row="0"/>
+                <Rectangle Fill="Ivory" Grid.Column="2" Grid.Row="0"/>
+                <Rectangle Fill="DimGray" Grid.Column="3" Grid.Row="0"/>
+                <Rectangle Fill="Ivory" Grid.Column="4" Grid.Row="0"/>
+                <Rectangle Fill="DimGray" Grid.Column="5" Grid.Row="0"/>
+                <Rectangle Fill="Ivory" Grid.Column="6" Grid.Row="0"/>
+                <Rectangle Fill="DimGray" Grid.Column="7" Grid.Row="0"/>
+
+                <Rectangle Fill="DimGray" Grid.Column="0" Grid.Row="1"/>
+                <Rectangle Fill="Ivory" Grid.Column="1" Grid.Row="1"/>
+                <Rectangle Fill="DimGray" Grid.Column="2" Grid.Row="1"/>
+                <Rectangle Fill="Ivory" Grid.Column="3" Grid.Row="1"/>
+                <Rectangle Fill="DimGray" Grid.Column="4" Grid.Row="1"/>
+                <Rectangle Fill="Ivory" Grid.Column="5" Grid.Row="1"/>
+                <Rectangle Fill="DimGray" Grid.Column="6" Grid.Row="1"/>
+                <Rectangle Fill="Ivory" Grid.Column="7" Grid.Row="1"/>
                 
-                <Rectangle Fill="White" Grid.Column="0" Grid.Row="2"/>
-                <Rectangle Fill="Black" Grid.Column="1" Grid.Row="2"/>
-                <Rectangle Fill="White" Grid.Column="2" Grid.Row="2"/>
-                <Rectangle Fill="Black" Grid.Column="3" Grid.Row="2"/>
-                <Rectangle Fill="White" Grid.Column="4" Grid.Row="2"/>
-                <Rectangle Fill="Black" Grid.Column="5" Grid.Row="2"/>
-                <Rectangle Fill="White" Grid.Column="6" Grid.Row="2"/>
-                <Rectangle Fill="Black" Grid.Column="7" Grid.Row="2"/>
+                <Rectangle Fill="Ivory" Grid.Column="0" Grid.Row="2"/>
+                <Rectangle Fill="DimGray" Grid.Column="1" Grid.Row="2"/>
+                <Rectangle Fill="Ivory" Grid.Column="2" Grid.Row="2"/>
+                <Rectangle Fill="DimGray" Grid.Column="3" Grid.Row="2"/>
+                <Rectangle Fill="Ivory" Grid.Column="4" Grid.Row="2"/>
+                <Rectangle Fill="DimGray" Grid.Column="5" Grid.Row="2"/>
+                <Rectangle Fill="Ivory" Grid.Column="6" Grid.Row="2"/>
+                <Rectangle Fill="DimGray" Grid.Column="7" Grid.Row="2"/>
 
-                <Rectangle Fill="Black" Grid.Column="0" Grid.Row="3"/>
-                <Rectangle Fill="White" Grid.Column="1" Grid.Row="3"/>
-                <Rectangle Fill="Black" Grid.Column="2" Grid.Row="3"/>
-                <Rectangle Fill="White" Grid.Column="3" Grid.Row="3"/>
-                <Rectangle Fill="Black" Grid.Column="4" Grid.Row="3"/>
-                <Rectangle Fill="White" Grid.Column="5" Grid.Row="3"/>
-                <Rectangle Fill="Black" Grid.Column="6" Grid.Row="3"/>
-                <Rectangle Fill="White" Grid.Column="7" Grid.Row="3"/>
+                <Rectangle Fill="DimGray" Grid.Column="0" Grid.Row="3"/>
+                <Rectangle Fill="Ivory" Grid.Column="1" Grid.Row="3"/>
+                <Rectangle Fill="DimGray" Grid.Column="2" Grid.Row="3"/>
+                <Rectangle Fill="Ivory" Grid.Column="3" Grid.Row="3"/>
+                <Rectangle Fill="DimGray" Grid.Column="4" Grid.Row="3"/>
+                <Rectangle Fill="Ivory" Grid.Column="5" Grid.Row="3"/>
+                <Rectangle Fill="DimGray" Grid.Column="6" Grid.Row="3"/>
+                <Rectangle Fill="Ivory" Grid.Column="7" Grid.Row="3"/>
                 
-                <Rectangle Fill="White" Grid.Column="0" Grid.Row="4"/>
-                <Rectangle Fill="Black" Grid.Column="1" Grid.Row="4"/>
-                <Rectangle Fill="White" Grid.Column="2" Grid.Row="4"/>
-                <Rectangle Fill="Black" Grid.Column="3" Grid.Row="4"/>
-                <Rectangle Fill="White" Grid.Column="4" Grid.Row="4"/>
-                <Rectangle Fill="Black" Grid.Column="5" Grid.Row="4"/>
-                <Rectangle Fill="White" Grid.Column="6" Grid.Row="4"/>
-                <Rectangle Fill="Black" Grid.Column="7" Grid.Row="4"/>
+                <Rectangle Fill="Ivory" Grid.Column="0" Grid.Row="4"/>
+                <Rectangle Fill="DimGray" Grid.Column="1" Grid.Row="4"/>
+                <Rectangle Fill="Ivory" Grid.Column="2" Grid.Row="4"/>
+                <Rectangle Fill="DimGray" Grid.Column="3" Grid.Row="4"/>
+                <Rectangle Fill="Ivory" Grid.Column="4" Grid.Row="4"/>
+                <Rectangle Fill="DimGray" Grid.Column="5" Grid.Row="4"/>
+                <Rectangle Fill="Ivory" Grid.Column="6" Grid.Row="4"/>
+                <Rectangle Fill="DimGray" Grid.Column="7" Grid.Row="4"/>
 
-                <Rectangle Fill="Black" Grid.Column="0" Grid.Row="5"/>
-                <Rectangle Fill="White" Grid.Column="1" Grid.Row="5"/>
-                <Rectangle Fill="Black" Grid.Column="2" Grid.Row="5"/>
-                <Rectangle Fill="White" Grid.Column="3" Grid.Row="5"/>
-                <Rectangle Fill="Black" Grid.Column="4" Grid.Row="5"/>
-                <Rectangle Fill="White" Grid.Column="5" Grid.Row="5"/>
-                <Rectangle Fill="Black" Grid.Column="6" Grid.Row="5"/>
-                <Rectangle Fill="White" Grid.Column="7" Grid.Row="5"/>
+                <Rectangle Fill="DimGray" Grid.Column="0" Grid.Row="5"/>
+                <Rectangle Fill="Ivory" Grid.Column="1" Grid.Row="5"/>
+                <Rectangle Fill="DimGray" Grid.Column="2" Grid.Row="5"/>
+                <Rectangle Fill="Ivory" Grid.Column="3" Grid.Row="5"/>
+                <Rectangle Fill="DimGray" Grid.Column="4" Grid.Row="5"/>
+                <Rectangle Fill="Ivory" Grid.Column="5" Grid.Row="5"/>
+                <Rectangle Fill="DimGray" Grid.Column="6" Grid.Row="5"/>
+                <Rectangle Fill="Ivory" Grid.Column="7" Grid.Row="5"/>
                 
-                <Rectangle Fill="White" Grid.Column="0" Grid.Row="6"/>
-                <Rectangle Fill="Black" Grid.Column="1" Grid.Row="6"/>
-                <Rectangle Fill="White" Grid.Column="2" Grid.Row="6"/>
-                <Rectangle Fill="Black" Grid.Column="3" Grid.Row="6"/>
-                <Rectangle Fill="White" Grid.Column="4" Grid.Row="6"/>
-                <Rectangle Fill="Black" Grid.Column="5" Grid.Row="6"/>
-                <Rectangle Fill="White" Grid.Column="6" Grid.Row="6"/>
-                <Rectangle Fill="Black" Grid.Column="7" Grid.Row="6"/>
+                <Rectangle Fill="Ivory" Grid.Column="0" Grid.Row="6"/>
+                <Rectangle Fill="DimGray" Grid.Column="1" Grid.Row="6"/>
+                <Rectangle Fill="Ivory" Grid.Column="2" Grid.Row="6"/>
+                <Rectangle Fill="DimGray" Grid.Column="3" Grid.Row="6"/>
+                <Rectangle Fill="Ivory" Grid.Column="4" Grid.Row="6"/>
+                <Rectangle Fill="DimGray" Grid.Column="5" Grid.Row="6"/>
+                <Rectangle Fill="Ivory" Grid.Column="6" Grid.Row="6"/>
+                <Rectangle Fill="DimGray" Grid.Column="7" Grid.Row="6"/>
 
-                <Rectangle Fill="Black" Grid.Column="0" Grid.Row="7"/>
-                <Rectangle Fill="White" Grid.Column="1" Grid.Row="7"/>
-                <Rectangle Fill="Black" Grid.Column="2" Grid.Row="7"/>
-                <Rectangle Fill="White" Grid.Column="3" Grid.Row="7"/>
-                <Rectangle Fill="Black" Grid.Column="4" Grid.Row="7"/>
-                <Rectangle Fill="White" Grid.Column="5" Grid.Row="7"/>
-                <Rectangle Fill="Black" Grid.Column="6" Grid.Row="7"/>
-                <Rectangle Fill="White" Grid.Column="7" Grid.Row="7"/>
-
-                <Button Grid.Column="1" Grid.Row="6" Height="86" Width="92" Click="Button_Click" Background="#FFEA0F0F" >Test</Button>
+                <Rectangle Fill="DimGray" Grid.Column="0" Grid.Row="7"/>
+                <Rectangle Fill="Ivory" Grid.Column="1" Grid.Row="7"/>
+                <Rectangle Fill="DimGray" Grid.Column="2" Grid.Row="7"/>
+                <Rectangle Fill="Ivory" Grid.Column="3" Grid.Row="7"/>
+                <Rectangle Fill="DimGray" Grid.Column="4" Grid.Row="7"/>
+                <Rectangle Fill="Ivory" Grid.Column="5" Grid.Row="7"/>
+                <Rectangle Fill="DimGray" Grid.Column="6" Grid.Row="7"/>
+                <Rectangle Fill="Ivory" Grid.Column="7" Grid.Row="7"/>
+                
             </Grid>
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -219,8 +235,25 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,60" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+           
         </Grid>
+       
 
 
     </Grid>

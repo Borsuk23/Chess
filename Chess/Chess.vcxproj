@@ -178,10 +178,23 @@
     <None Include="Chess_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\Chess_symbols\black_bishop.png" />
+    <Image Include="..\..\Chess_symbols\black_king.png" />
+    <Image Include="..\..\Chess_symbols\black_knight.png" />
+    <Image Include="..\..\Chess_symbols\black_pawn.png" />
+    <Image Include="..\..\Chess_symbols\black_queen.png" />
+    <Image Include="..\..\Chess_symbols\black_rook.png" />
+    <Image Include="..\..\Chess_symbols\white_bishop.png" />
+    <Image Include="..\..\Chess_symbols\white_king.png" />
+    <Image Include="..\..\Chess_symbols\white_knight.png" />
+    <Image Include="..\..\Chess_symbols\white_pawn.png" />
+    <Image Include="..\..\Chess_symbols\white_queen.png" />
+    <Image Include="..\..\Chess_symbols\white_rook.png" />
     <Image Include="..\chess.jpeg" />
     <Image Include="..\chess2.png" />
     <Image Include="..\logo.png" />
     <Image Include="..\logo.scale-150.png" />
+    <Image Include="..\SmallLogo.png" />
     <Image Include="..\title.png" />
     <Image Include="Assets\Logo.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
@@ -189,7 +202,9 @@
     <Image Include="Assets\logo_duze.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
-    <Image Include="Assets\SmallLogo.scale-100.png" />
+    <Image Include="Assets\SmallLogo.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\StoreLogo.scale-100.png" />
     <Image Include="Assets\SplashScreen.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
