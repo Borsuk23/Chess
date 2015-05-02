@@ -17,8 +17,8 @@
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
-            <TextBox HorizontalAlignment="Center" Margin="0,300,0,0" TextWrapping="Wrap" Text="Enter your nickname" VerticalAlignment="top"  Height="30" Width="253" x:Name="whitePlayerNick"/>
-            <TextBox HorizontalAlignment="Center" Margin="0,400,0,0" TextWrapping="Wrap" Text="Enter your nickname" VerticalAlignment="Top"  Width="253" x:Name="blackPlayerNick"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,300,0,0" TextWrapping="Wrap" PlaceholderText="Enter your nickname" VerticalAlignment="top"  Height="30" Width="253" x:Name="whitePlayerNick"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,400,0,0" TextWrapping="Wrap" PlaceholderText="Enter your nickname" VerticalAlignment="Top"  Width="253" x:Name="blackPlayerNick"/>
             <Button x:Name="startGameButton" Content="Start Game" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Click="startGameButton_Click" Width="150" Height="50" Background="Black"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,250,0,0" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,350,0,0" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
