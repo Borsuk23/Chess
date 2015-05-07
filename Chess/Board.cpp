@@ -41,7 +41,7 @@ Board::~Board()
 }
 
 
-Board::exit Board::userAction(int row, int column, Player* player) //nowy parametr gameState
+Board::Exit Board::userAction(int row, int column, Player* player) //nowy parametr gameState
 {
 	Piece* currentPiece;
 	//sprawdzenie czy 1 czy 2 klikniecie
@@ -55,7 +55,7 @@ Board::exit Board::userAction(int row, int column, Player* player) //nowy parame
 			{
 				clearSelection();
 				pieceSelected = NULL;
-				return exit::PIECE_UNSELECTED;
+				return Exit::PIECE_UNSELECTED;
 			}
 			else if (currentPiece != NULL)
 			{
@@ -65,7 +65,7 @@ Board::exit Board::userAction(int row, int column, Player* player) //nowy parame
 				fieldSelected->removeFromSelectedField(); //pole przy pierwszym kliknieciu
 				clearSelection();
 				pieceSelected = NULL;
-				return exit::PIECE_CAPTURED;
+				return Exit::PIECE_CAPTURED;
 			}
 			else
 			{
@@ -74,12 +74,12 @@ Board::exit Board::userAction(int row, int column, Player* player) //nowy parame
 				fieldSelected->removeFromSelectedField();
 				clearSelection();
 				pieceSelected = NULL;
-				return exit::PIECE_MOVED;
+				return Exit::PIECE_MOVED;
 			}
 			
 		}
 		else
-			return exit::NO_CHANGES;
+			return Exit::NO_CHANGES;
 	}
 	//obsluga 1 klikniecia
 	else
@@ -95,13 +95,13 @@ Board::exit Board::userAction(int row, int column, Player* player) //nowy parame
 				fields[row][column]->setHighlighted(true);
 				fieldSelected = fields[row][column];
 				calculatePossibleMovements(row, column,player); //z calc zrobic boola bo przy szcahu moze si eokazac ze ten pionek nic nie zrobi i wtedy bedzie return NO CHANGES
-				return exit::PIECE_SELECTED;
+				return Exit::PIECE_SELECTED;
 			}
 			else
-				return exit::NO_CHANGES;
+				return Exit::NO_CHANGES;
 		}
 		else
-			return exit::NO_CHANGES;
+			return Exit::NO_CHANGES;
 	}
 }
 
@@ -176,9 +176,9 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 		
 }
 
-Board::gameState Board::checkGameState(Player* player)
+Board::GameState Board::checkGameState(Player* player)
 {
-	Board::gameState gameState = Board::gameState::OK;
+	GameState gameState = GameState::OK;	
 	Piece* standingPiece;
 	for (int i = 0; i < 8; i++)
 	{
@@ -187,10 +187,12 @@ Board::gameState Board::checkGameState(Player* player)
 			standingPiece = fields[i][j]->checkField();
 			if ((player->checkPiece(standingPiece)) == true)
 				gameState = calculateCheck(i, j, player, standingPiece);
-			if (gameState == Board::gameState::CHECK)
+			if (gameState == GameState::CHECK)
 			{
-				gameState = gameState;
-				return Board::gameState::CHECK;
+				//powinnas chyba przypisac do atrybutu boarda
+				gameState = gameState;		//uzywaj this->gameState; (polecam tak wogole, jesli odwolujesz sie do atrybutu obietu to uzywaj this->atrybut )
+				//teraz przypisalas zmienna sama do siebie - czyli te kod nic nie robi
+				return GameState::CHECK;
 			}
 
 			//gameState = gameState;
@@ -200,11 +202,11 @@ Board::gameState Board::checkGameState(Player* player)
 			//jesli calc zwrocil check  to ustaw pole boarda gameState = Game::gameState::CHECK i zwroc do gamea return Game::gameState::CHECK
 		}
 	}
-	gameState = gameState;
+	gameState = gameState;	//patrz wyzej
 	return gameState;
 }
 
-Board::gameState Board::calculateCheck(int row, int column, Player* player, Piece* pieceToCheck)
+Board::GameState Board::calculateCheck(int row, int column, Player* player, Piece* pieceToCheck)
 {
 	std::vector<std::vector<Translation*>> possibleTranslations;
 	possibleTranslations = pieceToCheck->getPossibleMovements();
@@ -242,24 +244,24 @@ Board::gameState Board::calculateCheck(int row, int column, Player* player, Piec
 					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
 					{
 						pieceName = pieceName;
-						return Board::gameState::CHECK;
+						return GameState::CHECK;
 					}
-						
-					else return Board::gameState::OK;
 					break;
+					//else return GameState::OK;	// wychodzisz z petli po 1 polu ktore nie szachuje
 				case 1: //obsluga bicia pionka
 					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
-						return Board::gameState::CHECK;
-					else return Board::gameState::OK;
-					; break;
+						return GameState::CHECK;
+					break;
+					//else return GameState::OK;// wychodzisz z petli po 1 polu ktore nie szachuje
 				case 2: //obsluga pionka bez bicia
 					/*if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
 						break;
 					else if (fields[tempX][tempY]->checkField() == NULL)
 						fields[tempX][tempY]->setHighlighted(true);*/
-					; break;
+					break;
 				case 3: //obsluga roszady
-					; break;
+					break;
+				
 				}
 
 			}
@@ -267,6 +269,8 @@ Board::gameState Board::calculateCheck(int row, int column, Player* player, Piec
 		}
 
 	}
+
+	return GameState::OK;
 	//metoda calculateCheck
 	//jesli jest bicie to spr czy to krol
 	//wyciagniecieta figura (checkField zwraca piece) if piece->getName == "King"
