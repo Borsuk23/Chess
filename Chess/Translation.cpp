@@ -6,14 +6,14 @@ Translation::Translation(int row, int column)
 {
 	this->row = row;
 	this->column = column;
-	this->captureOnly = false;
+	this->option = 0;
 }
 
-Translation::Translation(int row, int column, bool captureOnly)
+Translation::Translation(int row, int column, int option)
 {
 	this->row = row;
 	this->column = column;
-	this->captureOnly = captureOnly;
+	this->option = option;
 }
 
 

@@ -6,7 +6,8 @@ public Piece
 public:
 	Knight(int color);
 	virtual ~Knight();
-	virtual std::vector<Translation*> getPossibleMovements();
+	virtual std::vector<std::vector<Translation*>> getPossibleMovements();
 	virtual Platform::String^ getName();
+	virtual std::string getStringName();
 };
 
