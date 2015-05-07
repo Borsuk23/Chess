@@ -20,12 +20,25 @@ Game::~Game()
 
 void Game::userAction(int row, int column)
 {
-	int exit;
-	exit = board->userAction(row, column, currentPlayer);
-	switch (exit)
-	{
-	case 0:
-		break;
+	
+	Board::exit e = board->userAction(row, column, currentPlayer);
+	Board::gameState gameState;
+	switch (e) {
+	case Board::exit::NO_CHANGES: 
+		; break;
+	case Board::exit::PIECE_SELECTED:
+			; break;
+	case Board::exit::PIECE_UNSELECTED:
+		; break;
+	case Board::exit::PIECE_MOVED:
+		gameState = board->checkGameState(currentPlayer);
+		gameState = gameState;
+		changeTurn();
+		 break;
+	case Board::exit::PIECE_CAPTURED:
+		gameState = board->checkGameState(currentPlayer);
+		changeTurn();	
+		 break;
 	default:
 		break;
 	}

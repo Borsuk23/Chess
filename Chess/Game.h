@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
+
 class Game
 {
 public:
@@ -8,6 +9,7 @@ public:
 	virtual ~Game();
 	void userAction(int x, int y);
 	Board* getBoard();
+	//typedef enum gameState { OK, CHECK, CHECKMATE } gameState;
 private:
 	void changeTurn();
 	void removeCapturedPieces();

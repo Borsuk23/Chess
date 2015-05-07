@@ -6,11 +6,14 @@ class Piece
 public:
 	Piece(int color);
 	int _id;
-	virtual std::vector<Translation*> getPossibleMovements() = 0;
+	int numberOfMoves;
+	virtual std::vector<std::vector<Translation*>> getPossibleMovements() = 0;
 	virtual ~Piece();
 	virtual Platform::String^ getName() = 0;
+	virtual std::string getStringName() = 0;
+	void pieceMoved();
 protected:
 	int color;
-	std::vector<Translation*> possibleMovements;
+	std::vector<std::vector<Translation*>> possibleMovements;
 };
 
