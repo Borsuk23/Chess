@@ -22,8 +22,20 @@ void ::Chess::GameBoard::InitializeComponent()
     // Call LoadComponent on ms-appx:///GameBoard.xaml
     ::Windows::UI::Xaml::Application::LoadComponent(this, ref new ::Windows::Foundation::Uri(L"ms-appx:///GameBoard.xaml"), ::Windows::UI::Xaml::Controls::Primitives::ComponentResourceLocation::Application);
 
+    // Get the Image named 'BlackPlayerTurn'
+    BlackPlayerTurn = safe_cast<::Windows::UI::Xaml::Controls::Image^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"BlackPlayerTurn"));
+    // Get the TextBlock named 'BlackPlayerNickname'
+    BlackPlayerNickname = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"BlackPlayerNickname"));
+    // Get the TextBlock named 'BlackPlayerCheck'
+    BlackPlayerCheck = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"BlackPlayerCheck"));
     // Get the Grid named 'Board'
     Board = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"Board"));
+    // Get the Image named 'WhitePlayerTurn'
+    WhitePlayerTurn = safe_cast<::Windows::UI::Xaml::Controls::Image^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerTurn"));
+    // Get the TextBlock named 'WhitePlayerNickname'
+    WhitePlayerNickname = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerNickname"));
+    // Get the TextBlock named 'WhitePlayerCheck'
+    WhitePlayerCheck = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerCheck"));
 }
 
 void ::Chess::GameBoard::Connect(int connectionId, Platform::Object^ target)

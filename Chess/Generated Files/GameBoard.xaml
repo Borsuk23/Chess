@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="60*"/>
@@ -19,8 +19,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="46,107,45,105" TextAlignment="Center" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,60" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <Image x:Name="WhitePlayerTurn" Grid.Row="0" HorizontalAlignment="Center" Source="Assets/logo.png" Height="70" Margin="0,0,0,80"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,80" TextAlignment="Center" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Bottom" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
+            <TextBlock x:Name="WhitePlayerNickname" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,35" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <TextBlock x:Name="WhitePlayerCheck" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10" TextAlignment="Center" TextWrapping="Wrap" Text="CHECK!" VerticalAlignment="Bottom"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Red"/>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -234,8 +236,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Center" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,60" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <Image x:Name="BlackPlayerTurn" Grid.Row="0" HorizontalAlignment="Center" Source="Assets/logo.png" Height="70" Margin="0,0,0,80"/>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,80" TextAlignment="Center" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Bottom" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
+            <TextBlock x:Name="BlackPlayerNickname" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,35" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
+            <TextBlock x:Name="BlackPlayerCheck" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10" TextAlignment="Center" TextWrapping="Wrap" Text="CHECK!" VerticalAlignment="Bottom"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Red"/>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>

@@ -92,6 +92,9 @@
     <ClCompile Include="GameStartParameters.cpp">
       <Filter>Views</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerViewModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="GameStartParameters.h">
       <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerViewModel.h">
+      <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

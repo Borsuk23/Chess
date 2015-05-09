@@ -34,8 +34,12 @@ void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::U
 	if (this->Frame != nullptr)
 	{
 		GameStartParameters^ players = ref new GameStartParameters;
+		players->WhitePlayer = whitePlayerNick->Text;
+		players->BlackPlayer = blackPlayerNick->Text;
+		//players->BlackPlayer=wyciagnac text z textbox black playera
+		//tak samo dla bialego
 
-		this->Frame->Navigate(TypeName(GameBoard::typeid));
+		this->Frame->Navigate(TypeName(GameBoard::typeid),players);
 	}
 
 }

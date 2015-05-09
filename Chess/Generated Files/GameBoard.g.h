@@ -12,6 +12,8 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
+                ref class Image;
+                ref class TextBlock;
                 ref class Grid;
             }
         }
@@ -30,7 +32,13 @@ namespace Chess
     private:
         bool _contentLoaded;
     
+        private: ::Windows::UI::Xaml::Controls::Image^ BlackPlayerTurn;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ BlackPlayerNickname;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ BlackPlayerCheck;
         private: ::Windows::UI::Xaml::Controls::Grid^ Board;
+        private: ::Windows::UI::Xaml::Controls::Image^ WhitePlayerTurn;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerNickname;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerCheck;
     };
 }
 

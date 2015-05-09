@@ -94,7 +94,10 @@ Board::Exit Board::userAction(int row, int column, Player* player) //nowy parame
 				pieceSelected = currentPiece;
 				fields[row][column]->setHighlighted(true);
 				fieldSelected = fields[row][column];
-				calculatePossibleMovements(row, column,player); //z calc zrobic boola bo przy szcahu moze si eokazac ze ten pionek nic nie zrobi i wtedy bedzie return NO CHANGES
+				if (gameState == Board::GameState::CHECK)
+					calculateBlockCheckMovements(row, column, player);
+				else
+					calculatePossibleMovements(row, column,player); //z calc zrobic boola bo przy szcahu moze si eokazac ze ten pionek nic nie zrobi i wtedy bedzie return NO CHANGES
 				return Exit::PIECE_SELECTED;
 			}
 			else
@@ -185,27 +188,20 @@ Board::GameState Board::checkGameState(Player* player)
 		for (int j = 0; j < 8; j++)
 		{
 			standingPiece = fields[i][j]->checkField();
-			if ((player->checkPiece(standingPiece)) == true)
-				gameState = calculateCheck(i, j, player, standingPiece);
+			if ((standingPiece !=NULL) && (player->checkPiece(standingPiece) == false) )
+				gameState = calculateCheck(i, j, player, standingPiece); // dla kazdej stojacej tam akurat figury
 			if (gameState == GameState::CHECK)
 			{
-				//powinnas chyba przypisac do atrybutu boarda
-				gameState = gameState;		//uzywaj this->gameState; (polecam tak wogole, jesli odwolujesz sie do atrybutu obietu to uzywaj this->atrybut )
-				//teraz przypisalas zmienna sama do siebie - czyli te kod nic nie robi
+				//this->gameState = gameState;		
 				return GameState::CHECK;
 			}
 
-			//gameState = gameState;
-			//for 
-			// for
-			//jesli stoi figura playera sprawdzic ruchy calcCheck, 
-			//jesli calc zwrocil check  to ustaw pole boarda gameState = Game::gameState::CHECK i zwroc do gamea return Game::gameState::CHECK
 		}
 	}
-	gameState = gameState;	//patrz wyzej
+	//this->gameState = gameState;	
 	return gameState;
 }
-
+//sprawdzenie czy przeciwnik mnie szachuje
 Board::GameState Board::calculateCheck(int row, int column, Player* player, Piece* pieceToCheck)
 {
 	std::vector<std::vector<Translation*>> possibleTranslations;
@@ -228,31 +224,26 @@ Board::GameState Board::calculateCheck(int row, int column, Player* player, Piec
 			//podswietla tylko te, ktore sie mieszcza w planszy
 			if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
 			{
-				//blokowanie ruchu jak stoi moj pionek 
+				//jesli stoi tam figura przeciwnika
 				standingPiece = fields[tempX][tempY]->checkField();
-				if ((player->checkPiece(standingPiece)) == true)
+				if (((player->checkPiece(standingPiece)) == false) && (standingPiece != NULL))
 					break;
-
-				//pieceName = standingPiece->getStringName();
-				//pieceName = standingPiece->getName();
-				//std::wstring wsstr(pieceName->Data());
-				//auto pieceNameString = make_string(wsstr);
 
 				switch ((*it_col)->option){
 				case 0:
 					
-					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
+					if (((player->checkPiece(standingPiece)) == true) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
 					{
 						pieceName = pieceName;
 						return GameState::CHECK;
 					}
 					break;
-					//else return GameState::OK;	// wychodzisz z petli po 1 polu ktore nie szachuje
+					
 				case 1: //obsluga bicia pionka
-					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
+					if (((player->checkPiece(standingPiece)) == true) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
 						return GameState::CHECK;
 					break;
-					//else return GameState::OK;// wychodzisz z petli po 1 polu ktore nie szachuje
+					
 				case 2: //obsluga pionka bez bicia
 					/*if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
 						break;
@@ -271,14 +262,125 @@ Board::GameState Board::calculateCheck(int row, int column, Player* player, Piec
 	}
 
 	return GameState::OK;
-	//metoda calculateCheck
-	//jesli jest bicie to spr czy to krol
-	//wyciagniecieta figura (checkField zwraca piece) if piece->getName == "King"
-	//jesli krol to return Game::gameState::CHECK 
-	//jak calcultePosMov tylko bez poswietlania
+	
 }
 
+void Board::calculateBlockCheckMovements(int row, int column, Player* player)
+{
+	std::vector<std::vector<Translation*>> possibleTranslations;
+	possibleTranslations = pieceSelected->getPossibleMovements();
+	std::vector<std::vector<Translation*>>::iterator it_row;
+	std::vector<Translation*>::iterator it_col;
+	int tempX, tempY;
+	Piece* standingPiece;
+	Piece* tempPiece;
+	tempPiece = pieceSelected;
+	Piece*  tempStandingPiece;
+	//sprawdza wszystkie mozliwe kombinacje
+	for (it_row = possibleTranslations.begin(); it_row < possibleTranslations.end(); it_row++)
+	{
+		for (it_col = it_row->begin(); it_col < it_row->end(); it_col++)
+		{
+			tempX = row + (*it_col)->row;
+			tempY = column + (*it_col)->column;
+			//podswietla tylko te, ktore sie mieszcza w planszy
+			if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
+			{
+				
+				standingPiece = fields[tempX][tempY]->checkField();
+				
+				//blokowanie ruchu jak stoi moj pionek 
+				if ((player->checkPiece(standingPiece)) == true)
+					break;
 
+				if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
+				{
+					tempStandingPiece = standingPiece;
+
+					switch ((*it_col)->option){
+					case 0:
+
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (checkGameState(player) == Board::GameState::OK)
+						{
+							fields[tempX][tempY]->setHighlighted(true);
+						}
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						fields[tempX][tempY]->placePiece(tempStandingPiece);
+						break;
+					case 1: //obsluga bicia pionka
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (checkGameState(player) == Board::GameState::OK))
+							fields[tempX][tempY]->setHighlighted(true);
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						fields[tempX][tempY]->placePiece(tempStandingPiece);
+						break;
+					case 2: //obsluga pionka bez bicia
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
+						{
+							fields[row][column]->placePiece(tempPiece);
+							fields[tempX][tempY]->removeFromSelectedField();
+							fields[tempX][tempY]->placePiece(tempStandingPiece);
+							break;
+						}
+							
+						else if ((fields[tempX][tempY]->checkField() == NULL) && (checkGameState(player) == Board::GameState::OK))
+							fields[tempX][tempY]->setHighlighted(true);
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						fields[tempX][tempY]->placePiece(tempStandingPiece);
+						break;
+					case 3: //obsluga roszady
+						; break;
+					}
+				}
+				else
+				{
+					switch ((*it_col)->option){
+					case 0:
+
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (checkGameState(player) == Board::GameState::OK)
+						{
+							fields[tempX][tempY]->setHighlighted(true);
+						}
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						break;
+					case 1: //obsluga bicia pionka
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (checkGameState(player) == Board::GameState::OK))
+							fields[tempX][tempY]->setHighlighted(true);
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						break;
+					case 2: //obsluga pionka bez bicia
+						fields[tempX][tempY]->placePiece(pieceSelected);
+						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
+						{
+							fields[row][column]->placePiece(tempPiece);
+							fields[tempX][tempY]->removeFromSelectedField();
+							break;
+						}
+						else if ((fields[tempX][tempY]->checkField() == NULL) && (checkGameState(player) == Board::GameState::OK))
+							fields[tempX][tempY]->setHighlighted(true);
+						fields[row][column]->placePiece(tempPiece);
+						fields[tempX][tempY]->removeFromSelectedField();
+						break;
+					case 3: //obsluga roszady
+						; break;
+					}
+				}
+			}
+
+		}
+
+	}
+
+}
 
 
 

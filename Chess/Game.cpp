@@ -22,7 +22,7 @@ void Game::userAction(int row, int column)
 {
 	
 	Board::Exit e = board->userAction(row, column, currentPlayer);
-	Board::GameState gameState;		// czemu to jest zmienna lokalna funkcji userAction a nie atrybut klasy Game?
+		// czemu to jest zmienna lokalna funkcji userAction a nie atrybut klasy Game?
 	// za kazdym wejsciem w userAction tworzysz nowa i nie pamietasz jej na przyszlosc (a jak masz wyswietlac to chyba fajnie by bylo pamietac)
 	//chyba ze o to Ci chodzilo i nie chcesz tego zapamietywac na potem
 	switch (e) {
@@ -33,13 +33,16 @@ void Game::userAction(int row, int column)
 	case Board::Exit::PIECE_UNSELECTED:
 		; break;
 	case Board::Exit::PIECE_MOVED:
-		gameState = board->checkGameState(currentPlayer);
-		gameState = gameState;
 		changeTurn();
+		this->gameState = board->checkGameState(currentPlayer);
+		this->board->gameState = this->gameState;
+		
 		 break;
 	case Board::Exit::PIECE_CAPTURED:
-		gameState = board->checkGameState(currentPlayer);
-		changeTurn();	
+		changeTurn();
+		this->gameState = board->checkGameState(currentPlayer);
+		this->board->gameState = this->gameState;
+			
 		 break;
 	default:
 		break;
