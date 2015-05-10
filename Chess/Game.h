@@ -9,6 +9,8 @@ public:
 	virtual ~Game();
 	void userAction(int x, int y);
 	Board* getBoard();
+	int turnNumber;
+	Board::GameState gameState;
 	//typedef enum gameState { OK, CHECK, CHECKMATE } gameState;
 private:
 	void changeTurn();
@@ -16,8 +18,6 @@ private:
 	bool isFinished;
 	Player* currentPlayer;
 	std::vector<Player*> players;
-	int turnNumber;
 	Board* board;
-	
 };
 

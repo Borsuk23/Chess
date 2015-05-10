@@ -79,6 +79,11 @@
         return ref new XamlSystemBaseType(typeName);
     }
 
+    if (typeName == L"Windows.UI.Xaml.Media.Imaging.BitmapImage")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
     if (typeName == L"String")
     {
         return ref new XamlSystemBaseType(typeName);
@@ -124,8 +129,25 @@
             {
                 return ref new ::Chess::FieldViewModel(); 
             };
+        userType->AddMemberName(L"PieceImage");
         userType->AddMemberName(L"PieceOnField");
         userType->AddMemberName(L"Highlighted");
+        userType->SetIsBindable();
+        userType->SetIsLocalType();
+        return userType;
+    }
+
+    if (typeName == L"Chess.PlayerViewModel")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Object"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::Chess::PlayerViewModel(); 
+            };
+        userType->AddMemberName(L"IsCheck");
+        userType->AddMemberName(L"IsMyTurn");
         userType->SetIsBindable();
         userType->SetIsLocalType();
         return userType;
@@ -136,6 +158,25 @@
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
+    if (longMemberName == L"Chess.FieldViewModel.PieceImage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceImage", L"Windows.UI.Xaml.Media.Imaging.BitmapImage");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                return that->PieceImage;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                that->PieceImage = (::Windows::UI::Xaml::Media::Imaging::BitmapImage^)value;
+            };
+        return xamlMember;
+    }
+
     if (longMemberName == L"Chess.FieldViewModel.PieceOnField")
     {
         ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceOnField", L"String");
@@ -172,6 +213,48 @@
                 auto that = (::Chess::FieldViewModel^)instance;
                 auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
                 that->Highlighted = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.PlayerViewModel.IsCheck")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"IsCheck", L"Boolean");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                auto value = ref new ::Platform::Box<::Platform::Boolean>(that->IsCheck);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
+                that->IsCheck = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.PlayerViewModel.IsMyTurn")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"IsMyTurn", L"Boolean");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                auto value = ref new ::Platform::Box<::Platform::Boolean>(that->IsMyTurn);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
+                that->IsMyTurn = boxedValue->Value;
             };
         return xamlMember;
     }

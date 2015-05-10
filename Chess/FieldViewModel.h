@@ -22,12 +22,19 @@ namespace Chess {
 			void set(Platform::String^ value);
 		}
 
+		property Windows::UI::Xaml::Media::Imaging::BitmapImage^ PieceImage {
+			Windows::UI::Xaml::Media::Imaging::BitmapImage^ get();
+			void set(Windows::UI::Xaml::Media::Imaging::BitmapImage^ value);
+		}
+
+
 		virtual event WUXD::PropertyChangedEventHandler^ PropertyChanged;
 
 	private:
 		void NotifyPropertyChanged(Platform::String^ prop);
 		Platform::Boolean m_Highlighted;
 		Platform::String^ m_PieceOnField;
+		Windows::UI::Xaml::Media::Imaging::BitmapImage^ m_PieceImage;
 		
 	};
 }

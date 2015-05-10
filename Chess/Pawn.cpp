@@ -39,6 +39,31 @@ Pawn::~Pawn()
 std::vector<std::vector<Translation*>> Pawn::getPossibleMovements()
 {
 	
+	
+
+	return possibleMovements;
+}
+
+
+Platform::String^ Pawn::getName()
+{
+	if (color == 0)
+		return "white_pawn.png";
+	else
+		return "black_pawn.png";
+}
+
+std::string Pawn::getStringName()
+{
+	if (color == 0)
+		return "White Pawn";
+	else
+		return "Black Pawn";
+}
+
+void Pawn::pieceMoved()
+{
+	//numberOfMoves++;
 	//jezeli jest drugi ruch to usuwamy zbedna translacje ktora byla dla 1 ruchu
 	if (numberOfMoves == 1)
 	{
@@ -49,23 +74,4 @@ std::vector<std::vector<Translation*>> Pawn::getPossibleMovements()
 		it_row->erase(it_col + 1); //usuwam 2 element wektora wewnetrznego
 
 	}
-
-	return possibleMovements;
-}
-
-
-Platform::String^ Pawn::getName()
-{
-	if (color == 0)
-		return "White Pawn";
-	else
-		return "Black Pawn";
-}
-
-std::string Pawn::getStringName()
-{
-	if (color == 0)
-		return "White Pawn";
-	else
-		return "Black Pawn";
 }

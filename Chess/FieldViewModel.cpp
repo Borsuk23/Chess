@@ -33,7 +33,22 @@ void FieldViewModel::PieceOnField::set(Platform::String^ value)
 	if (m_PieceOnField != value)
 	{
 		m_PieceOnField = value;
+		auto bitmapImage = ref new Windows::UI::Xaml::Media::Imaging::BitmapImage();
+		Platform::String^ path = "ms-appx:///Assets/" + value;
+		bitmapImage->UriSource = ref new Windows::Foundation::Uri(path);
+		PieceImage = bitmapImage;
 		NotifyPropertyChanged("PieceOnField");
+	}
+}
+
+Windows::UI::Xaml::Media::Imaging::BitmapImage^ FieldViewModel::PieceImage::get(){ return m_PieceImage; }
+
+void FieldViewModel::PieceImage::set(Windows::UI::Xaml::Media::Imaging::BitmapImage^ value)
+{
+	if (m_PieceImage != value)
+	{
+		m_PieceImage = value;
+		NotifyPropertyChanged("PieceImage");
 	}
 }
 

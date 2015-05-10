@@ -58,7 +58,10 @@ std::vector<std::vector<Translation*>> Bishop::getPossibleMovements()
 
 Platform::String^ Bishop::getName()
 {
-	return "Bishop";
+	if (this->color == 0)
+		return "white_bishop.png";
+	else
+		return "black_bishop.png";
 }
 
 std::string Bishop::getStringName()

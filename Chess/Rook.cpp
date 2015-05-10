@@ -59,7 +59,10 @@ std::vector<std::vector<Translation*>> Rook::getPossibleMovements()
 
 Platform::String^ Rook::getName()
 {
-	return "Rook";
+	if (this->color == 0)
+		return "white_rook.png";
+	else
+		return "black_rook.png";
 }
 
 std::string Rook::getStringName()
