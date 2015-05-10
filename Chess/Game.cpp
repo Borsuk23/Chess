@@ -4,10 +4,10 @@
 
 Game::Game(std::string whitePlayerNickName, std::string blackPlayerNickName)
 {
-	players.push_back(new Player(0,whitePlayerNickName)); //0 bialy
-	players.push_back(new Player(1,blackPlayerNickName)); //1 czarny
+	players.push_back(new Player(0,whitePlayerNickName)); 
+	players.push_back(new Player(1,blackPlayerNickName)); 
 	board = new Board(players[0],players[1]);
-	currentPlayer = players[0];	//bialy zaczyna
+	currentPlayer = players[0];	
 	turnNumber = 0;
 	isFinished = false;
 }
@@ -50,7 +50,7 @@ void Game::userAction(int row, int column)
 void Game::changeTurn()
 {
 	turnNumber++;
-	currentPlayer = players[turnNumber % 2]; //zwraca obecnego gracza; jak parzysta to bialy jak nieparzysta to czarny
+	currentPlayer = players[turnNumber % 2]; //1 - black, 0 - white
 }
 
 
@@ -58,7 +58,7 @@ void Game::removeCapturedPieces()
 {
 	Piece* capturedPiece;
 	capturedPiece = currentPlayer->getLastCapturedPiece();
-	players[(turnNumber + 1) % 2]->removeCapturedPiece(capturedPiece);  //drugiego gracza
+	players[(turnNumber + 1) % 2]->removeCapturedPiece(capturedPiece);  //oppponent
 }
 
 Board* Game::getBoard() {

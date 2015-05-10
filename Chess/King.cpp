@@ -11,7 +11,7 @@ King::King(int color) : Piece(color)
 			{ new Translation(1, -1) },
 			{ new Translation(0, -1) },
 			{ new Translation(-1, -1) },
-			{new Translation(-1, 0) },
+			{ new Translation(-1, 0) },
 			{ new Translation(-1, 1) }
 	};
 }
