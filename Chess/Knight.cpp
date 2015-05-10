@@ -31,7 +31,10 @@ std::vector<std::vector<Translation*>> Knight::getPossibleMovements()
 
 Platform::String^ Knight::getName()
 {
-	return "Knight";
+	if (this->color == 0)
+		return "white_knight.png";
+	else
+		return "black_knight.png";
 }
 
 std::string Knight::getStringName()

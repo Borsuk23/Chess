@@ -79,6 +79,11 @@
         return ref new XamlSystemBaseType(typeName);
     }
 
+    if (typeName == L"Windows.UI.Xaml.Media.Imaging.BitmapImage")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
     if (typeName == L"String")
     {
         return ref new XamlSystemBaseType(typeName);
@@ -124,6 +129,7 @@
             {
                 return ref new ::Chess::FieldViewModel(); 
             };
+        userType->AddMemberName(L"PieceImage");
         userType->AddMemberName(L"PieceOnField");
         userType->AddMemberName(L"Highlighted");
         userType->SetIsBindable();
@@ -152,6 +158,25 @@
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
+    if (longMemberName == L"Chess.FieldViewModel.PieceImage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceImage", L"Windows.UI.Xaml.Media.Imaging.BitmapImage");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                return that->PieceImage;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::FieldViewModel^)instance;
+                that->PieceImage = (::Windows::UI::Xaml::Media::Imaging::BitmapImage^)value;
+            };
+        return xamlMember;
+    }
+
     if (longMemberName == L"Chess.FieldViewModel.PieceOnField")
     {
         ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceOnField", L"String");

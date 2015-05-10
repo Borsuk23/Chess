@@ -128,7 +128,7 @@ void Board::clearSelection()
 	}
 }
 
-//zrobic z niego boola
+
 void Board::calculatePossibleMovements(int row, int column, Player* player)
 {
 	std::vector<std::vector<Translation*>> possibleTranslations;
@@ -208,8 +208,9 @@ Board::GameState Board::calculateCheck(int row, int column, Player* player, Piec
 	possibleTranslations = pieceToCheck->getPossibleMovements();
 	std::vector<std::vector<Translation*>>::iterator it_row;
 	std::vector<Translation*>::iterator it_col;
-	int tempX, tempY;
-	Piece* standingPiece;
+	int tempX, tempY, tempXNext;
+	Piece* standingPiece ;
+	Piece* nextStandingPiece;
 	std::string pieceName;
 	
 	//sprawdza wszystkie mozliwe kombinacje
@@ -220,13 +221,17 @@ Board::GameState Board::calculateCheck(int row, int column, Player* player, Piec
 			
 			tempX = row + (*it_col)->row;
 			tempY = column + (*it_col)->column;
-			tempX = tempX;
+			//tempXNext = row + (*it_col+1)->row;
 			//podswietla tylko te, ktore sie mieszcza w planszy
 			if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
 			{
-				//jesli stoi tam figura przeciwnika
+				////jesli stoi tam figura przeciwnika
 				standingPiece = fields[tempX][tempY]->checkField();
 				if (((player->checkPiece(standingPiece)) == false) && (standingPiece != NULL))
+					break;
+
+				//nextStandingPiece = fields[tempXNext][tempY]->checkField();
+				if (((player->checkPiece(standingPiece)) == true) && (standingPiece->getStringName().compare("King") != 0)) // && ((player->checkPiece(nextStandingPiece)) == true) && (nextStandingPiece->getStringName().compare("King") == 0))
 					break;
 
 				switch ((*it_col)->option){
@@ -321,10 +326,10 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 						fields[tempX][tempY]->placePiece(pieceSelected);
 						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
 						{
-							fields[row][column]->placePiece(tempPiece);
+							/*fields[row][column]->placePiece(tempPiece);
 							fields[tempX][tempY]->removeFromSelectedField();
 							fields[tempX][tempY]->placePiece(tempStandingPiece);
-							break;
+							break;*/
 						}
 							
 						else if ((fields[tempX][tempY]->checkField() == NULL) && (checkGameState(player) == Board::GameState::OK))

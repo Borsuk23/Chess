@@ -192,11 +192,11 @@
     <Image Include="..\Chess_symbols\white_knight.png" />
     <Image Include="..\Chess_symbols\white_pawn.png" />
     <Image Include="..\Chess_symbols\white_queen.png" />
-    <Image Include="..\Chess_symbols\white_rook.png" />
     <Image Include="..\logo.png" />
     <Image Include="..\logo.scale-150.png" />
     <Image Include="..\SmallLogo.png" />
     <Image Include="..\title.png" />
+    <Image Include="..\white_rook.png" />
     <Image Include="Assets\Logo.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>

@@ -100,15 +100,22 @@ FieldViewModel^ GameBoard::SetFieldViewModel(int column, int row, Field* field) 
 	else
 		fieldViewModel->PieceOnField = "";
 
-
 	
-	Windows::UI::Xaml::Controls::TextBlock^ image = SetPieceView2(column, row);
+	//Windows::UI::Xaml::Controls::TextBlock^ textBlock = SetPieceView2(column, row);
+	//Binding^ pieceBinding2 = ref new Binding();
+	//pieceBinding2->Source = fieldViewModel;
+	//textBlock->PointerPressed += ref new PointerEventHandler(this, &GameBoard::TextBlock_PointerPressed);
+	//pieceBinding2->Path = ref new PropertyPath("PieceOnField"); 
+	//pieceBinding2->Mode = BindingMode::OneWay;
+	//textBlock->SetBinding(textBlock->TextProperty, pieceBinding2);
+
+
+	Windows::UI::Xaml::Controls::Image^ image = SetPieceView(column, row);
 	Binding^ pieceBinding = ref new Binding();
 	pieceBinding->Source = fieldViewModel;
-	image->PointerPressed += ref new PointerEventHandler(this, &GameBoard::TextBlock_PointerPressed);
-	pieceBinding->Path = ref new PropertyPath("PieceOnField"); 
+	pieceBinding->Path = ref new PropertyPath("PieceImage");
 	pieceBinding->Mode = BindingMode::OneWay;
-	image->SetBinding(image->TextProperty, pieceBinding);
+	image->SetBinding(image->SourceProperty, pieceBinding);
 
 
 	Windows::UI::Xaml::Shapes::Rectangle^ rectangle = SetHighlights(column, row);
@@ -137,6 +144,8 @@ Windows::UI::Xaml::Shapes::Rectangle^ GameBoard::SetHighlights(int column, int r
 
 Windows::UI::Xaml::Controls::Image^ GameBoard::SetPieceView(int column, int row) {
 	Windows::UI::Xaml::Controls::Image^ image = ref new Windows::UI::Xaml::Controls::Image();
+	image->Height = 60;
+	image->PointerPressed += ref new PointerEventHandler(this, &GameBoard::Image_PointerPressed);
 	Board->Children->Append(image);
 	Board->SetColumn(image, column);
 	Board->SetRow(image, row);
@@ -144,17 +153,17 @@ Windows::UI::Xaml::Controls::Image^ GameBoard::SetPieceView(int column, int row)
 }
 
 
-Windows::UI::Xaml::Controls::TextBlock^ GameBoard::SetPieceView2(int column, int row) {
-	Windows::UI::Xaml::Controls::TextBlock^ image = ref new Windows::UI::Xaml::Controls::TextBlock();
-	SolidColorBrush^ brush = ref new SolidColorBrush();
-	brush->Color = Windows::UI::Colors::Red;
-	image->Foreground = brush;
-	image->TextAlignment = TextAlignment::Center;
-	Board->Children->Append(image);
-	Board->SetColumn(image, column);
-	Board->SetRow(image, row);
-	return image;
-}
+//Windows::UI::Xaml::Controls::TextBlock^ GameBoard::SetPieceView2(int column, int row) {
+//	Windows::UI::Xaml::Controls::TextBlock^ image = ref new Windows::UI::Xaml::Controls::TextBlock();
+//	SolidColorBrush^ brush = ref new SolidColorBrush();
+//	brush->Color = Windows::UI::Colors::Red;
+//	image->Foreground = brush;
+//	image->TextAlignment = TextAlignment::Center;
+//	Board->Children->Append(image);
+//	Board->SetColumn(image, column);
+//	Board->SetRow(image, row);
+//	return image;
+//}
 
 
 
@@ -217,9 +226,9 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 }
 
 //figury
-void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
 {
-	Windows::UI::Xaml::Controls::TextBlock^ button = (Windows::UI::Xaml::Controls::TextBlock^) sender; //obiekt ktory wywolal ten event
+	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; //obiekt ktory wywolal ten event
 	int column = (int) button->GetValue(Grid::ColumnProperty);
 	int row = (int) button->GetValue(Grid::RowProperty);
 
@@ -238,26 +247,4 @@ void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Window
 	}
 }
 
-//
-//void Chess::GameBoard::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
-//{
-//	Windows::UI::Xaml::Controls::Button^ button = (Windows::UI::Xaml::Controls::Button^) sender;
-//	int column = (int) button->GetValue(Grid::ColumnProperty);
-//	int row = (int) button->GetValue(Grid::RowProperty);
-//
-//	game->userAction(row, column);
-//	
-//	for (int row = 0; row < 8; row++)
-//	{
-//		for (int column = 0; column < 8; column++)
-//		{
-//			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
-//			if (fieldModels[row][column]->checkField() != NULL)
-//				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
-//			else
-//				fieldViewModels[row * 8 + column]->PieceOnField = "";
-//		}
-//	}
-//
-//
-//}
+

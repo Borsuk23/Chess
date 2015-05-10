@@ -94,7 +94,10 @@ std::vector<std::vector<Translation*>> Queen::getPossibleMovements()
 
 Platform::String^ Queen::getName()
 {
-	return "Queen";
+	if (this->color == 0)
+		return "white_queen.png";
+	else
+		return "black_queen.png";
 }
 
 std::string Queen::getStringName()

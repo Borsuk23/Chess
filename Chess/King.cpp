@@ -30,7 +30,10 @@ std::vector<std::vector<Translation*>> King::getPossibleMovements()
 
 Platform::String^ King::getName()
 {
-	return "King";
+	if (this->color == 0)
+		return "white_king.png";
+	else
+		return "black_king.png";
 }
 
 std::string King::getStringName()

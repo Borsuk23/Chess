@@ -48,9 +48,9 @@ std::vector<std::vector<Translation*>> Pawn::getPossibleMovements()
 Platform::String^ Pawn::getName()
 {
 	if (color == 0)
-		return "White Pawn";
+		return "white_pawn.png";
 	else
-		return "Black Pawn";
+		return "black_pawn.png";
 }
 
 std::string Pawn::getStringName()
@@ -63,6 +63,7 @@ std::string Pawn::getStringName()
 
 void Pawn::pieceMoved()
 {
+	//numberOfMoves++;
 	//jezeli jest drugi ruch to usuwamy zbedna translacje ktora byla dla 1 ruchu
 	if (numberOfMoves == 1)
 	{

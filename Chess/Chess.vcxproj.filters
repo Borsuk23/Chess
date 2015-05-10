@@ -222,7 +222,7 @@
     <Image Include="..\Chess_symbols\white_queen.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\Chess_symbols\white_rook.png">
+    <Image Include="..\white_rook.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
