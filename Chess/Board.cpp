@@ -158,21 +158,25 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 				standingPiece = fields[tempX][tempY]->checkField();
 				if ((player->checkPiece(standingPiece)) == true) 
 					break;
+				
+				
 
-				//tempStandingPiece = standingPiece;
-
-				//fields[tempX][tempY]->placePiece(pieceSelected);
-
-				/*if (calculateCheck(tempX, tempY, player, pieceSelected) == GameState::OK)
-				{*/
 					switch ((*it_col)->option){
 					case 0:
-						fields[tempX][tempY]->setHighlighted(true);
+						
+							fields[tempX][tempY]->setHighlighted(true);
+						
 						break;
 					case 1: //pawn capture
 						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
-							fields[tempX][tempY]->setHighlighted(true);
-						else break;
+						{
+						
+								fields[tempX][tempY]->setHighlighted(true);
+												}
+						else
+						{
+							break;
+						}
 						; break;
 					case 2: //pawn move without caoture
 						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
@@ -184,13 +188,17 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 						; break;
 					}
 
+
 					//first opponents piece
 					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
 					{
+
 						break;
 					}
 
-		
+				
+
+				
 			}
 		
 		}
@@ -199,6 +207,11 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 		
 }
 
+//*****************************************************************************************************
+//*****************************************************************************************************
+//**************************************** G A M E S T A T E*******************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
 
 Board::GameState Board::checkGameState(Player* player)
 {
@@ -223,7 +236,11 @@ Board::GameState Board::checkGameState(Player* player)
 	return gameState;
 }
 
-//sprawdzenie czy przeciwnik mnie szachuje
+//**************************************************************************************************
+//*************************************** C H E C K ************************************************
+//**************************************************************************************************
+
+//oppponent cause check
 Board::GameState Board::calculateCheck(int row, int column, Player* player, Piece* pieceToCheck)
 {
 	std::vector<std::vector<Translation*>> possibleTranslations;
@@ -290,7 +307,79 @@ Board::GameState Board::calculateCheck(int row, int column, Player* player, Piec
 	return GameState::OK;
 	
 }
+//------------------------------------------------------------------------------------------------
+//my fault check
+Board::GameState Board::calculateMyFaultCheck(int temprow, int tempcolumn, int row, int column, Player* player, Piece* pieceToCheck)
+{
+	std::vector<std::vector<Translation*>> possibleTranslations;
+	possibleTranslations = pieceToCheck->getPossibleMovements();
+	std::vector<std::vector<Translation*>>::iterator it_row;
+	std::vector<Translation*>::iterator it_col;
+	int tempX, tempY;
+	Piece* standingPiece;
+	std::string pieceName;
 
+
+	for (it_row = possibleTranslations.begin(); it_row < possibleTranslations.end(); it_row++)
+	{
+		for (it_col = it_row->begin(); it_col < it_row->end(); it_col++)
+		{
+
+			tempX = row + (*it_col)->row;
+			tempY = column + (*it_col)->column;
+
+			//only these, which fit the board
+			if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
+			{
+				//oppponents piece on check way
+				standingPiece = fields[tempX][tempY]->checkField();
+				if (((player->checkPiece(standingPiece)) == false) && (standingPiece != NULL))
+					break;
+
+				//my piece on check way
+				if (((player->checkPiece(standingPiece)) == true) && (standingPiece->getStringName().compare("King") != 0))
+					break;
+
+				switch ((*it_col)->option){
+				case 0:
+
+					if (((player->checkPiece(standingPiece)) == true) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
+					{
+						pieceName = pieceName;
+						return GameState::CHECK;
+					}
+					break;
+
+				case 1: //pawn capture
+					if (((player->checkPiece(standingPiece)) == true) && (fields[tempX][tempY]->checkField() != NULL) && (standingPiece->getStringName().compare("King") == 0))
+						return GameState::CHECK;
+					break;
+
+				case 2: //obsluga pionka bez bicia
+					/*if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
+					break;
+					else if (fields[tempX][tempY]->checkField() == NULL)
+					fields[tempX][tempY]->setHighlighted(true);*/
+					break;
+				case 3: //obsluga roszady
+					break;
+
+				}
+
+			}
+
+		}
+
+	}
+
+	return GameState::OK;
+
+}
+
+
+//**************************************************************************************************
+//*************************************** BLOCK CHECK **********************************************
+//**************************************************************************************************
 void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 {
 	std::vector<std::vector<Translation*>> possibleTranslations;
@@ -339,14 +428,14 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 						break;
 					case 1: //pawn capture
 						fields[tempX][tempY]->placePiece(pieceSelected);
-						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL) && (checkGameState(player) == Board::GameState::OK))
+						if ( (checkGameState(player) == Board::GameState::OK))
 							fields[tempX][tempY]->setHighlighted(true);
 						fields[row][column]->placePiece(tempPiece);
 						fields[tempX][tempY]->removeFromSelectedField();
 						fields[tempX][tempY]->placePiece(tempStandingPiece);
 						break;
 					case 2: //pawn move without capture
-						fields[tempX][tempY]->placePiece(pieceSelected);
+						/*fields[tempX][tempY]->placePiece(pieceSelected);
 						if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
 						{
 							fields[row][column]->placePiece(tempPiece);
@@ -359,7 +448,7 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 							fields[tempX][tempY]->setHighlighted(true);
 						fields[row][column]->placePiece(tempPiece);
 						fields[tempX][tempY]->removeFromSelectedField();
-						fields[tempX][tempY]->placePiece(tempStandingPiece);
+						fields[tempX][tempY]->placePiece(tempStandingPiece);*/
 						break;
 					case 3: //obsluga roszady
 						; break;
@@ -379,11 +468,11 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 						fields[tempX][tempY]->removeFromSelectedField();
 						break;
 					case 1: //pawn capture
-						fields[tempX][tempY]->placePiece(pieceSelected);
+						/*fields[tempX][tempY]->placePiece(pieceSelected);
 						if ((checkGameState(player) == Board::GameState::OK))
 							fields[tempX][tempY]->setHighlighted(true);
 						fields[row][column]->placePiece(tempPiece);
-						fields[tempX][tempY]->removeFromSelectedField();
+						fields[tempX][tempY]->removeFromSelectedField();*/
 						break;
 					case 2: //pawn move without capture
 						fields[tempX][tempY]->placePiece(pieceSelected);
