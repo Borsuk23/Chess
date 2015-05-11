@@ -24,6 +24,7 @@ private:
 	void clearSelection();
 	void calculatePossibleMovements(int x, int y, Player* player);
 	GameState calculateCheck(int row, int column, Player* player, Piece* pieceToCheck);
+	GameState calculateMyFaultCheck(int temprow, int tempcolumn, int row, int column, Player* player, Piece* pieceToCheck);
 	void calculateBlockCheckMovements(int x, int y, Player* player);
 	//std::string make_string(const std::wstring& wstring);
 

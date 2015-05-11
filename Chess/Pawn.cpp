@@ -10,9 +10,9 @@ Pawn::Pawn(int color) : Piece(color)
 		possibleMovements = std::vector<std::vector<Translation*>> {
 				{
 					new Translation(-1, 0,2),
-					new Translation(-2, 0,2), //pierwszy ruch moze byc o 2
-					new Translation(-1, 1, 1), //bicie
-					new Translation(-1, -1, 1), //bicie
+					new Translation(-2, 0,2), //first move
+					new Translation(-1, 1, 1), //capture
+					new Translation(-1, -1, 1), //capture
 				}
 			};
 	
@@ -22,9 +22,9 @@ Pawn::Pawn(int color) : Piece(color)
 		possibleMovements = std::vector<std::vector<Translation*>> {
 				{
 					new Translation(1, 0,2),
-					new Translation(2, 0,2), //pierwszy ruch moze byc o 2
-					new Translation(1, -1, 1), //bicie
-					new Translation(1, 1, 1), //bicie
+					new Translation(2, 0,2), //first move
+					new Translation(1, -1, 1), //capture
+					new Translation(1, 1, 1), //capture
 				}
 		};
 	}
@@ -63,15 +63,15 @@ std::string Pawn::getStringName()
 
 void Pawn::pieceMoved()
 {
-	//numberOfMoves++;
-	//jezeli jest drugi ruch to usuwamy zbedna translacje ktora byla dla 1 ruchu
+	numberOfMoves++;
+	//erase translation for 2 field movement
 	if (numberOfMoves == 1)
 	{
 		std::vector<std::vector<Translation*>>::iterator it_row;
 		it_row = possibleMovements.begin();
 		std::vector<Translation* > ::iterator it_col;
 		it_col = it_row->begin();
-		it_row->erase(it_col + 1); //usuwam 2 element wektora wewnetrznego
+		it_row->erase(it_col + 1); //erase second element from inner vector
 
 	}
 }

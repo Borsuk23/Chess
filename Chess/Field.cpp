@@ -5,7 +5,6 @@
 
 Field::Field(int color)
 {
-	//this oznacza ten konkretny obiekt w ramach ktorego wywoluje konstruktor
 	this->color = color;
 	pieceOnField = NULL;
 	highlighted = false;
@@ -16,31 +15,31 @@ Field::~Field()
 {
 }
 
-//sprawdza czy pole jest juz podswietlone
+//check if field is already highlighted
 bool Field::isHighlighted()
 {
 	return highlighted;
 }
 
-//zwraca czy na polu stoi figura czy NULL
+//check if on field stands piece or null
 Piece* Field::checkField()
 {
 	return pieceOnField;
 }
 
-//podswietla lub gasi pole (przy odkliknieciu figury)
+//on and off highlighted (after second click)
 void Field::setHighlighted(bool value)
 {
 	highlighted = value;
 }
 
-//ustawia figure
+//place piece on field
 void Field::placePiece(Piece* piece)
 {
 	pieceOnField = piece;
 }
 
-//usuwa figure z poprzedniego pola
+//remove piece from previous field
 void Field::removeFromSelectedField()
 {
 	pieceOnField = NULL;
