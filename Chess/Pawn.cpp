@@ -9,9 +9,13 @@ Pawn::Pawn(int color) : Piece(color)
 	{
 		possibleMovements = std::vector<std::vector<Translation*>> {
 				{
-					new Translation(-1, 0,2),
-					new Translation(-2, 0,2), //first move
+					new Translation(-1, 0, 2),
+					new Translation(-2, 0, 2), //first move
+				},
+				{
 					new Translation(-1, 1, 1), //capture
+				},
+				{
 					new Translation(-1, -1, 1), //capture
 				}
 			};
@@ -21,9 +25,13 @@ Pawn::Pawn(int color) : Piece(color)
 	{
 		possibleMovements = std::vector<std::vector<Translation*>> {
 				{
-					new Translation(1, 0,2),
-					new Translation(2, 0,2), //first move
+					new Translation(1, 0, 2),
+					new Translation(2, 0, 2), //first move
+				},
+				{
 					new Translation(1, -1, 1), //capture
+				},
+				{
 					new Translation(1, 1, 1), //capture
 				}
 		};

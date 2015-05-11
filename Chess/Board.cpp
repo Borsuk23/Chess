@@ -418,6 +418,7 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 					case 0:
 
 						fields[tempX][tempY]->placePiece(pieceSelected);
+						fields[row][column]->removeFromSelectedField();
 						if (checkGameState(player) == Board::GameState::OK)
 						{
 							fields[tempX][tempY]->setHighlighted(true);
@@ -428,6 +429,7 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 						break;
 					case 1: //pawn capture
 						fields[tempX][tempY]->placePiece(pieceSelected);
+						fields[row][column]->removeFromSelectedField();
 						if ( (checkGameState(player) == Board::GameState::OK))
 							fields[tempX][tempY]->setHighlighted(true);
 						fields[row][column]->placePiece(tempPiece);
@@ -460,6 +462,7 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 					case 0:
 
 						fields[tempX][tempY]->placePiece(pieceSelected);
+						fields[row][column]->removeFromSelectedField();
 						if (checkGameState(player) == Board::GameState::OK)
 						{
 							fields[tempX][tempY]->setHighlighted(true);
@@ -476,6 +479,7 @@ void Board::calculateBlockCheckMovements(int row, int column, Player* player)
 						break;
 					case 2: //pawn move without capture
 						fields[tempX][tempY]->placePiece(pieceSelected);
+						fields[row][column]->removeFromSelectedField();
 						if ( (checkGameState(player) == Board::GameState::OK))
 							fields[tempX][tempY]->setHighlighted(true);
 						fields[row][column]->placePiece(tempPiece);
