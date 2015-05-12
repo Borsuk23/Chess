@@ -153,6 +153,21 @@
         return userType;
     }
 
+    if (typeName == L"Chess.GameViewModel")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Object"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::Chess::GameViewModel(); 
+            };
+        userType->AddMemberName(L"IsCheckMate");
+        userType->SetIsBindable();
+        userType->SetIsLocalType();
+        return userType;
+    }
+
     return nullptr;
 }
 
@@ -255,6 +270,27 @@
                 auto that = (::Chess::PlayerViewModel^)instance;
                 auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
                 that->IsMyTurn = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.GameViewModel.IsCheckMate")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"IsCheckMate", L"Boolean");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::GameViewModel^)instance;
+                auto value = ref new ::Platform::Box<::Platform::Boolean>(that->IsCheckMate);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::GameViewModel^)instance;
+                auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
+                that->IsCheckMate = boxedValue->Value;
             };
         return xamlMember;
     }

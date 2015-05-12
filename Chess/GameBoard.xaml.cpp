@@ -41,6 +41,10 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	playerViewModels[0] = ref new PlayerViewModel();
 	playerViewModels[0]->IsMyTurn = true;
 	playerViewModels[1] = ref new PlayerViewModel();
+	this->gameViewModels = ref new Platform::Array<GameViewModel^>(1);
+	gameViewModels[0] = ref new GameViewModel();
+	gameViewModels[0]->IsCheckMate = false;
+
 
 	Binding^ whitePlayerTurnBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
 	whitePlayerTurnBinding->Source = playerViewModels[0];
@@ -73,7 +77,12 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	BlackPlayerCheck->SetBinding(BlackPlayerCheck->VisibilityProperty, blackPlayerCheckBinding);
 
 
-
+	Binding^ checkMateBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	checkMateBinding->Source = gameViewModels[0];
+	checkMateBinding->Path = ref new PropertyPath("IsCheckMate"); //property highlighted z FieldViewModel
+	checkMateBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
+	checkMateBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	CheckMate->SetBinding(CheckMate->VisibilityProperty, checkMateBinding);
 
 	this->fieldModels = game->getBoard()->getFields();
 	this->fieldViewModels = ref new Platform::Array<FieldViewModel^>(64);
@@ -208,6 +217,10 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 	}
 	playerViewModels[0]->IsCheck = false;
 	playerViewModels[1]->IsCheck = false;
+
+	if (game->isFinished == true)
+		gameViewModels[0]->IsCheckMate = true;
+
 	if (game->turnNumber % 2 == 0)
 	{
 		if (game->gameState == Board::GameState::CHECK)
@@ -222,6 +235,7 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 		playerViewModels[1]->IsMyTurn = true;
 		playerViewModels[0]->IsMyTurn = false;
 	}
+	
 		
 }
 

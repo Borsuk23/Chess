@@ -36,6 +36,8 @@ void ::Chess::GameBoard::InitializeComponent()
     WhitePlayerNickname = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerNickname"));
     // Get the TextBlock named 'WhitePlayerCheck'
     WhitePlayerCheck = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerCheck"));
+    // Get the TextBlock named 'CheckMate'
+    CheckMate = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"CheckMate"));
 }
 
 void ::Chess::GameBoard::Connect(int connectionId, Platform::Object^ target)

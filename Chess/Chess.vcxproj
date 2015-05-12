@@ -144,6 +144,7 @@
       <DependentUpon>GameBoard.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="GameStartParameters.h" />
+    <ClInclude Include="GameViewModel.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Pawn.h" />
@@ -226,6 +227,7 @@
       <DependentUpon>GameBoard.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="GameStartParameters.cpp" />
+    <ClCompile Include="GameViewModel.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="MainPage.xaml.cpp">

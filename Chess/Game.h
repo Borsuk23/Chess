@@ -10,12 +10,14 @@ public:
 	void userAction(int x, int y);
 	Board* getBoard();
 	int turnNumber;
+	bool stateCheckMate;
 	Board::GameState gameState;
+	bool isFinished;
 	//typedef enum gameState { OK, CHECK, CHECKMATE } gameState;
 private:
 	void changeTurn();
 	void removeCapturedPieces();
-	bool isFinished;
+	
 	Player* currentPlayer;
 	std::vector<Player*> players;
 	Board* board;

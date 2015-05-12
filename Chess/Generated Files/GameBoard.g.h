@@ -39,6 +39,7 @@ namespace Chess
         private: ::Windows::UI::Xaml::Controls::Image^ WhitePlayerTurn;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerNickname;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerCheck;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ CheckMate;
     };
 }
 

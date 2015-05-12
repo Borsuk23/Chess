@@ -8,6 +8,7 @@
 #include "GameBoard.g.h"
 #include "FieldViewModel.h"
 #include "PlayerViewModel.h"
+#include "GameViewModel.h"
 #include "BoolToVisible.h"
 #include "GameStartParameters.h"
 #include "Game.h"
@@ -30,6 +31,7 @@ namespace Chess
 		Game* game;
 		Platform::Array<FieldViewModel^>^ fieldViewModels;
 		Platform::Array<PlayerViewModel^>^ playerViewModels;
+		Platform::Array<GameViewModel^>^ gameViewModels;
 		std::vector<std::vector<Field*>> fieldModels;
 		FieldViewModel^ SetFieldViewModel(int column, int row, Field* field);
 		Windows::UI::Xaml::Shapes::Rectangle^ SetHighlights(int column, int row);

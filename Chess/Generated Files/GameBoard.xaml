@@ -37,6 +37,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
             </Grid>
+            <Grid Grid.Column="0" Grid.Row="2">
+                <TextBlock x:Name="CheckMate"  HorizontalAlignment="Center" Margin="0,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Text="CHECKMATE!" VerticalAlignment="Center"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Blue"/>
+            </Grid>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
