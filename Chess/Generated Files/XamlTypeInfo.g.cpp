@@ -146,6 +146,8 @@
             {
                 return ref new ::Chess::PlayerViewModel(); 
             };
+        userType->AddMemberName(L"CapturedPieceImage");
+        userType->AddMemberName(L"CapturedPiece");
         userType->AddMemberName(L"IsCheck");
         userType->AddMemberName(L"IsMyTurn");
         userType->SetIsBindable();
@@ -163,6 +165,22 @@
                 return ref new ::Chess::GameViewModel(); 
             };
         userType->AddMemberName(L"IsCheckMate");
+        userType->SetIsBindable();
+        userType->SetIsLocalType();
+        return userType;
+    }
+
+    if (typeName == L"Chess.CapturedPiecesViewModel")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Object"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::Chess::CapturedPiecesViewModel(); 
+            };
+        userType->AddMemberName(L"PieceImage");
+        userType->AddMemberName(L"PieceOnField");
         userType->SetIsBindable();
         userType->SetIsLocalType();
         return userType;
@@ -232,6 +250,44 @@
         return xamlMember;
     }
 
+    if (longMemberName == L"Chess.PlayerViewModel.CapturedPieceImage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"CapturedPieceImage", L"Windows.UI.Xaml.Media.Imaging.BitmapImage");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                return that->CapturedPieceImage;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                that->CapturedPieceImage = (::Windows::UI::Xaml::Media::Imaging::BitmapImage^)value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.PlayerViewModel.CapturedPiece")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"CapturedPiece", L"String");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                return that->CapturedPiece;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::PlayerViewModel^)instance;
+                that->CapturedPiece = (::Platform::String^)value;
+            };
+        return xamlMember;
+    }
+
     if (longMemberName == L"Chess.PlayerViewModel.IsCheck")
     {
         ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"IsCheck", L"Boolean");
@@ -291,6 +347,44 @@
                 auto that = (::Chess::GameViewModel^)instance;
                 auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
                 that->IsCheckMate = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.CapturedPiecesViewModel.PieceImage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceImage", L"Windows.UI.Xaml.Media.Imaging.BitmapImage");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::CapturedPiecesViewModel^)instance;
+                return that->PieceImage;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::CapturedPiecesViewModel^)instance;
+                that->PieceImage = (::Windows::UI::Xaml::Media::Imaging::BitmapImage^)value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.CapturedPiecesViewModel.PieceOnField")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"PieceOnField", L"String");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::CapturedPiecesViewModel^)instance;
+                return that->PieceOnField;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::CapturedPiecesViewModel^)instance;
+                that->PieceOnField = (::Platform::String^)value;
             };
         return xamlMember;
     }

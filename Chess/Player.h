@@ -11,12 +11,14 @@ private:
 	std::string nickName;
 	int color;
 	std::vector < Piece* > pieces;
-	std::vector < Piece* > capturedPieces;
+	int numberOfCapturedPieces;
 public:
+	std::vector < Piece* > capturedPieces;
 	void capturePiece(Piece* piece);
 	bool checkPiece(Piece* piece);
 	void Player::removeCapturedPiece(Piece* piece);
 	Piece* Player::getLastCapturedPiece();
 	std::vector < Piece* > getPieces();
+	std::vector < Piece* > getCapturedPieces();
 };
 

@@ -98,6 +98,9 @@
     <ClCompile Include="GameViewModel.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="CapturedPiecesViewModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -153,6 +156,9 @@
       <Filter>ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="GameViewModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="CapturedPiecesViewModel.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>

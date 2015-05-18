@@ -69,3 +69,8 @@ std::string Rook::getStringName()
 {
 	return "Rook";
 }
+
+void Rook::pieceMoved()
+{
+	numberOfMoves++;
+}

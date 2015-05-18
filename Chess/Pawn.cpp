@@ -46,9 +46,6 @@ Pawn::~Pawn()
 
 std::vector<std::vector<Translation*>> Pawn::getPossibleMovements()
 {
-	
-	
-
 	return possibleMovements;
 }
 

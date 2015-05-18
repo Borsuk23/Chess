@@ -9,6 +9,7 @@
 #include "FieldViewModel.h"
 #include "PlayerViewModel.h"
 #include "GameViewModel.h"
+#include "CapturedPiecesViewModel.h"
 #include "BoolToVisible.h"
 #include "GameStartParameters.h"
 #include "Game.h"
@@ -32,14 +33,21 @@ namespace Chess
 		Platform::Array<FieldViewModel^>^ fieldViewModels;
 		Platform::Array<PlayerViewModel^>^ playerViewModels;
 		Platform::Array<GameViewModel^>^ gameViewModels;
+		Platform::Array<CapturedPiecesViewModel^>^ whitePlayerCapturedPieceViewModels;
+		Platform::Array<CapturedPiecesViewModel^>^ blackPlayerCapturedPieceViewModels;
 		std::vector<std::vector<Field*>> fieldModels;
+		std::vector<std::vector<Piece*>> capturedPieceModels;
 		FieldViewModel^ SetFieldViewModel(int column, int row, Field* field);
 		Windows::UI::Xaml::Shapes::Rectangle^ SetHighlights(int column, int row);
 		Windows::UI::Xaml::Controls::Image^ SetPieceView(int column, int row);
-		Windows::UI::Xaml::Controls::TextBlock^ SetPieceView2(int column, int row);
+		CapturedPiecesViewModel^ GameBoard::SetCapturePieceViewModel(int column, int row, int color, Piece* piece);
+		//Windows::UI::Xaml::Controls::TextBlock^ SetPieceView2(int column, int row);
+		Windows::UI::Xaml::Controls::Image^ GameBoard::SetWhitePlayerCapturedPieceView(int column, int row);
+		Windows::UI::Xaml::Controls::Image^ GameBoard::SetBlackPlayerCapturedPieceView(int column, int row);
 		void DrawBoard();
 		void Rectangle_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		void Image_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		//void TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

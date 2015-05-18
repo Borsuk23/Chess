@@ -32,7 +32,8 @@ Player::Player(int color, std::string nickName)
 		new Pawn(color), 
 		new Pawn(color)
 	};
-	capturedPieces = std::vector<Piece*>();
+	this->numberOfCapturedPieces = 0;
+	capturedPieces = std::vector<Piece*>(16);
 }
 
 
@@ -43,7 +44,8 @@ Player::~Player()
 
 void Player::capturePiece(Piece* piece)
 {
-	capturedPieces.push_back(piece); //dodaje zbita figure na koniec wektora capturedPieces
+	capturedPieces[numberOfCapturedPieces] = piece; //dodaje zbita figure na koniec wektora capturedPieces
+	numberOfCapturedPieces++;
 }
 
 void Player::removeCapturedPiece(Piece* piece)
@@ -88,3 +90,8 @@ std::vector < Piece* > Player::getPieces()
 	//zwraca figury zeby moc z nich skorzystac np w innej funkcji
 	return this->pieces;
 };
+
+std::vector < Piece* > Player::getCapturedPieces()
+{
+	return this->capturedPieces;
+}

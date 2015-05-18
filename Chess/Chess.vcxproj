@@ -137,6 +137,7 @@
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoolToVisible.h" />
+    <ClInclude Include="CapturedPiecesViewModel.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldViewModel.h" />
     <ClInclude Include="Game.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoolToVisible.cpp" />
+    <ClCompile Include="CapturedPiecesViewModel.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldViewModel.cpp" />
     <ClCompile Include="Game.cpp" />

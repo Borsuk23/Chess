@@ -25,6 +25,9 @@ private:
 	Field* checkField(int x, int y);
 	void clearSelection();
 	bool stateCheckmate;
+	Field* shortCastlingField;
+	Field* longCastlingField;
+	Piece* castlingPiece;
 	void calculatePossibleMovements(int x, int y, Player* player);
 	bool calculateCheckmateMovements(int row, int column, Player* player, Piece* pieceToCheck);
 	GameState calculateCheck(int row, int column, Player* player, Piece* pieceToCheck);

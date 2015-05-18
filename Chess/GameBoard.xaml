@@ -23,7 +23,7 @@
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,80" TextAlignment="Center" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Bottom" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
             <TextBlock x:Name="WhitePlayerNickname" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,35" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
             <TextBlock x:Name="WhitePlayerCheck" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10" TextAlignment="Center" TextWrapping="Wrap" Text="CHECK!" VerticalAlignment="Bottom"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Red"/>
-            <Grid Grid.Column="0" Grid.Row="1">
+            <Grid x:Name="WhitePlayerCapturedPieces" Grid.Column="0" Grid.Row="1" Background="BurlyWood">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -243,7 +243,7 @@
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,80" TextAlignment="Center" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Bottom" Height="44" Width="182" FontSize="30" FontWeight="Bold"/>
             <TextBlock x:Name="BlackPlayerNickname" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,35" TextAlignment="Center" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Bottom"  Height="44" Width="182" FontSize="25"  />
             <TextBlock x:Name="BlackPlayerCheck" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10" TextAlignment="Center" TextWrapping="Wrap" Text="CHECK!" VerticalAlignment="Bottom"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Red"/>
-            <Grid Grid.Column="0" Grid.Row="1">
+            <Grid x:Name="BlackPlayerCapturedPieces" Grid.Column="0" Grid.Row="1" Background="BurlyWood">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>

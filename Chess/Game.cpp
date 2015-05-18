@@ -77,3 +77,15 @@ void Game::removeCapturedPieces()
 Board* Game::getBoard() {
 	return this->board;
 }
+
+std::vector<std::vector<Piece*>> Game::getCapturedPieces()
+{
+	std::vector<std::vector<Piece*>> temp = std::vector < std::vector<Piece*> > {
+		this->players[0]->getCapturedPieces(),
+		this->players[1]->getCapturedPieces()
+	};
+	/*temp[0] = this->players[0]->getCapturedPieces();
+	temp[1] = this->players[1]->getCapturedPieces();*/
+
+	return temp;
+}

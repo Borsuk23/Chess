@@ -22,6 +22,16 @@ namespace Chess {
 			void set(Platform::Boolean value);
 		}
 
+		property Platform::String^ CapturedPiece {
+			Platform::String^ get();
+			void set(Platform::String^ value);
+		}
+
+		property Windows::UI::Xaml::Media::Imaging::BitmapImage^ CapturedPieceImage {
+			Windows::UI::Xaml::Media::Imaging::BitmapImage^ get();
+			void set(Windows::UI::Xaml::Media::Imaging::BitmapImage^ value);
+		}
+
 
 		virtual event WUXD::PropertyChangedEventHandler^ PropertyChanged;
 
@@ -29,6 +39,8 @@ namespace Chess {
 		void NotifyPropertyChanged(Platform::String^ prop);
 		Platform::Boolean MyTurn;
 		Platform::Boolean Check;
+		Platform::String^ m_CapturedPiece;
+		Windows::UI::Xaml::Media::Imaging::BitmapImage^ m_CapturedPieceImage;
 
 	};
 }

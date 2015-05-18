@@ -34,7 +34,7 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	players = dynamic_cast<Chess::Navigation::GameStartParameters^>(e->Parameter);
 	//GAME - konstruktor (white, black);
 	//wyciagnac z players->whiteplayer, players->blackplayer nicknamey, przerzutowac je na stringi i do konstruktora Gamea
-	this->game = new Game("Sony", "Maleńka");	//tworzy nowa gre
+	this->game = new Game("WhitePlayer", "BlackPlayer");	//tworzy nowa gre
 	WhitePlayerNickname->Text = players->WhitePlayer;
 	BlackPlayerNickname->Text= players->BlackPlayer;
 	this->playerViewModels = ref new Platform::Array<PlayerViewModel^>(2);
@@ -44,7 +44,13 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	this->gameViewModels = ref new Platform::Array<GameViewModel^>(1);
 	gameViewModels[0] = ref new GameViewModel();
 	gameViewModels[0]->IsCheckMate = false;
+	this->capturedPieceModels = this->game->getCapturedPieces();	
+	this->whitePlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
+	this->blackPlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
 
+	//************************************************************************
+	//********************** BINDINGS ****************************************
+	//************************************************************************
 
 	Binding^ whitePlayerTurnBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
 	whitePlayerTurnBinding->Source = playerViewModels[0];
@@ -61,6 +67,12 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	whitePlayerCheckBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
 	WhitePlayerCheck->SetBinding(WhitePlayerCheck->VisibilityProperty, whitePlayerCheckBinding);
 
+	Binding^ whitePlayerCapturedPiecesBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	whitePlayerCapturedPiecesBinding->Source = playerViewModels[0];
+	whitePlayerCapturedPiecesBinding->Path = ref new PropertyPath("CapturedPiece"); //property highlighted z FieldViewModel
+	whitePlayerCapturedPiecesBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
+	WhitePlayerCapturedPieces->SetBinding(WhitePlayerCapturedPieces->VisibilityProperty, whitePlayerCapturedPiecesBinding);
+
 
 	Binding^ blackPlayerTurnBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
 	blackPlayerTurnBinding->Source = playerViewModels[1];
@@ -75,6 +87,8 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	blackPlayerCheckBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
 	blackPlayerCheckBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
 	BlackPlayerCheck->SetBinding(BlackPlayerCheck->VisibilityProperty, blackPlayerCheckBinding);
+
+	
 
 
 	Binding^ checkMateBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
@@ -97,26 +111,38 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 			fieldViewModels[column*8+row] = SetFieldViewModel(row, column, this->fieldModels[column][row]); //kazdemu polu w modelu jest tworzony odpowidajacy mu ViewModel
 		}
 	}
+
+	for (int column = 0; column < 4; column++)
+	{
+		for (int row = 0; row < 4; row++)
+		{
+			whitePlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row,0, this->capturedPieceModels[0][row * 4 + column]); //bialy
+			blackPlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row, 1, this->capturedPieceModels[1][row * 4 + column]); //czarny
+			
+		}
+	}
 	//start game
 ;}
 
+//*********************************************** SET VIEWMODEL ****************************************
+//*********************************************** DEFINITIONS ******************************************
 //tworzy ViewModel dla 1 pola
 FieldViewModel^ GameBoard::SetFieldViewModel(int column, int row, Field* field) {
 	auto fieldViewModel = ref new FieldViewModel();
-	fieldViewModel->Highlighted = field->isHighlighted(); //highlighted jakie jest w modelu (czy highlited czy nie)
+	fieldViewModel->Highlighted = field->isHighlighted(); 
 	if (field->checkField() != NULL) 
 		fieldViewModel->PieceOnField = field->checkField()->getName();
 	else
 		fieldViewModel->PieceOnField = "";
 
 	
-	//Windows::UI::Xaml::Controls::TextBlock^ textBlock = SetPieceView2(column, row);
-	//Binding^ pieceBinding2 = ref new Binding();
-	//pieceBinding2->Source = fieldViewModel;
-	//textBlock->PointerPressed += ref new PointerEventHandler(this, &GameBoard::TextBlock_PointerPressed);
-	//pieceBinding2->Path = ref new PropertyPath("PieceOnField"); 
-	//pieceBinding2->Mode = BindingMode::OneWay;
-	//textBlock->SetBinding(textBlock->TextProperty, pieceBinding2);
+	/*Windows::UI::Xaml::Controls::TextBlock^ textBlock = SetPieceView2(column, row);
+	Binding^ pieceBinding2 = ref new Binding();
+	pieceBinding2->Source = fieldViewModel;
+	textBlock->PointerPressed += ref new PointerEventHandler(this, &GameBoard::TextBlock_PointerPressed);
+	pieceBinding2->Path = ref new PropertyPath("PieceOnField"); 
+	pieceBinding2->Mode = BindingMode::OneWay;
+	textBlock->SetBinding(textBlock->TextProperty, pieceBinding2);*/
 
 
 	Windows::UI::Xaml::Controls::Image^ image = SetPieceView(column, row);
@@ -138,6 +164,8 @@ FieldViewModel^ GameBoard::SetFieldViewModel(int column, int row, Field* field) 
 	return fieldViewModel;
 }
 
+//**************************************************** SET HIGHLIGHTS ********************************************
+//**************************************************** SET PIECEVIEW *********************************************
 Windows::UI::Xaml::Shapes::Rectangle^ GameBoard::SetHighlights(int column, int row) {
 	Windows::UI::Xaml::Shapes::Rectangle^ rectangle = ref new Windows::UI::Xaml::Shapes::Rectangle();
 	SolidColorBrush^ brush = ref new SolidColorBrush();
@@ -176,6 +204,59 @@ Windows::UI::Xaml::Controls::Image^ GameBoard::SetPieceView(int column, int row)
 
 
 
+CapturedPiecesViewModel^ GameBoard::SetCapturePieceViewModel(int column, int row, int color, Piece* piece) {
+	auto capturedPieceViewModel = ref new CapturedPiecesViewModel();
+	
+	if (piece != NULL)
+		capturedPieceViewModel->PieceOnField = piece->getName();
+	else
+		capturedPieceViewModel->PieceOnField = "";
+	if (color == 0)
+	{
+		Windows::UI::Xaml::Controls::Image^ image = SetWhitePlayerCapturedPieceView(column, row);
+		Binding^ pieceBinding = ref new Binding();
+		pieceBinding->Source = capturedPieceViewModel;
+		pieceBinding->Path = ref new PropertyPath("PieceImage");
+		pieceBinding->Mode = BindingMode::TwoWay;
+		image->SetBinding(image->SourceProperty, pieceBinding);
+	}
+	else
+	{
+		Windows::UI::Xaml::Controls::Image^ image = SetBlackPlayerCapturedPieceView(column, row);
+		Binding^ pieceBinding = ref new Binding();
+		pieceBinding->Source = capturedPieceViewModel;
+		pieceBinding->Path = ref new PropertyPath("PieceImage");
+		pieceBinding->Mode = BindingMode::TwoWay;
+		image->SetBinding(image->SourceProperty, pieceBinding);
+	}
+
+
+
+
+	return capturedPieceViewModel;
+}
+
+
+
+
+Windows::UI::Xaml::Controls::Image^ GameBoard::SetWhitePlayerCapturedPieceView(int column, int row) {
+	Windows::UI::Xaml::Controls::Image^ image = ref new Windows::UI::Xaml::Controls::Image();
+	image->Height = 40;
+	WhitePlayerCapturedPieces->Children->Append(image);
+	WhitePlayerCapturedPieces->SetColumn(image, column);
+	WhitePlayerCapturedPieces->SetRow(image, row);
+	return image;
+}
+
+Windows::UI::Xaml::Controls::Image^ GameBoard::SetBlackPlayerCapturedPieceView(int column, int row) {
+	Windows::UI::Xaml::Controls::Image^ image = ref new Windows::UI::Xaml::Controls::Image();
+	image->Height = 40;
+	BlackPlayerCapturedPieces->Children->Append(image);
+	BlackPlayerCapturedPieces->SetColumn(image, column);
+	BlackPlayerCapturedPieces->SetRow(image, row);
+	return image;
+}
+
 //void GameBoard::DrawBoard() {
 //	
 //	for (int column = 0; column < 8; column++)
@@ -196,6 +277,9 @@ Windows::UI::Xaml::Controls::Image^ GameBoard::SetPieceView(int column, int row)
 //	}
 //}
 
+//*******************************************************************************************
+//************************************ POINTER PRESSED **************************************
+//*******************************************************************************************
 //puste pola
 void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
 {
@@ -215,6 +299,22 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 				fieldViewModels[row * 8 + column]->PieceOnField = "";
 		}
 	}
+
+	for (int column = 0; column < 4; column++)
+	{
+		for (int row = 0; row < 4; row++)
+		{
+			if (this->game->players[0]->capturedPieces[row * 4 + column] != NULL)
+				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[0]->capturedPieces[row * 4 + column]->getName();
+			else
+				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
+			if (this->game->players[1]->capturedPieces[row * 4 + column] != NULL)
+				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[1]->capturedPieces[row * 4 + column]->getName();
+			else
+				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
+		}
+	}
+
 	playerViewModels[0]->IsCheck = false;
 	playerViewModels[1]->IsCheck = false;
 
@@ -239,7 +339,7 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 		
 }
 
-//figury
+////figury
 void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
 {
 	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; //obiekt ktory wywolal ten event
@@ -261,4 +361,25 @@ void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::U
 	}
 }
 
+////figury
+//void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+//{
+//	Windows::UI::Xaml::Controls::TextBlock^ button = (Windows::UI::Xaml::Controls::TextBlock^) sender; //obiekt ktory wywolal ten event
+//	int column = (int)button->GetValue(Grid::ColumnProperty);
+//	int row = (int)button->GetValue(Grid::RowProperty);
+//
+//	game->userAction(row, column);
+//
+//	for (int row = 0; row < 8; row++)
+//	{
+//		for (int column = 0; column < 8; column++)
+//		{
+//			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
+//			if (fieldModels[row][column]->checkField() != NULL)
+//				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
+//			else
+//				fieldViewModels[row * 8 + column]->PieceOnField = "";
+//		}
+//	}
+//}
 
