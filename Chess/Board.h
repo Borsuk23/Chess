@@ -28,6 +28,10 @@ private:
 	Field* shortCastlingField;
 	Field* longCastlingField;
 	Piece* castlingPiece;
+	Field* middleEnPassantField;
+	Field* highlightedMiddleEnPassantField;
+	Field* endEnPassantField; //en paasant
+	Field* highlightedEndEnPassantField;
 	void calculatePossibleMovements(int x, int y, Player* player);
 	bool calculateCheckmateMovements(int row, int column, Player* player, Piece* pieceToCheck);
 	GameState calculateCheck(int row, int column, Player* player, Piece* pieceToCheck);

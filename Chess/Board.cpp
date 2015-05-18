@@ -72,6 +72,19 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				pieceSelected = NULL;
 				return Exit::PIECE_CAPTURED;
 			}
+			else if (currentPiece==NULL && (fields[row][column]==middleEnPassantField))		//En Passant capture
+			{
+					player->capturePiece(endEnPassantField->checkField());
+					fields[row][column]->placePiece(pieceSelected);					//new clicked field
+					pieceSelected->pieceMoved();
+					fieldSelected->removeFromSelectedField();						//first click field
+					endEnPassantField->removeFromSelectedField();
+					clearSelection();
+					pieceSelected = NULL;
+					endEnPassantField = NULL;
+					middleEnPassantField = NULL;
+					return Exit::PIECE_CAPTURED;
+			}
 			else if (fields[row][column] == longCastlingField)		//long castling move
 			{
 				fields[row][column]->placePiece(pieceSelected);
@@ -100,13 +113,26 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				shortCastlingField = NULL;
 				return Exit::PIECE_MOVED;
 			}
-			else  
+			else if (fields[row][column]==highlightedEndEnPassantField) //first pawn 2 field move, possible en passant
+			{
+				endEnPassantField = highlightedEndEnPassantField;
+				middleEnPassantField = highlightedMiddleEnPassantField;
+				fields[row][column]->placePiece(pieceSelected);
+				pieceSelected->pieceMoved();
+				fieldSelected->removeFromSelectedField();
+				clearSelection();
+				pieceSelected = NULL;
+				return Exit::PIECE_MOVED;
+			}
+			else													//normal move
 			{
 				fields[row][column]->placePiece(pieceSelected);
 				pieceSelected->pieceMoved();
 				fieldSelected->removeFromSelectedField();
 				clearSelection();
 				pieceSelected = NULL;
+				endEnPassantField = NULL;
+				middleEnPassantField = NULL;
 				return Exit::PIECE_MOVED;
 			}
 			
@@ -246,7 +272,19 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 						fields[tempR][tempC]->removeFromSelectedField();
 						break;
 					case 1: //pawn capture
-						
+						if (fields[tempR][tempC]==middleEnPassantField)	//En Passant Capture
+						{
+							fields[tempR][tempC]->placePiece(pieceSelected);
+							fields[row][column]->removeFromSelectedField();
+							if ((checkGameState(player) == Board::GameState::OK))
+							{
+								fields[tempR][tempC]->setHighlighted(true);
+							}
+
+							fields[row][column]->placePiece(tempPiece);
+							fields[tempR][tempC]->removeFromSelectedField();
+							
+						}
 						break;
 					case 2: //pawn move without capture
 						fields[tempR][tempC]->placePiece(pieceSelected);
@@ -258,16 +296,29 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 							
 						fields[row][column]->placePiece(tempPiece);
 						fields[tempR][tempC]->removeFromSelectedField();
+
+						if (pieceSelected->numberOfMoves == 0)						//first move, possible en passant
+						{
+							if ((pieceSelected->color==1) && (fields[tempR][tempC] == fields[row + 2][column]))
+							{
+								highlightedMiddleEnPassantField = fields[tempR - 1][tempC];
+								highlightedEndEnPassantField = fields[tempR][tempC];
+							}
+							if ((pieceSelected->color == 0) && (fields[tempR][tempC] == fields[row - 2][column]))
+							{
+								highlightedMiddleEnPassantField = fields[tempR + 1][tempC];
+								highlightedEndEnPassantField = fields[tempR][tempC];
+							}
+						}
+						
+						
 						break;
 					case 3: //short castling
-						//SHORT I LONG CASTLING FIELD PO PODSWIETLENIU JEST ZAPAMIETYWANE W ATRYBUCIE BOARDA FIELD* SHORT / LONG CASTLING FIELD
-						// PRZY 2 KLIKNIECIU JEST SELECTED FILED == CASTLING FIELD TO ROBIMY ROSZADE(RUSZ TEZ WIEZE) JAK NIE TO NORMALNY RUCH
+						
 						if ((checkGameState(player) == Board::GameState::OK) && (fields[tempR][tempC+1]->checkField() != NULL) && (player->checkPiece(fields[tempR][tempC+1]->checkField()) == true) && (pieceSelected->numberOfMoves==0))
 						{
-							//if ((fields[tempX + 1][tempY]->checkField() != NULL) && (player->checkPiece(fields[tempX + 1][tempY]->checkField()) == true))
-								this->castlingPiece = fields[tempR][tempC+1]->checkField();
+								this->castlingPiece = fields[tempR][tempC+1]->checkField(); //Rook
 
-								castlingPiece = castlingPiece;
 
 							if ((castlingPiece->getStringName() == "Rook") && (castlingPiece->numberOfMoves == 0) && (fields[tempR][tempC-1]->checkField() == NULL))
 							{
@@ -294,10 +345,7 @@ void Board::calculatePossibleMovements(int row, int column, Player* player)
 					case 4: //long castling
 						if ((checkGameState(player) == Board::GameState::OK) && (fields[tempR][tempC -2]->checkField() != NULL) && (player->checkPiece(fields[tempR][tempC -2]->checkField()) == true) && (pieceSelected->numberOfMoves == 0))
 						{
-							//if ((fields[tempX + 1][tempY]->checkField() != NULL) && (player->checkPiece(fields[tempX + 1][tempY]->checkField()) == true))
-							this->castlingPiece = fields[tempR][tempC -2]->checkField();
-
-							//castlingPiece = castlingPiece;
+							this->castlingPiece = fields[tempR][tempC -2]->checkField(); //Rook
 
 							if ((castlingPiece->getStringName() == "Rook") && (castlingPiece->numberOfMoves == 0) && (fields[tempR][tempC + 1]->checkField() == NULL))
 							{
@@ -646,73 +694,3 @@ std::vector<std::vector<Field*>> Board::getFields()
 //	return GameState::OK;
 //}
 //
-//void Board::calculatePossibleMovements(int row, int column, Player* player)
-//{
-//	std::vector<std::vector<Translation*>> possibleTranslations;
-//	possibleTranslations = pieceSelected->getPossibleMovements();
-//	std::vector<std::vector<Translation*>>::iterator it_row;
-//	std::vector<Translation*>::iterator it_col;
-//	int tempX, tempY;
-//	Piece* standingPiece;
-//	/*Piece* tempPiece;
-//	Piece* tempStandingPiece;
-//	tempPiece = pieceSelected;*/
-//
-//	//check all possible movements
-//	for (it_row = possibleTranslations.begin(); it_row < possibleTranslations.end(); it_row++)
-//	{
-//		for (it_col = it_row->begin(); it_col < it_row->end(); it_col++)
-//		{
-//			tempX = row + (*it_col)->row;
-//			tempY = column + (*it_col)->column;
-//
-//			//only these, which fit the board
-//			if ((tempX >= 0) && (tempX <= 7) && (tempY >= 0) && (tempY <= 7))
-//			{
-//				//block if there is my piece
-//				standingPiece = fields[tempX][tempY]->checkField();
-//				if ((player->checkPiece(standingPiece)) == true)
-//					break;
-//
-//				switch ((*it_col)->option){
-//				case 0:
-//
-//					fields[tempX][tempY]->setHighlighted(true);
-//
-//					break;
-//				case 1: //pawn capture
-//					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
-//					{
-//
-//						fields[tempX][tempY]->setHighlighted(true);
-//					}
-//					else
-//					{
-//						break;
-//					}
-//					; break;
-//				case 2: //pawn move without caoture
-//					if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
-//						break;
-//					else if (fields[tempX][tempY]->checkField() == NULL)
-//						fields[tempX][tempY]->setHighlighted(true);
-//					; break;
-//				case 3: //obsluga roszady
-//					; break;
-//				}
-//
-//
-//				//first opponents piece
-//				if (((player->checkPiece(standingPiece)) == false) && (fields[tempX][tempY]->checkField() != NULL))
-//				{
-//
-//					break;
-//				}
-//
-//			}
-//
-//		}
-//
-//	}
-//
-//}

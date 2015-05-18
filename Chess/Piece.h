@@ -12,8 +12,9 @@ public:
 	virtual Platform::String^ getName() = 0;
 	virtual std::string getStringName() = 0;
 	virtual void pieceMoved();
-protected:
 	int color;
+protected:
+	
 	std::vector<std::vector<Translation*>> possibleMovements;
 };
 
