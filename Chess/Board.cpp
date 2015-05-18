@@ -82,6 +82,8 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				fields[row][column - 2]->removeFromSelectedField();
 				clearSelection();
 				pieceSelected = NULL;
+				castlingPiece = NULL;
+				longCastlingField = NULL;
 				return Exit::PIECE_MOVED;
 			}
 			else if (fields[row][column] == shortCastlingField)		//short castling move
@@ -94,6 +96,8 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				fields[row][column+1]->removeFromSelectedField();
 				clearSelection();
 				pieceSelected = NULL;
+				castlingPiece = NULL;
+				shortCastlingField = NULL;
 				return Exit::PIECE_MOVED;
 			}
 			else  
