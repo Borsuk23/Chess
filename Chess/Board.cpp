@@ -667,16 +667,16 @@ Piece* Board::promotePawn(int row, int column, Player* player, int color, Piece*
 		blackPromotionPiece = new Queen(1);
 		break;
 	case 1:
-		whitePromotionPiece = new Bishop(0);
-		blackPromotionPiece = new Bishop(1);
+		whitePromotionPiece = new Knight(0);
+		blackPromotionPiece = new Knight(1);	
 		break;
 	case 2:
-		whitePromotionPiece = new Knight(0);
-		blackPromotionPiece = new Knight(1);
-		break;
-	case 3:
 		whitePromotionPiece = new Rook(0);
 		blackPromotionPiece = new Rook(1);
+		break;
+	case 3:
+		whitePromotionPiece = new Bishop(0);
+		blackPromotionPiece = new Bishop(1);
 		break;
 	}
 
