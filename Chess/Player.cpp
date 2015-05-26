@@ -13,7 +13,7 @@ Player::Player(int color, std::string nickName)
 {
 	this->color = color;
 	this->nickName = nickName;
-	pieces = std::vector<Piece*>(16); //polimorfizm z figurami
+	pieces = std::vector<Piece*>(16); 
 	pieces = { 
 		new Rook(color), 
 		new Knight(color), 
@@ -44,16 +44,16 @@ Player::~Player()
 
 void Player::capturePiece(Piece* piece)
 {
-	capturedPieces[numberOfCapturedPieces] = piece; //dodaje zbita figure na koniec wektora capturedPieces
+	capturedPieces[numberOfCapturedPieces] = piece; //add captured Piece to capturedPieces vector
 	numberOfCapturedPieces++;
 }
 
 void Player::removeCapturedPiece(Piece* piece)
 {
 	std::vector<Piece*>::iterator it;
-	//szuka czy figura znajduje sie w wektorze figur gracza
+	//find piece in players  piece vector
 	it = std::find(pieces.begin(), pieces.end(), piece);
-	//jesli tak to ja usuwa
+	//erase if found
 	if (it != pieces.end())
 		pieces.erase(it);
 }
@@ -61,9 +61,9 @@ void Player::removeCapturedPiece(Piece* piece)
 Piece* Player::getLastCapturedPiece()
 {
 	std::vector<Piece*>::reverse_iterator it;
-	//szuka czy figura znajduje sie w wektorze figur gracza
+	//find piece in players pieces vector
 	it = capturedPieces.rbegin();
-	return *it; //wskaznik na iterator - na Piece
+	return *it; //pointer to iterator,  Piece
 }
 
 
@@ -78,7 +78,7 @@ bool Player::checkPiece(Piece* piece)
 	//		return true;
 	//}
 	//return false;
-	//szuka czy figura znajduje sie w wektorze figur gracza
+	//find piece in players pieces vector
 	it = std::find(pieces.begin(), pieces.end(), piece);
 	if (it == pieces.end())
 		return false;
@@ -87,7 +87,6 @@ bool Player::checkPiece(Piece* piece)
 
 std::vector < Piece* > Player::getPieces()
 {
-	//zwraca figury zeby moc z nich skorzystac np w innej funkcji
 	return this->pieces;
 };
 

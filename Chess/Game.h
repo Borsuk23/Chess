@@ -15,11 +15,14 @@ public:
 	bool isFinished;
 	std::vector<std::vector<Piece*>> getCapturedPieces();
 	std::vector<Player*> players;
+	bool promotionFlag;
+	void promotion(int promotionPiece);
 	//typedef enum gameState { OK, CHECK, CHECKMATE } gameState;
 private:
 	void changeTurn();
 	void removeCapturedPieces();
-	
+	int promotionRow;
+	int promotionColumn;
 	Player* currentPlayer;
 	Board* board;
 };

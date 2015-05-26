@@ -34,6 +34,7 @@ namespace Chess
         private: ::Windows::UI::Xaml::Controls::TextBox^ whitePlayerNick;
         private: ::Windows::UI::Xaml::Controls::TextBox^ blackPlayerNick;
         private: ::Windows::UI::Xaml::Controls::Button^ startGameButton;
+        private: ::Windows::UI::Xaml::Controls::Button^ resumeGameButton;
     };
 }
 

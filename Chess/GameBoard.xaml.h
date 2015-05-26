@@ -37,6 +37,11 @@ namespace Chess
 		Platform::Array<CapturedPiecesViewModel^>^ blackPlayerCapturedPieceViewModels;
 		std::vector<std::vector<Field*>> fieldModels;
 		std::vector<std::vector<Piece*>> capturedPieceModels;
+
+		Windows::UI::Xaml::Controls::Image^ promotionQueen;
+		Windows::UI::Xaml::Controls::Image^ promotionKnight;
+		Windows::UI::Xaml::Controls::Image^ promotionRook;
+		Windows::UI::Xaml::Controls::Image^ promotionBishop;
 		FieldViewModel^ SetFieldViewModel(int column, int row, Field* field);
 		Windows::UI::Xaml::Shapes::Rectangle^ SetHighlights(int column, int row);
 		Windows::UI::Xaml::Controls::Image^ SetPieceView(int column, int row);
@@ -49,5 +54,6 @@ namespace Chess
 		void Image_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		//void TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void PromotionChosen(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 	};
 }

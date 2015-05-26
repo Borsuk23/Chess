@@ -3,6 +3,12 @@
 #include "Field.h"
 #include "Player.h"
 #include "Piece.h"
+#include "Rook.h"
+#include "Knight.h"
+#include "Bishop.h"
+#include "Queen.h"
+#include "King.h"
+#include "Pawn.h"
 
 
 class Board
@@ -18,11 +24,15 @@ public:
 	bool checkCheckmateState(Player* player);
 	Exit userAction(int x, int y, Player* player);
 	std::vector<std::vector<Field*>> getFields();
+	bool checkPromotion(int row, int column, Player* player);
+	Piece* promotePawn(int row, int column, Player* player, int color, Piece* movedPawn, int promotionPiece);
+
 private:
 	Piece* pieceSelected;
 	Field* fieldSelected; //obecnie klikniete pole
 	std::vector<std::vector<Field*>> fields;	
 	Field* checkField(int x, int y);
+	
 	void clearSelection();
 	bool stateCheckmate;
 	Field* shortCastlingField;

@@ -70,6 +70,8 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				fieldSelected->removeFromSelectedField(); //first click field
 				clearSelection();
 				pieceSelected = NULL;
+				endEnPassantField = NULL;
+				middleEnPassantField = NULL;
 				return Exit::PIECE_CAPTURED;
 			}
 			else if (currentPiece==NULL && (fields[row][column]==middleEnPassantField))		//En Passant capture
@@ -97,6 +99,8 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				pieceSelected = NULL;
 				castlingPiece = NULL;
 				longCastlingField = NULL;
+				endEnPassantField = NULL;
+				middleEnPassantField = NULL;
 				return Exit::PIECE_MOVED;
 			}
 			else if (fields[row][column] == shortCastlingField)		//short castling move
@@ -111,6 +115,8 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				pieceSelected = NULL;
 				castlingPiece = NULL;
 				shortCastlingField = NULL;
+				endEnPassantField = NULL;
+				middleEnPassantField = NULL;
 				return Exit::PIECE_MOVED;
 			}
 			else if (fields[row][column]==highlightedEndEnPassantField) //first pawn 2 field move, possible en passant
@@ -133,6 +139,7 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				pieceSelected = NULL;
 				endEnPassantField = NULL;
 				middleEnPassantField = NULL;
+				//checkPromotion(row, column, player);
 				return Exit::PIECE_MOVED;
 			}
 			
@@ -620,6 +627,93 @@ bool Board::calculateCheckmateMovements(int row, int column, Player* player, Pie
 	return stateCheckMate;
 
 }
+
+
+//**************************************************************************************************
+//*************************************** P R O M O T I O N ****************************************
+//**************************************************************************************************
+
+bool Board::checkPromotion(int row, int column, Player* player)
+{
+	Piece* movedPiece;
+	
+	movedPiece = fields[row][column]->checkField();
+	if ((movedPiece->getStringName() == "White Pawn") && (row==0))
+	{
+		return true;
+		
+	}
+	else if ((movedPiece->getStringName() == "Black Pawn") && (row == 7))
+	{
+		return true;
+	}
+	return false;
+
+}
+
+Piece* Board::promotePawn(int row, int column, Player* player, int color, Piece* movedPawn, int promotionPiece)
+{
+	Piece* whitePromotionPiece;
+	Piece* blackPromotionPiece;
+	std::vector<Piece*>::iterator it;
+	Piece* promotedPawn;
+
+
+	switch (promotionPiece)
+	{
+	case 0:
+	default:
+		whitePromotionPiece = new Queen(0);
+		blackPromotionPiece = new Queen(1);
+		break;
+	case 1:
+		whitePromotionPiece = new Bishop(0);
+		blackPromotionPiece = new Bishop(1);
+		break;
+	case 2:
+		whitePromotionPiece = new Knight(0);
+		blackPromotionPiece = new Knight(1);
+		break;
+	case 3:
+		whitePromotionPiece = new Rook(0);
+		blackPromotionPiece = new Rook(1);
+		break;
+	}
+
+
+	//find Pawn in players pieces
+	it = std::find(player->pieces.begin(), player->pieces.end(), movedPawn);
+
+	if (color == 0)	//white player promotion
+	{
+		//if found erase it and place new piece
+		if (it != player->pieces.end())
+		{
+			player->pieces.erase(it);
+			player->pieces.push_back(whitePromotionPiece);
+		};
+
+		fields[row][column]->removeFromSelectedField();
+		fields[row][column]->placePiece(whitePromotionPiece);
+	}
+	else    //black player  promotion
+	{
+
+		if (it != player->pieces.end())
+		{
+			player->pieces.erase(it);
+			player->pieces.push_back(blackPromotionPiece);
+		};
+
+		fields[row][column]->removeFromSelectedField();
+		fields[row][column]->placePiece(blackPromotionPiece);
+	}
+
+	promotedPawn = fields[row][column]->checkField();
+
+	return promotedPawn;
+}
+
 
 //----------------------------------------------------GUI---------------------------------------
 std::vector<std::vector<Field*>> Board::getFields()

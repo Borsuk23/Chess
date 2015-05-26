@@ -30,6 +30,8 @@ void ::Chess::GameBoard::InitializeComponent()
     BlackPlayerCheck = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"BlackPlayerCheck"));
     // Get the Grid named 'BlackPlayerCapturedPieces'
     BlackPlayerCapturedPieces = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"BlackPlayerCapturedPieces"));
+    // Get the Grid named 'PromotionGrid'
+    PromotionGrid = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"PromotionGrid"));
     // Get the Grid named 'Board'
     Board = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"Board"));
     // Get the Image named 'WhitePlayerTurn'
@@ -40,6 +42,8 @@ void ::Chess::GameBoard::InitializeComponent()
     WhitePlayerCheck = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerCheck"));
     // Get the Grid named 'WhitePlayerCapturedPieces'
     WhitePlayerCapturedPieces = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"WhitePlayerCapturedPieces"));
+    // Get the Button named 'saveGameButton'
+    saveGameButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"saveGameButton"));
     // Get the TextBlock named 'CheckMate'
     CheckMate = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"CheckMate"));
 }

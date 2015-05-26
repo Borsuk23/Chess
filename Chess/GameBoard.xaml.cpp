@@ -121,6 +121,54 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 			
 		}
 	}
+
+	//promotion fields
+	promotionQueen = ref new Windows::UI::Xaml::Controls::Image();
+	promotionQueen->Height = 40;
+	auto queenBitmapImage = ref new Windows::UI::Xaml::Media::Imaging::BitmapImage();
+	Platform::String^ queenPath = "ms-appx:///Assets/white_queen.png";
+	queenBitmapImage->UriSource = ref new Windows::Foundation::Uri(queenPath);
+	promotionQueen->Source = queenBitmapImage;
+	promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	PromotionGrid->Children->Append(promotionQueen);
+	PromotionGrid->SetRow(promotionQueen, 0);
+	promotionQueen->PointerPressed += ref new PointerEventHandler(this, &GameBoard::PromotionChosen);
+
+
+	promotionKnight = ref new Windows::UI::Xaml::Controls::Image();
+	promotionKnight->Height = 40;
+	auto knightBitmapImage = ref new Windows::UI::Xaml::Media::Imaging::BitmapImage();
+	Platform::String^ knightPath = "ms-appx:///Assets/white_knight.png";
+	knightBitmapImage->UriSource = ref new Windows::Foundation::Uri(knightPath);
+	promotionKnight->Source = knightBitmapImage;
+	promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	PromotionGrid->Children->Append(promotionKnight);
+	PromotionGrid->SetRow(promotionKnight, 1);
+	promotionKnight->PointerPressed += ref new PointerEventHandler(this, &GameBoard::PromotionChosen);
+
+	promotionRook = ref new Windows::UI::Xaml::Controls::Image();
+	promotionRook->Height = 40;
+	auto rookBitmapImage = ref new Windows::UI::Xaml::Media::Imaging::BitmapImage();
+	Platform::String^ rookPath = "ms-appx:///Assets/white_rook.png";
+	rookBitmapImage->UriSource = ref new Windows::Foundation::Uri(rookPath);
+	promotionRook->Source = rookBitmapImage;
+	promotionRook->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	PromotionGrid->Children->Append(promotionRook);
+	PromotionGrid->SetRow(promotionRook, 2);
+	promotionRook->PointerPressed += ref new PointerEventHandler(this, &GameBoard::PromotionChosen);
+
+	promotionBishop = ref new Windows::UI::Xaml::Controls::Image();
+	promotionBishop->Height = 40;
+	auto bishopBitmapImage = ref new Windows::UI::Xaml::Media::Imaging::BitmapImage();
+	Platform::String^ bishopPath = "ms-appx:///Assets/white_bishop.png";
+	bishopBitmapImage->UriSource = ref new Windows::Foundation::Uri(bishopPath);
+	promotionBishop->Source = bishopBitmapImage;
+	promotionBishop->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	PromotionGrid->Children->Append(promotionBishop);
+	PromotionGrid->SetRow(promotionBishop, 3);
+	promotionBishop->PointerPressed += ref new PointerEventHandler(this, &GameBoard::PromotionChosen); 
+
+
 	//start game
 ;}
 
@@ -287,6 +335,10 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 	int column = (int)rectangle->GetValue(Grid::ColumnProperty);
 	int row = (int)rectangle->GetValue(Grid::RowProperty);
 
+	if (game->promotionFlag == true)			//block normal move when promotion
+	{
+		return;
+	}
 	game->userAction(row, column);
 	for (int row = 0; row < 8; row++)
 	{
@@ -336,6 +388,14 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 		playerViewModels[0]->IsMyTurn = false;
 	}
 	
+
+	if (game->promotionFlag == true)
+	{
+		promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionBishop->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionRook->Visibility = Windows::UI::Xaml::Visibility::Visible;
+	}
 		
 }
 
@@ -345,6 +405,11 @@ void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::U
 	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; //obiekt ktory wywolal ten event
 	int column = (int) button->GetValue(Grid::ColumnProperty);
 	int row = (int) button->GetValue(Grid::RowProperty);
+
+	if (game->promotionFlag == true)			//block normal move when promotion
+	{
+		return;
+	}
 
 	game->userAction(row, column);
 
@@ -360,6 +425,68 @@ void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::U
 		}
 	}
 }
+
+void Chess::GameBoard::PromotionChosen(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+{
+	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; //obiekt ktory wywolal ten event
+	int promotionPiece = (int)button->GetValue(Grid::RowProperty);
+	game->promotion(promotionPiece);
+	promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	promotionBishop->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	promotionRook->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+
+	for (int row = 0; row < 8; row++)
+	{
+		for (int column = 0; column < 8; column++)
+		{
+			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
+			if (fieldModels[row][column]->checkField() != NULL)
+				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
+			else
+				fieldViewModels[row * 8 + column]->PieceOnField = "";
+		}
+	}
+
+	for (int column = 0; column < 4; column++)
+	{
+		for (int row = 0; row < 4; row++)
+		{
+			if (this->game->players[0]->capturedPieces[row * 4 + column] != NULL)
+				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[0]->capturedPieces[row * 4 + column]->getName();
+			else
+				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
+			if (this->game->players[1]->capturedPieces[row * 4 + column] != NULL)
+				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[1]->capturedPieces[row * 4 + column]->getName();
+			else
+				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
+		}
+	}
+
+	playerViewModels[0]->IsCheck = false;
+	playerViewModels[1]->IsCheck = false;
+
+	if (game->isFinished == true)
+		gameViewModels[0]->IsCheckMate = true;
+
+	if (game->turnNumber % 2 == 0)
+	{
+		if (game->gameState == Board::GameState::CHECK)
+			playerViewModels[0]->IsCheck = true;
+		playerViewModels[0]->IsMyTurn = true;
+		playerViewModels[1]->IsMyTurn = false;
+	}
+	else
+	{
+		if (game->gameState == Board::GameState::CHECK)
+			playerViewModels[1]->IsCheck = true;
+		playerViewModels[1]->IsMyTurn = true;
+		playerViewModels[0]->IsMyTurn = false;
+	}
+
+
+}
+
 
 ////figury
 //void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)

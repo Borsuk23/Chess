@@ -15,6 +15,7 @@ namespace Windows {
                 ref class Image;
                 ref class TextBlock;
                 ref class Grid;
+                ref class Button;
             }
         }
     }
@@ -36,11 +37,13 @@ namespace Chess
         private: ::Windows::UI::Xaml::Controls::TextBlock^ BlackPlayerNickname;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ BlackPlayerCheck;
         private: ::Windows::UI::Xaml::Controls::Grid^ BlackPlayerCapturedPieces;
+        private: ::Windows::UI::Xaml::Controls::Grid^ PromotionGrid;
         private: ::Windows::UI::Xaml::Controls::Grid^ Board;
         private: ::Windows::UI::Xaml::Controls::Image^ WhitePlayerTurn;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerNickname;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ WhitePlayerCheck;
         private: ::Windows::UI::Xaml::Controls::Grid^ WhitePlayerCapturedPieces;
+        private: ::Windows::UI::Xaml::Controls::Button^ saveGameButton;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ CheckMate;
     };
 }

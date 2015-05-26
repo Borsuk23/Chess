@@ -32,26 +32,43 @@ void Game::userAction(int row, int column)
 	case Board::Exit::PIECE_UNSELECTED:
 		; break;
 	case Board::Exit::PIECE_MOVED:
+		if (board->checkPromotion(row, column, currentPlayer) == true)
+		{
+			promotionFlag = true;
+			promotionRow = row;
+			promotionColumn = column;
+			break;
+		}
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
-		if (this->gameState == Board::GameState::CHECK)
-		{
+		//if (this->gameState == Board::GameState::CHECK)
+		//{
 			this->stateCheckMate = board->checkCheckmateState(currentPlayer);
 			if (this->stateCheckMate == true)
 				this->isFinished = true;
-		}
+			isFinished = isFinished;
+		//}
 		 break;
 	case Board::Exit::PIECE_CAPTURED:
+		if (board->checkPromotion(row, column, currentPlayer) == true)
+		{
+			promotionFlag = true;
+			promotionRow = row;
+			promotionColumn = column;
+			break;
+		}
+		
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
-		if (this->gameState == Board::GameState::CHECK)
-		{
+		//if (this->gameState == Board::GameState::CHECK)
+		//{
 			this->stateCheckMate = board->checkCheckmateState(currentPlayer);
 			if (this->stateCheckMate == true)
 				this->isFinished = true;
-		}
+			isFinished = isFinished;
+		//}
 		 break;
 	
 	default:
@@ -88,4 +105,33 @@ std::vector<std::vector<Piece*>> Game::getCapturedPieces()
 	temp[1] = this->players[1]->getCapturedPieces();*/
 
 	return temp;
+}
+
+void Game::promotion(int promotionPiece)
+{
+	//tutaj promocja
+	Piece* movedPiece;
+
+	movedPiece = board->getFields()[promotionRow][promotionColumn]->checkField();
+	if ((movedPiece->getStringName() == "White Pawn") && (promotionRow == 0))
+	{
+		movedPiece = board->promotePawn(promotionRow, promotionColumn, currentPlayer, 0, movedPiece,promotionPiece);
+
+	}
+	else if ((movedPiece->getStringName() == "Black Pawn") && (promotionRow == 7))
+	{
+		movedPiece = board->promotePawn(promotionRow, promotionColumn, currentPlayer, 1, movedPiece, promotionPiece);
+	}
+	promotionFlag = false;
+	
+	changeTurn();
+	this->gameState = board->checkGameState(currentPlayer);
+	this->board->gameState = this->gameState;
+	//if (this->gameState == Board::GameState::CHECK)
+	//{
+	this->stateCheckMate = board->checkCheckmateState(currentPlayer);
+	if (this->stateCheckMate == true)
+		this->isFinished = true;
+	isFinished = isFinished;
+	//}
 }

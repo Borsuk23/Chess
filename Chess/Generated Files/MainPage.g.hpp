@@ -28,6 +28,8 @@ void ::Chess::MainPage::InitializeComponent()
     blackPlayerNick = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"blackPlayerNick"));
     // Get the Button named 'startGameButton'
     startGameButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"startGameButton"));
+    // Get the Button named 'resumeGameButton'
+    resumeGameButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"resumeGameButton"));
 }
 
 void ::Chess::MainPage::Connect(int connectionId, Platform::Object^ target)
@@ -35,6 +37,10 @@ void ::Chess::MainPage::Connect(int connectionId, Platform::Object^ target)
     switch (connectionId)
     {
     case 1:
+        (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ButtonBase^>(target))->Click +=
+            ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::Chess::MainPage::*)(Platform::Object^, Windows::UI::Xaml::RoutedEventArgs^))&MainPage::startGameButton_Click);
+        break;
+    case 2:
         (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ButtonBase^>(target))->Click +=
             ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::Chess::MainPage::*)(Platform::Object^, Windows::UI::Xaml::RoutedEventArgs^))&MainPage::startGameButton_Click);
         break;
