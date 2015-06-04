@@ -44,6 +44,7 @@
                 </Grid.RowDefinitions>
                 <Button x:ConnectionId='1' Grid.Row="0" x:Name="saveGameButton"                              HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="150" Content="Save Game"/>
                 <TextBlock Grid.Row="1" x:Name="CheckMate"  HorizontalAlignment="Center" Margin="0,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Text="CHECKMATE!" VerticalAlignment="Center"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Blue"/>
+                <TextBlock Grid.Row="1" x:Name="StaleMate"  HorizontalAlignment="Center" Margin="0,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Text="STALEMATE!" VerticalAlignment="Center"  Height="30" Width="182" FontSize="25" FontWeight="Bold" Foreground="Blue"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">

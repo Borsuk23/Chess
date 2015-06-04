@@ -15,6 +15,7 @@ GameViewModel::~GameViewModel()
 
 
 Platform::Boolean GameViewModel::IsCheckMate::get(){ return CheckMate; }
+Platform::Boolean GameViewModel::IsStaleMate::get(){ return StaleMate; }
 
 void GameViewModel::IsCheckMate::set(Platform::Boolean value)
 {
@@ -22,6 +23,15 @@ void GameViewModel::IsCheckMate::set(Platform::Boolean value)
 	{
 		CheckMate = value;
 		NotifyPropertyChanged("IsCheckMate");
+	}
+}
+
+void GameViewModel::IsStaleMate::set(Platform::Boolean value)
+{
+	if (StaleMate != value)
+	{
+		StaleMate = value;
+		NotifyPropertyChanged("IsStaleMate");
 	}
 }
 

@@ -17,13 +17,18 @@ namespace Chess {
 			void set(Platform::Boolean value);
 		}
 
+		property Platform::Boolean IsStaleMate {
+			Platform::Boolean get();
+			void set(Platform::Boolean value);
+		}
+
 		
 		virtual event WUXD::PropertyChangedEventHandler^ PropertyChanged;
 
 	private:
 		void NotifyPropertyChanged(Platform::String^ prop);
 		Platform::Boolean CheckMate;
-
+		Platform::Boolean StaleMate;
 	};
 }
 

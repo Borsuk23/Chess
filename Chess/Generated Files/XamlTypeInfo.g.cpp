@@ -164,6 +164,7 @@
             {
                 return ref new ::Chess::GameViewModel(); 
             };
+        userType->AddMemberName(L"IsStaleMate");
         userType->AddMemberName(L"IsCheckMate");
         userType->SetIsBindable();
         userType->SetIsLocalType();
@@ -326,6 +327,27 @@
                 auto that = (::Chess::PlayerViewModel^)instance;
                 auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
                 that->IsMyTurn = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
+    if (longMemberName == L"Chess.GameViewModel.IsStaleMate")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"IsStaleMate", L"Boolean");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::Chess::GameViewModel^)instance;
+                auto value = ref new ::Platform::Box<::Platform::Boolean>(that->IsStaleMate);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::Chess::GameViewModel^)instance;
+                auto boxedValue = (::Platform::IBox<::Platform::Boolean>^)value;
+                that->IsStaleMate = boxedValue->Value;
             };
         return xamlMember;
     }

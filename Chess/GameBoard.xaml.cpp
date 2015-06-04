@@ -55,6 +55,7 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	this->gameViewModels = ref new Platform::Array<GameViewModel^>(1);
 	gameViewModels[0] = ref new GameViewModel();
 	gameViewModels[0]->IsCheckMate = false;
+	gameViewModels[0]->IsStaleMate = false;
 	this->capturedPieceModels = this->game->getCapturedPieces();	
 	this->whitePlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
 	this->blackPlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
@@ -108,6 +109,13 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	checkMateBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
 	checkMateBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
 	CheckMate->SetBinding(CheckMate->VisibilityProperty, checkMateBinding);
+
+	Binding^ staleMateBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	staleMateBinding->Source = gameViewModels[0];
+	staleMateBinding->Path = ref new PropertyPath("IsStaleMate"); //property highlighted z FieldViewModel
+	staleMateBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
+	staleMateBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	StaleMate->SetBinding(StaleMate->VisibilityProperty, staleMateBinding);
 
 	this->fieldModels = game->getBoard()->getFields();
 	this->fieldViewModels = ref new Platform::Array<FieldViewModel^>(64);
@@ -485,8 +493,11 @@ void Chess::GameBoard::refreshBoard()
 	playerViewModels[0]->IsCheck = false;
 	playerViewModels[1]->IsCheck = false;
 
-	if (game->isFinished == true)
+	if (game->stateCheckMate == true)
 		gameViewModels[0]->IsCheckMate = true;
+
+	if (game->stateStaleMate == true)
+		gameViewModels[0]->IsStaleMate = true;
 
 	if (game->turnNumber % 2 == 0)
 	{

@@ -46,6 +46,8 @@ void ::Chess::GameBoard::InitializeComponent()
     saveGameButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"saveGameButton"));
     // Get the TextBlock named 'CheckMate'
     CheckMate = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"CheckMate"));
+    // Get the TextBlock named 'StaleMate'
+    StaleMate = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"StaleMate"));
 }
 
 void ::Chess::GameBoard::Connect(int connectionId, Platform::Object^ target)

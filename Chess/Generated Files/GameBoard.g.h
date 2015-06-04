@@ -45,6 +45,7 @@ namespace Chess
         private: ::Windows::UI::Xaml::Controls::Grid^ WhitePlayerCapturedPieces;
         private: ::Windows::UI::Xaml::Controls::Button^ saveGameButton;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ CheckMate;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ StaleMate;
     };
 }
 

@@ -15,6 +15,7 @@ public:
 	Board* getBoard();
 	int turnNumber;
 	bool stateCheckMate;
+	bool stateStaleMate;
 	Board::GameState gameState;
 	bool isFinished;
 	std::vector<std::vector<Piece*>> getCapturedPieces();

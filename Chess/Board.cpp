@@ -502,10 +502,12 @@ bool Board::checkCheckmateState(Player* player)
 		{
 			standingPiece = fields[i][j]->checkField();
 			if ((player->checkPiece(standingPiece) == true))
+			{
 				this->stateCheckmate = calculateCheckmateMovements(i, j, player, standingPiece); //check every standing piece on board
-			if (this->stateCheckmate == false)
-			{	
-				return false;
+				if (this->stateCheckmate == false)
+				{
+					return false;
+				}
 			}
 
 		}

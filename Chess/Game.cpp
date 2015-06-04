@@ -72,18 +72,25 @@ void Game::userAction(int row, int column)
 			promotionColumn = column;
 			break;
 		}
-//		createTable(5, 5);
+
 		moves.push_back(new Click(row, column, currentPlayer->getColor(), 4));
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
-		//if (this->gameState == Board::GameState::CHECK)
-		//{
+		if (this->gameState == Board::GameState::CHECK)
+		{
 			this->stateCheckMate = board->checkCheckmateState(currentPlayer);
 			if (this->stateCheckMate == true)
 				this->isFinished = true;
-			isFinished = isFinished;
-		//}
+			
+		}
+		else
+		{
+			this->stateStaleMate = board->checkCheckmateState(currentPlayer);
+			if (this->stateStaleMate == true)
+				this->isFinished = true;
+			
+		}
 			
 		 break;
 	case Board::Exit::PIECE_CAPTURED:
@@ -98,13 +105,20 @@ void Game::userAction(int row, int column)
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
-		//if (this->gameState == Board::GameState::CHECK)
-		//{
+		if (this->gameState == Board::GameState::CHECK)
+		{
 			this->stateCheckMate = board->checkCheckmateState(currentPlayer);
 			if (this->stateCheckMate == true)
 				this->isFinished = true;
-			isFinished = isFinished;
-		//}
+			
+		}
+		else
+		{
+			this->stateStaleMate = board->checkCheckmateState(currentPlayer);
+			if (this->stateStaleMate == true)
+				this->isFinished = true;
+			
+		}
 		 break;
 	
 	default:
