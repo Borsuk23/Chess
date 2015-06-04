@@ -45,18 +45,3 @@ void Field::removeFromSelectedField()
 	pieceOnField = NULL;
 }
 
-
-std::string Field::toString()
-{
-
-	if (pieceOnField!=NULL)
-	{
-		return pieceOnField->toString(pieceOnField->color);
-	}
-	else
-	{
-		return "%";
-	}
-
-
-}

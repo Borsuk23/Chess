@@ -15,12 +15,6 @@ Game::Game(std::string whitePlayerNickName, std::string blackPlayerNickName)
 	databaseManager = DatabaseManager::getInstance();
 
 }
-void Game::startNewGame()
-{
-	databaseManager->openConnection();
-	databaseManager->clearDatabase();
-	databaseManager->closeConnection();
-}
 
 bool Game::resumeGame()
 {
@@ -37,8 +31,17 @@ bool Game::resumeGame()
 		}
 	}
 
-	players[0]->setNickname(nicknames[0]);
-	players[1]->setNickname(nicknames[1]);
+	if (nicknames.empty())
+	{
+		players[0]->setNickname("");
+		players[1]->setNickname("");
+	}
+	else
+	{
+		players[0]->setNickname(nicknames[0]);
+		players[1]->setNickname(nicknames[1]);
+	}
+	
 
 	databaseManager->closeConnection();
 	return true;
@@ -179,14 +182,20 @@ void Game::promotion(int promotionPiece)
 	changeTurn();
 	this->gameState = board->checkGameState(currentPlayer);
 	this->board->gameState = this->gameState;
-	//if (this->gameState == Board::GameState::CHECK)
-	//{
-	this->stateCheckMate = board->checkCheckmateState(currentPlayer);
-	if (this->stateCheckMate == true)
-		this->isFinished = true;
-	isFinished = isFinished;
+	if (this->gameState == Board::GameState::CHECK)
+	{
+		this->stateCheckMate = board->checkCheckmateState(currentPlayer);
+		if (this->stateCheckMate == true)
+			this->isFinished = true;
 
-	//}
+	}
+	else
+	{
+		this->stateStaleMate = board->checkCheckmateState(currentPlayer);
+		if (this->stateStaleMate == true)
+			this->isFinished = true;
+
+	}
 }
 
 void Game::saveToFile()
@@ -206,23 +215,6 @@ void Game::saveToFile()
 
 	databaseManager->closeConnection();
 
-
-	//concurrency::task<Windows::Storage::StorageFile^>^ fileOperation = localFolder->CreateFileAsync("dataFile.txt", Windows::Storage::CreationCollisionOption::ReplaceExisting);
-	//fileOperation.then([this](Windows::Storage::StorageFile^ sampleFile)
-	//{
-	//	auto calendar = ref new Calendar;
-	//	auto now = calendar->ToDateTime();
-	//	auto formatter = ref new Windows::Globalization::DateTimeFormatting::DateTimeFormatter("longtime");
-
-	//	return Windows::Storage::FileIO::WriteTextAsync(sampleFile, formatter->Format(now));
-	//}).then([this](task <void> previousOperation) {
-	//	try {
-	//		previousOperation.get();
-	//	}
-	//	catch (Platform::Exception^) {
-	//		// Timestamp not written
-	//	}
-	//});
 }
 
 

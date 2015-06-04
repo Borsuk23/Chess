@@ -82,26 +82,3 @@ void Pawn::pieceMoved()
 }
 
 
-std::string Pawn::toString(int color)
-{
-	std::string returnString = "";
-	std::ostringstream stringNumberOfMoves;
-
-	stringNumberOfMoves << numberOfMoves;
-
-	if (color == 0)
-	{
-		returnString = "white_pawn";
-		returnString.append(" ");
-		returnString.append(stringNumberOfMoves.str());
-	}
-	else
-	{
-		returnString = "black_pawn";
-		returnString.append(" ");
-		returnString.append(stringNumberOfMoves.str());
-	}
-
-	return returnString;
-
-}

@@ -43,26 +43,3 @@ std::string Knight::getStringName()
 }
 
 
-std::string Knight::toString(int color)
-{
-	std::string returnString = "";
-	std::ostringstream stringNumberOfMoves;
-
-	stringNumberOfMoves << numberOfMoves;
-
-	if (color == 0)
-	{
-		returnString = "white_knight";
-		returnString.append(" ");
-		returnString.append(stringNumberOfMoves.str());
-	}
-	else
-	{
-		returnString = "black_knight";
-		returnString.append(" ");
-		returnString.append(stringNumberOfMoves.str());
-	}
-
-	return returnString;
-
-}

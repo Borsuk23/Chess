@@ -139,6 +139,10 @@ Board::Exit Board::userAction(int row, int column, Player* player)
 				pieceSelected = NULL;
 				endEnPassantField = NULL;
 				middleEnPassantField = NULL;
+				highlightedEndEnPassantField = NULL;
+				highlightedMiddleEnPassantField = NULL;
+				shortCastlingField = NULL;  
+				longCastlingField = NULL;
 				//checkPromotion(row, column, player);
 				return Exit::PIECE_MOVED;
 			}

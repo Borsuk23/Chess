@@ -44,7 +44,8 @@ Player::~Player()
 
 void Player::capturePiece(Piece* piece)
 {
-	capturedPieces[numberOfCapturedPieces] = piece; //add captured Piece to capturedPieces vector
+	//add captured Piece to capturedPieces vector
+	capturedPieces[numberOfCapturedPieces] = piece; 
 	numberOfCapturedPieces++;
 }
 
@@ -58,6 +59,7 @@ void Player::removeCapturedPiece(Piece* piece)
 		pieces.erase(it);
 }
 
+//getLastCapturedPiece to erase from players pieces vector
 Piece* Player::getLastCapturedPiece()
 {
 	std::vector<Piece*>::reverse_iterator it;
@@ -66,18 +68,11 @@ Piece* Player::getLastCapturedPiece()
 	return *it; //pointer to iterator,  Piece
 }
 
-
+//check if this is my piece
 bool Player::checkPiece(Piece* piece)
 {
 	
 	std::vector<Piece*>::iterator it;
-	//it = pieces.begin();
-	//for (it; it < pieces.end(); it++)
-	//{
-	//	if ((*it)->_id == piece->_id)
-	//		return true;
-	//}
-	//return false;
 	//find piece in players pieces vector
 	it = std::find(pieces.begin(), pieces.end(), piece);
 	if (it == pieces.end())
@@ -98,7 +93,6 @@ std::vector < Piece* > Player::getCapturedPieces()
 int Player::getColor()
 {
 	return this->color;
-	
 }
 
 std::string Player::getNickname()

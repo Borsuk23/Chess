@@ -4,6 +4,9 @@
 #include <sqlite3.h>
 #include <sstream>
 
+/*!
+* \brief definicja funkcji callback do odczytu danych na potrzeby API sqlite3
+*/
 typedef int(*sqlite3_callback)(
 	void*,
 	int,
@@ -11,30 +14,89 @@ typedef int(*sqlite3_callback)(
 	char**
 	);
 
+/*!
+* \brief DatabaseManager class klasa obs³uguj¹ca bazê danych
+*/
 class DatabaseManager {
 
 public:
+	/*!
+	* \brief getInstance metoda pobieraj¹ca instancjê klasy DatabaseManager
+	* \return instancjê klasy
+	*/
 	static DatabaseManager* getInstance();
+	/*!
+	* \brief openConnection metoda tworz¹ca po³¹czenie z baz¹ danych
+	* \return zwraca czy po³¹czenie zosta³o poprawnie utworzone
+	*/
 	int openConnection();
+	/*!
+	* \brief closeConnection metoda zamykaj¹ca po³¹czenie z baz¹ danych
+	* \return zwraca czy po³¹czenie zosta³o poprawnie zamkniête
+	*/
 	int closeConnection();
+	/*!
+	* \brief readMovesFromDatabase metoda odczytuj¹ca z bazy kolejne ruchy
+	* \return zwraca kolejne klikniêcia
+	*/
 	std::vector<Click*> readMovesFromDatabase();
+	/*!
+	* \brief readPlayersFromDatabase metoda odczytuj¹ca dane graczy z bazy
+	* \return zwraca nicki  graczy
+	*/
 	std::vector<std::string> readPlayersFromDatabase();
+	/*!
+	* \brief insertMoves metoda wpisuj¹ca do bazy ruchy
+	* \param click kolejne kliniêcia
+	* \return zwraca poprawnoœæ wykonania wpisania
+	*/
 	int insertMoves(Click* click);
+	/*!
+	* \brief insertPlayers metoda wpisuj¹ca do bazy graczy
+	* \param whitePlayerNickname nick bia³ego gracza
+	* \param blackPlayerNickname nick czarnego gracza
+	* \return zwraca poprawnoœæ wykonania wpisania
+	*/
 	int insertPlayers(std::string whitePlayerNickname, std::string blackPlayerNickname);
+	/*!
+	* \brief clearDatabase metoda czyszcz¹ca bazê
+	* \return zwraca poprawnoœæ wykonania zapytania
+	*/
 	int clearDatabase();
+	/*!
+	* \brief callback metoda zapewniaj¹ca sposób otrzymywania wyników z zapytañ dotycz¹cych tabeli zawieraj¹cej ruchy
+	* \param NotUsed dane z jednego z argumentów z funkcji sqlite3_exec()
+	* \param numberOfColumns liczba kolumn w tabeli
+	* \param fieldsInTheRow ciag znaków reprezentuj¹cy dane odczytane z jednego wiersza
+	* \param azColName ciag znaków reprezentuj¹cy nazwy kolumn
+	* \return zwraca poprawnoœæ wykonania funkcji
+	*/
 	static 	int callback(void *NotUsed, int numberOfColumns, char **fieldsInTheRow, char **azColName);
+	/*!
+	* \brief callbackPlayers metoda zapewniaj¹ca sposób otrzymywania wyników z zapytañ dotycz¹cych tabeli zawieraj¹cej graczy
+	* \param NotUsed dane z jednego z argumentów z funkcji sqlite3_exec()
+	* \param numberOfColumns liczba kolumn w tabeli
+	* \param fieldsInTheRow ciag znaków reprezentuj¹cy dane odczytane z jednego wiersza
+	* \param azColName ciag znaków reprezentuj¹cy nazwy kolumn
+	* \return zwraca poprawnoœæ wykonania funkcji
+	*/
 	static int callbackPlayers(void *NotUsed, int numberOfColumns, char **fieldsInTheRow, char **azColName);
+	/*!
+	* \brief DatabaseManager destruktor
+	*/
 	~DatabaseManager();
 private:
+	static DatabaseManager *instance; //! instancja klasy DatabaseManager
+	int lastRowID;		//! ostatni wpisany numer ID wiersza
+	sqlite3 *database;	//! baza danych
+	char *errorMessage = 0;		//! kod b³êdu
+	int  remoteConnection;		//! po³¹czenie
+	std::vector<Click*> moves;	//! wektor wykonanych ruchów
+	std::vector<std::string> nicknames;		//! nicki graczy
+	/*!
+	* \brief DatabaseManager konstruktor domyœlny
+	*/
 	DatabaseManager();
-	static DatabaseManager *instance;
-	int lastRowID;
-	sqlite3 *database;
-	char *errorMessage = 0;
-	int  remoteConnection;
-	std::vector<Click*> moves;
-	std::vector<std::string> nicknames;
-
 };
 
 

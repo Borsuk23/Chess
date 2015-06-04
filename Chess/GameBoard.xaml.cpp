@@ -28,7 +28,7 @@ GameBoard::GameBoard()
 	InitializeComponent();
 }
 
-//wywolywana gdy zostaje przeniesiona do okna boarda
+
 void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	startingParameters = dynamic_cast<Chess::Navigation::GameStartParameters^>(e->Parameter);
@@ -46,16 +46,18 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	sWhite.assign(wsWhite.begin(), wsWhite.end());
 	sBlack.assign(wsBlack.begin(), wsBlack.end());
 
-	this->game = new Game(sWhite,sBlack);	//tworzy nowa gre
+	this->game = new Game(sWhite,sBlack);	
 
 	this->playerViewModels = ref new Platform::Array<PlayerViewModel^>(2);
 	playerViewModels[0] = ref new PlayerViewModel();
 	playerViewModels[0]->IsMyTurn = true;
 	playerViewModels[1] = ref new PlayerViewModel();
+
 	this->gameViewModels = ref new Platform::Array<GameViewModel^>(1);
 	gameViewModels[0] = ref new GameViewModel();
 	gameViewModels[0]->IsCheckMate = false;
 	gameViewModels[0]->IsStaleMate = false;
+
 	this->capturedPieceModels = this->game->getCapturedPieces();	
 	this->whitePlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
 	this->blackPlayerCapturedPieceViewModels = ref new Platform::Array<CapturedPiecesViewModel^>(16);
@@ -64,57 +66,57 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	//********************** BINDINGS ****************************************
 	//************************************************************************
 
-	Binding^ whitePlayerTurnBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ whitePlayerTurnBinding = ref new Binding();	//after changes in ViewModel refresh in xaml
 	whitePlayerTurnBinding->Source = playerViewModels[0];
-	whitePlayerTurnBinding->Path = ref new PropertyPath("IsMyTurn"); //property highlighted z FieldViewModel
-	whitePlayerTurnBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	whitePlayerTurnBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	whitePlayerTurnBinding->Path = ref new PropertyPath("IsMyTurn"); 
+	whitePlayerTurnBinding->Mode = BindingMode::OneWay;			//tryb oneway - changes in viewModel go to model
+	whitePlayerTurnBinding->Converter = ref new BoolToVisible();		//visible or not
 	WhitePlayerTurn->SetBinding(WhitePlayerTurn->VisibilityProperty, whitePlayerTurnBinding);
 
 
-	Binding^ whitePlayerCheckBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ whitePlayerCheckBinding = ref new Binding();	
 	whitePlayerCheckBinding->Source = playerViewModels[0];
-	whitePlayerCheckBinding->Path = ref new PropertyPath("IsCheck"); //property highlighted z FieldViewModel
-	whitePlayerCheckBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	whitePlayerCheckBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	whitePlayerCheckBinding->Path = ref new PropertyPath("IsCheck"); 
+	whitePlayerCheckBinding->Mode = BindingMode::OneWay;	
+	whitePlayerCheckBinding->Converter = ref new BoolToVisible(); 
 	WhitePlayerCheck->SetBinding(WhitePlayerCheck->VisibilityProperty, whitePlayerCheckBinding);
 
-	Binding^ whitePlayerCapturedPiecesBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ whitePlayerCapturedPiecesBinding = ref new Binding();	
 	whitePlayerCapturedPiecesBinding->Source = playerViewModels[0];
-	whitePlayerCapturedPiecesBinding->Path = ref new PropertyPath("CapturedPiece"); //property highlighted z FieldViewModel
-	whitePlayerCapturedPiecesBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
+	whitePlayerCapturedPiecesBinding->Path = ref new PropertyPath("CapturedPiece"); 
+	whitePlayerCapturedPiecesBinding->Mode = BindingMode::OneWay;	
 	WhitePlayerCapturedPieces->SetBinding(WhitePlayerCapturedPieces->VisibilityProperty, whitePlayerCapturedPiecesBinding);
 
 
-	Binding^ blackPlayerTurnBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ blackPlayerTurnBinding = ref new Binding();	
 	blackPlayerTurnBinding->Source = playerViewModels[1];
-	blackPlayerTurnBinding->Path = ref new PropertyPath("IsMyTurn"); //property highlighted z FieldViewModel
-	blackPlayerTurnBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	blackPlayerTurnBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	blackPlayerTurnBinding->Path = ref new PropertyPath("IsMyTurn");
+	blackPlayerTurnBinding->Mode = BindingMode::OneWay;	
+	blackPlayerTurnBinding->Converter = ref new BoolToVisible(); 
 	BlackPlayerTurn->SetBinding(BlackPlayerTurn->VisibilityProperty, blackPlayerTurnBinding);
 
-	Binding^ blackPlayerCheckBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ blackPlayerCheckBinding = ref new Binding();	
 	blackPlayerCheckBinding->Source = playerViewModels[1];
-	blackPlayerCheckBinding->Path = ref new PropertyPath("IsCheck"); //property highlighted z FieldViewModel
-	blackPlayerCheckBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	blackPlayerCheckBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	blackPlayerCheckBinding->Path = ref new PropertyPath("IsCheck"); 
+	blackPlayerCheckBinding->Mode = BindingMode::OneWay;	
+	blackPlayerCheckBinding->Converter = ref new BoolToVisible(); 
 	BlackPlayerCheck->SetBinding(BlackPlayerCheck->VisibilityProperty, blackPlayerCheckBinding);
 
 	
 
 
-	Binding^ checkMateBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ checkMateBinding = ref new Binding();	
 	checkMateBinding->Source = gameViewModels[0];
-	checkMateBinding->Path = ref new PropertyPath("IsCheckMate"); //property highlighted z FieldViewModel
-	checkMateBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	checkMateBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	checkMateBinding->Path = ref new PropertyPath("IsCheckMate"); 
+	checkMateBinding->Mode = BindingMode::OneWay;	
+	checkMateBinding->Converter = ref new BoolToVisible(); 
 	CheckMate->SetBinding(CheckMate->VisibilityProperty, checkMateBinding);
 
-	Binding^ staleMateBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ staleMateBinding = ref new Binding();	
 	staleMateBinding->Source = gameViewModels[0];
-	staleMateBinding->Path = ref new PropertyPath("IsStaleMate"); //property highlighted z FieldViewModel
-	staleMateBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	staleMateBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	staleMateBinding->Path = ref new PropertyPath("IsStaleMate"); 
+	staleMateBinding->Mode = BindingMode::OneWay;	
+	staleMateBinding->Converter = ref new BoolToVisible(); 
 	StaleMate->SetBinding(StaleMate->VisibilityProperty, staleMateBinding);
 
 	this->fieldModels = game->getBoard()->getFields();
@@ -127,7 +129,7 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	{
 		for (int row = 0; row < 8; row++)
 		{
-			fieldViewModels[column*8+row] = SetFieldViewModel(row, column, this->fieldModels[column][row]); //kazdemu polu w modelu jest tworzony odpowidajacy mu ViewModel
+			fieldViewModels[column*8+row] = SetFieldViewModel(row, column, this->fieldModels[column][row]); //for every fieldModel is created fieldViewModel
 		}
 	}
 
@@ -135,8 +137,8 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	{
 		for (int row = 0; row < 4; row++)
 		{
-			whitePlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row,0, this->capturedPieceModels[0][row * 4 + column]); //bialy
-			blackPlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row, 1, this->capturedPieceModels[1][row * 4 + column]); //czarny
+			whitePlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row,0, this->capturedPieceModels[0][row * 4 + column]); //white
+			blackPlayerCapturedPieceViewModels[row * 4 + column] = SetCapturePieceViewModel(column, row, 1, this->capturedPieceModels[1][row * 4 + column]); //black
 			
 		}
 	}
@@ -208,10 +210,7 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 
 		BlackPlayerNickname->Text = platformNicknameBlack;
 	}
-	else
-	{
-		this->game->startNewGame();
-	}
+	
 	//start game
 ;}
 
@@ -245,11 +244,11 @@ FieldViewModel^ GameBoard::SetFieldViewModel(int column, int row, Field* field) 
 
 
 	Windows::UI::Xaml::Shapes::Rectangle^ rectangle = SetHighlights(column, row);
-	Binding^ highlightBinding = ref new Binding();	//laczenie, ze w momencie pozniej zmiany w fieldViewModel, zmieni sie xaml
+	Binding^ highlightBinding = ref new Binding();	
 	highlightBinding->Source = fieldViewModel;
-	highlightBinding->Path = ref new PropertyPath("Highlighted"); //property highlighted z FieldViewModel
-	highlightBinding->Mode = BindingMode::OneWay;	//tryb oneway - zmiany z viewModelu leca do Modelu
-	highlightBinding->Converter = ref new BoolToVisible(); //widoczne albo nie podswietlenie
+	highlightBinding->Path = ref new PropertyPath("Highlighted"); 
+	highlightBinding->Mode = BindingMode::OneWay;	
+	highlightBinding->Converter = ref new BoolToVisible(); 
 	rectangle->SetBinding(rectangle->VisibilityProperty, highlightBinding);
 
 	return fieldViewModel;
@@ -263,9 +262,9 @@ Windows::UI::Xaml::Shapes::Rectangle^ GameBoard::SetHighlights(int column, int r
 	brush->Color = Windows::UI::Colors::GreenYellow;
 	rectangle->Fill = brush;
 	rectangle->Opacity = 0.6;
-	rectangle->PointerPressed += ref new PointerEventHandler(this, &GameBoard::Rectangle_PointerPressed); //jak klikniesz  wten prostokat to sie wywola tamta metoda
-	Board->Children->Append(rectangle); //Board to nazwa samej planszy Grida na xamlu. dodaje rectangle jako children do grida
-	Board->SetColumn(rectangle, column); //ustwia kolumne ktora byla podana
+	rectangle->PointerPressed += ref new PointerEventHandler(this, &GameBoard::Rectangle_PointerPressed); //after press rectangle go to rectangle_pointerpressed method
+	Board->Children->Append(rectangle); 
+	Board->SetColumn(rectangle, column); 
 	Board->SetRow(rectangle, row);
 	return rectangle;
 }
@@ -320,8 +319,6 @@ CapturedPiecesViewModel^ GameBoard::SetCapturePieceViewModel(int column, int row
 		pieceBinding->Mode = BindingMode::TwoWay;
 		image->SetBinding(image->SourceProperty, pieceBinding);
 	}
-
-
 
 
 	return capturedPieceViewModel;
@@ -417,7 +414,7 @@ void Chess::GameBoard::Image_PointerPressed(Platform::Object^ sender, Windows::U
 
 void Chess::GameBoard::PromotionChosen(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
 {
-	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; //obiekt ktory wywolal ten event
+	Windows::UI::Xaml::Controls::Image^ button = (Windows::UI::Xaml::Controls::Image^) sender; 
 	int promotionPiece = (int)button->GetValue(Grid::RowProperty);
 	game->promotion(promotionPiece);
 	promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Collapsed;

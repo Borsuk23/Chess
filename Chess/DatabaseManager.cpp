@@ -23,8 +23,6 @@ int DatabaseManager::openConnection()
 {
 	/* Open database */
 
-	//Windows::Storage::StorageFile file = await StorageFile.GetFileFromApplicationUriAsync("ms-appdata:///local/file.txt");
-
 
 	auto localAppDataParh = Windows::Storage::ApplicationData::Current->LocalFolder->Path;
 	std::wstring path(localAppDataParh->Data());
@@ -200,6 +198,7 @@ int DatabaseManager::callback(void *NotUsed, int numberOfColumns, char **fieldsI
 		int column;
 		int player;
 		int promotionPiece;
+		//char to int
 		row = std::atoi(fieldsInTheRow[1]);
 		column = std::atoi(fieldsInTheRow[2]);
 		player = std::atoi(fieldsInTheRow[3]);
