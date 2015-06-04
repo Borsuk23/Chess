@@ -10,5 +10,6 @@ public:
 	virtual Platform::String^ getName();
 	virtual std::string getStringName();
 	virtual void pieceMoved();
+	virtual std::string toString(int color);
 };
 

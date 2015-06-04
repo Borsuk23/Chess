@@ -50,6 +50,13 @@ void ::Chess::GameBoard::InitializeComponent()
 
 void ::Chess::GameBoard::Connect(int connectionId, Platform::Object^ target)
 {
+    switch (connectionId)
+    {
+    case 1:
+        (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ButtonBase^>(target))->Click +=
+            ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::Chess::GameBoard::*)(Platform::Object^, Windows::UI::Xaml::RoutedEventArgs^))&GameBoard::saveGameButton_Click);
+        break;
+    }
     (void)connectionId; // Unused parameter
     (void)target; // Unused parameter
     _contentLoaded = true;

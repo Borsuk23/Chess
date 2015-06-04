@@ -94,3 +94,19 @@ std::vector < Piece* > Player::getCapturedPieces()
 {
 	return this->capturedPieces;
 }
+
+int Player::getColor()
+{
+	return this->color;
+	
+}
+
+std::string Player::getNickname()
+{
+	return this->nickName;
+}
+
+void Player::setNickname(std::string nickname)
+{
+	this->nickName = nickname;
+}

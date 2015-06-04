@@ -11,8 +11,39 @@ Game::Game(std::string whitePlayerNickName, std::string blackPlayerNickName)
 	turnNumber = 0;
 	isFinished = false;
 	stateCheckMate = false;
+	moves = std::vector<Click*>();
+	databaseManager = DatabaseManager::getInstance();
+
+}
+void Game::startNewGame()
+{
+	databaseManager->openConnection();
+	databaseManager->clearDatabase();
+	databaseManager->closeConnection();
 }
 
+bool Game::resumeGame()
+{
+	databaseManager->openConnection();
+	std::vector<std::string> nicknames = databaseManager->readPlayersFromDatabase();
+	std::vector<Click*> resumeMoves = databaseManager->readMovesFromDatabase();
+	std::vector<Click*>::iterator it;
+	for (it = resumeMoves.begin(); it < resumeMoves.end(); it++)
+	{
+		userAction((*it)->row, (*it)->column);
+		if ((*it)->promotionPiece != 4)
+		{
+			promotion((*it)->promotionPiece);
+		}
+	}
+
+	players[0]->setNickname(nicknames[0]);
+	players[1]->setNickname(nicknames[1]);
+
+	databaseManager->closeConnection();
+	return true;
+
+}
 
 Game::~Game()
 {
@@ -28,8 +59,10 @@ void Game::userAction(int row, int column)
 	case Board::Exit::NO_CHANGES: 
 		; break;
 	case Board::Exit::PIECE_SELECTED:
+		moves.push_back(new Click(row, column, currentPlayer->getColor(), 4));
 			; break;
 	case Board::Exit::PIECE_UNSELECTED:
+		moves.push_back(new Click(row, column, currentPlayer->getColor(), 4));
 		; break;
 	case Board::Exit::PIECE_MOVED:
 		if (board->checkPromotion(row, column, currentPlayer) == true)
@@ -39,6 +72,8 @@ void Game::userAction(int row, int column)
 			promotionColumn = column;
 			break;
 		}
+//		createTable(5, 5);
+		moves.push_back(new Click(row, column, currentPlayer->getColor(), 4));
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
@@ -49,6 +84,7 @@ void Game::userAction(int row, int column)
 				this->isFinished = true;
 			isFinished = isFinished;
 		//}
+			
 		 break;
 	case Board::Exit::PIECE_CAPTURED:
 		if (board->checkPromotion(row, column, currentPlayer) == true)
@@ -58,7 +94,7 @@ void Game::userAction(int row, int column)
 			promotionColumn = column;
 			break;
 		}
-		
+		moves.push_back(new Click(row, column, currentPlayer->getColor(), 4));
 		changeTurn();
 		this->gameState = board->checkGameState(currentPlayer);
 		this->board->gameState = this->gameState;
@@ -124,6 +160,8 @@ void Game::promotion(int promotionPiece)
 	}
 	promotionFlag = false;
 	
+	moves.push_back(new Click(promotionRow, promotionColumn, currentPlayer->getColor(), promotionPiece));
+	
 	changeTurn();
 	this->gameState = board->checkGameState(currentPlayer);
 	this->board->gameState = this->gameState;
@@ -133,5 +171,46 @@ void Game::promotion(int promotionPiece)
 	if (this->stateCheckMate == true)
 		this->isFinished = true;
 	isFinished = isFinished;
+
 	//}
 }
+
+void Game::saveToFile()
+{
+	databaseManager->openConnection();
+	databaseManager->clearDatabase();
+	std::vector<Click*>::iterator it;
+	Windows::Storage::ApplicationDataContainer^ localSettings = Windows::Storage::ApplicationData::Current->LocalSettings;
+	Windows::Storage::StorageFolder^ localFolder = Windows::Storage::ApplicationData::Current->LocalFolder;
+	for (it = moves.begin(); it < moves.end(); it++)
+	{
+
+		databaseManager->insertMoves(*it);
+	}
+	
+	databaseManager->insertPlayers(players[0]->getNickname(), players[1]->getNickname());
+
+	databaseManager->closeConnection();
+
+
+	//concurrency::task<Windows::Storage::StorageFile^>^ fileOperation = localFolder->CreateFileAsync("dataFile.txt", Windows::Storage::CreationCollisionOption::ReplaceExisting);
+	//fileOperation.then([this](Windows::Storage::StorageFile^ sampleFile)
+	//{
+	//	auto calendar = ref new Calendar;
+	//	auto now = calendar->ToDateTime();
+	//	auto formatter = ref new Windows::Globalization::DateTimeFormatting::DateTimeFormatter("longtime");
+
+	//	return Windows::Storage::FileIO::WriteTextAsync(sampleFile, formatter->Format(now));
+	//}).then([this](task <void> previousOperation) {
+	//	try {
+	//		previousOperation.get();
+	//	}
+	//	catch (Platform::Exception^) {
+	//		// Timestamp not written
+	//	}
+	//});
+}
+
+
+
+

@@ -9,5 +9,6 @@ public:
 	virtual std::vector<std::vector<Translation*>> getPossibleMovements();
 	virtual Platform::String^ getName();
 	virtual std::string getStringName();
+	virtual std::string toString(int color);
 };
 

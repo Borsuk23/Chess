@@ -33,13 +33,13 @@ void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::U
 {
 	if (this->Frame != nullptr)
 	{
-		GameStartParameters^ players = ref new GameStartParameters;
-		players->WhitePlayer = whitePlayerNick->Text;
-		players->BlackPlayer = blackPlayerNick->Text;
+		GameStartParameters^ startingParameters = ref new GameStartParameters;
+		startingParameters->WhitePlayer = whitePlayerNick->Text;
+		startingParameters->BlackPlayer = blackPlayerNick->Text;
 		//players->BlackPlayer=wyciagnac text z textbox black playera
 		//tak samo dla bialego
 
-		this->Frame->Navigate(TypeName(GameBoard::typeid),players);
+		this->Frame->Navigate(TypeName(GameBoard::typeid), startingParameters);
 	}
 
 }
@@ -48,4 +48,20 @@ void Chess::MainPage::startGameButton_Click(Platform::Object^ sender, Windows::U
 void Chess::MainPage::whitePlayerNick_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
+}
+
+
+void Chess::MainPage::resumeGameButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (this->Frame != nullptr)
+	{
+		GameStartParameters^ startingParameters = ref new GameStartParameters;
+		startingParameters->WhitePlayer = whitePlayerNick->Text;
+		startingParameters->BlackPlayer = blackPlayerNick->Text;
+		startingParameters->Resume = true;
+		//players->BlackPlayer=wyciagnac text z textbox black playera
+		//tak samo dla bialego
+
+		this->Frame->Navigate(TypeName(GameBoard::typeid), startingParameters);
+	}
 }

@@ -18,5 +18,6 @@ public:
 	bool isHighlighted();
 	Piece* checkField();
 	void setHighlighted(bool value);
+	std::string toString();
 };
 

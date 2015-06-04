@@ -104,3 +104,28 @@ std::string Queen::getStringName()
 {
 	return "Queen";
 }
+
+
+std::string Queen::toString(int color)
+{
+	std::string returnString = "";
+	std::ostringstream stringNumberOfMoves;
+
+	stringNumberOfMoves << numberOfMoves;
+
+	if (color == 0)
+	{
+		returnString = "white_queen";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+	else
+	{
+		returnString = "black_queen";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+
+	return returnString;
+
+}

@@ -20,7 +20,7 @@
             <TextBox HorizontalAlignment="Center" Margin="0,300,0,0" TextWrapping="Wrap" PlaceholderText="Enter your nickname" VerticalAlignment="top"  Height="30" Width="253" x:Name="whitePlayerNick"/>
             <TextBox HorizontalAlignment="Center" Margin="0,400,0,0" TextWrapping="Wrap" PlaceholderText="Enter your nickname" VerticalAlignment="Top"  Width="253" x:Name="blackPlayerNick"/>
             <Button x:ConnectionId='1' x:Name="startGameButton" Content="Start Game" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top"                               Width="200" Height="50" Background="Black"/>
-            <Button x:ConnectionId='2' x:Name="resumeGameButton" Content="Resume Game" HorizontalAlignment="Center" Margin="0,560,0,0" VerticalAlignment="Top"                               Width="150" Height="50" Background="Black"/>
+            <Button x:ConnectionId='2' x:Name="resumeGameButton" Content="Resume Game" HorizontalAlignment="Center" Margin="0,560,0,0" VerticalAlignment="Top" Width="150" Height="50" Background="Black"                               />
             <TextBlock HorizontalAlignment="Center" Margin="0,250,0,0" TextWrapping="Wrap" Text="White Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,350,0,0" TextWrapping="Wrap" Text="Black Player" VerticalAlignment="Top" Height="44" Width="182" FontSize="30"/>
             <Image HorizontalAlignment="Center" Source="title.png" Height="150" Margin="0,60,0,0" Width="350" VerticalAlignment="Top"/>

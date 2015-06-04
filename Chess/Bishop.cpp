@@ -68,3 +68,27 @@ std::string Bishop::getStringName()
 {
 	return "Bishop";
 }
+
+std::string Bishop::toString(int color)
+{
+	std::string returnString="";
+	std::ostringstream stringNumberOfMoves;
+
+	stringNumberOfMoves << numberOfMoves;
+
+	if (color == 0)
+	{
+		returnString = "white_bishop";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+	else
+	{
+		returnString = "black_bishop";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+
+	return returnString;
+		
+}

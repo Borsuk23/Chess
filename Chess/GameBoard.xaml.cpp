@@ -31,12 +31,23 @@ GameBoard::GameBoard()
 //wywolywana gdy zostaje przeniesiona do okna boarda
 void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 {
-	players = dynamic_cast<Chess::Navigation::GameStartParameters^>(e->Parameter);
-	//GAME - konstruktor (white, black);
-	//wyciagnac z players->whiteplayer, players->blackplayer nicknamey, przerzutowac je na stringi i do konstruktora Gamea
-	this->game = new Game("WhitePlayer", "BlackPlayer");	//tworzy nowa gre
-	WhitePlayerNickname->Text = players->WhitePlayer;
-	BlackPlayerNickname->Text= players->BlackPlayer;
+	startingParameters = dynamic_cast<Chess::Navigation::GameStartParameters^>(e->Parameter);
+
+	WhitePlayerNickname->Text = startingParameters->WhitePlayer;
+	BlackPlayerNickname->Text = startingParameters->BlackPlayer;
+
+	//CONVERT PLATFORM STRING TO STRING
+
+	std::wstring wsWhite = startingParameters->WhitePlayer->Data();
+	std::wstring wsBlack = startingParameters->BlackPlayer->Data();
+
+	std::string sWhite;
+	std::string sBlack;
+	sWhite.assign(wsWhite.begin(), wsWhite.end());
+	sBlack.assign(wsBlack.begin(), wsBlack.end());
+
+	this->game = new Game(sWhite,sBlack);	//tworzy nowa gre
+
 	this->playerViewModels = ref new Platform::Array<PlayerViewModel^>(2);
 	playerViewModels[0] = ref new PlayerViewModel();
 	playerViewModels[0]->IsMyTurn = true;
@@ -169,6 +180,30 @@ void GameBoard::OnNavigatedTo(NavigationEventArgs^ e)
 	promotionBishop->PointerPressed += ref new PointerEventHandler(this, &GameBoard::PromotionChosen); 
 
 
+	if (startingParameters->Resume == true)
+	{
+		this->game->resumeGame();
+		refreshBoard();
+
+		//resume nicknames
+		//convert std::string to platform::string
+		std::string sWhite(this->game->players[0]->getNickname());
+		std::string sBlack(this->game->players[1]->getNickname());
+		std::wstring wsWhite, wsBlack;
+		wsWhite.assign(sWhite.begin(), sWhite.end());
+		Platform::String^ platformNicknameWhite = ref new String(wsWhite.c_str());
+
+		WhitePlayerNickname->Text = platformNicknameWhite;
+
+		wsBlack.assign(sBlack.begin(), sBlack.end());
+		Platform::String^ platformNicknameBlack = ref new String(wsBlack.c_str());
+
+		BlackPlayerNickname->Text = platformNicknameBlack;
+	}
+	else
+	{
+		this->game->startNewGame();
+	}
 	//start game
 ;}
 
@@ -340,62 +375,8 @@ void Chess::GameBoard::Rectangle_PointerPressed(Platform::Object^ sender, Window
 		return;
 	}
 	game->userAction(row, column);
-	for (int row = 0; row < 8; row++)
-	{
-		for (int column = 0; column < 8; column++)
-		{
-			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
-			if (fieldModels[row][column]->checkField() != NULL)
-				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
-			else
-				fieldViewModels[row * 8 + column]->PieceOnField = "";
-		}
-	}
-
-	for (int column = 0; column < 4; column++)
-	{
-		for (int row = 0; row < 4; row++)
-		{
-			if (this->game->players[0]->capturedPieces[row * 4 + column] != NULL)
-				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[0]->capturedPieces[row * 4 + column]->getName();
-			else
-				whitePlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
-			if (this->game->players[1]->capturedPieces[row * 4 + column] != NULL)
-				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = this->game->players[1]->capturedPieces[row * 4 + column]->getName();
-			else
-				blackPlayerCapturedPieceViewModels[row * 4 + column]->PieceOnField = "";
-		}
-	}
-
-	playerViewModels[0]->IsCheck = false;
-	playerViewModels[1]->IsCheck = false;
-
-	if (game->isFinished == true)
-		gameViewModels[0]->IsCheckMate = true;
-
-	if (game->turnNumber % 2 == 0)
-	{
-		if (game->gameState == Board::GameState::CHECK)
-			playerViewModels[0]->IsCheck = true;
-		playerViewModels[0]->IsMyTurn = true;
-		playerViewModels[1]->IsMyTurn = false;
-	}
-	else
-	{
-		if (game->gameState == Board::GameState::CHECK)
-			playerViewModels[1]->IsCheck = true;
-		playerViewModels[1]->IsMyTurn = true;
-		playerViewModels[0]->IsMyTurn = false;
-	}
 	
-
-	if (game->promotionFlag == true)
-	{
-		promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		promotionBishop->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		promotionRook->Visibility = Windows::UI::Xaml::Visibility::Visible;
-	}
+	refreshBoard();
 		
 }
 
@@ -436,6 +417,44 @@ void Chess::GameBoard::PromotionChosen(Platform::Object^ sender, Windows::UI::Xa
 	promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 	promotionRook->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 
+	//board refresh
+	refreshBoard();
+}
+
+void Chess::GameBoard::saveGameButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	Button^ b = (Button^)sender;
+	
+	game->saveToFile();
+
+}
+
+////figury
+//void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+//{
+//	Windows::UI::Xaml::Controls::TextBlock^ button = (Windows::UI::Xaml::Controls::TextBlock^) sender; //obiekt ktory wywolal ten event
+//	int column = (int)button->GetValue(Grid::ColumnProperty);
+//	int row = (int)button->GetValue(Grid::RowProperty);
+//
+//	game->userAction(row, column);
+//
+//	for (int row = 0; row < 8; row++)
+//	{
+//		for (int column = 0; column < 8; column++)
+//		{
+//			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
+//			if (fieldModels[row][column]->checkField() != NULL)
+//				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
+//			else
+//				fieldViewModels[row * 8 + column]->PieceOnField = "";
+//		}
+//	}
+//}
+
+
+
+void Chess::GameBoard::refreshBoard()
+{
 	for (int row = 0; row < 8; row++)
 	{
 		for (int column = 0; column < 8; column++)
@@ -485,28 +504,11 @@ void Chess::GameBoard::PromotionChosen(Platform::Object^ sender, Windows::UI::Xa
 	}
 
 
+	if (game->promotionFlag == true)
+	{
+		promotionQueen->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionBishop->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionKnight->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		promotionRook->Visibility = Windows::UI::Xaml::Visibility::Visible;
+	}
 }
-
-
-////figury
-//void Chess::GameBoard::TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
-//{
-//	Windows::UI::Xaml::Controls::TextBlock^ button = (Windows::UI::Xaml::Controls::TextBlock^) sender; //obiekt ktory wywolal ten event
-//	int column = (int)button->GetValue(Grid::ColumnProperty);
-//	int row = (int)button->GetValue(Grid::RowProperty);
-//
-//	game->userAction(row, column);
-//
-//	for (int row = 0; row < 8; row++)
-//	{
-//		for (int column = 0; column < 8; column++)
-//		{
-//			fieldViewModels[row * 8 + column]->Highlighted = fieldModels[row][column]->isHighlighted();
-//			if (fieldModels[row][column]->checkField() != NULL)
-//				fieldViewModels[row * 8 + column]->PieceOnField = fieldModels[row][column]->checkField()->getName();
-//			else
-//				fieldViewModels[row * 8 + column]->PieceOnField = "";
-//		}
-//	}
-//}
-

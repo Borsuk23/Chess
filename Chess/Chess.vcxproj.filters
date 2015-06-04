@@ -101,6 +101,12 @@
     <ClCompile Include="CapturedPiecesViewModel.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="Click.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseManager.cpp">
+      <Filter>ChessEngine\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -160,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="CapturedPiecesViewModel.h">
       <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="Click.h">
+      <Filter>ChessEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseManager.h">
+      <Filter>ChessEngine\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -237,5 +249,10 @@
     <Image Include="..\white_rook.png">
       <Filter>Assets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="savedMoves.txt">
+      <Filter>Assets</Filter>
+    </Text>
   </ItemGroup>
 </Project>

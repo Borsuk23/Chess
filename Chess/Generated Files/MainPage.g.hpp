@@ -42,7 +42,7 @@ void ::Chess::MainPage::Connect(int connectionId, Platform::Object^ target)
         break;
     case 2:
         (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ButtonBase^>(target))->Click +=
-            ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::Chess::MainPage::*)(Platform::Object^, Windows::UI::Xaml::RoutedEventArgs^))&MainPage::startGameButton_Click);
+            ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::Chess::MainPage::*)(Platform::Object^, Windows::UI::Xaml::RoutedEventArgs^))&MainPage::resumeGameButton_Click);
         break;
     }
     (void)connectionId; // Unused parameter

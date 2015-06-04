@@ -14,4 +14,5 @@ GameStartParameters::GameStartParameters()
 {
 	this->BlackPlayer = "BlackPlayer";
 	this->WhitePlayer = "WhitePlayer";
+	this->Resume = false;
 }

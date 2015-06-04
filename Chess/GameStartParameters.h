@@ -39,8 +39,23 @@ namespace Chess
 					}
 				}
 			}
+			property Platform::Boolean Resume
+			{
+				Platform::Boolean get()
+				{
+					return _Resume;
+				}
+				void set(Platform::Boolean value)
+				{
+					if (!_Resume==value)
+					{
+						_Resume = value;
+					}
+				}
+			}
 
 		private:
+			Platform::Boolean _Resume;
 			Platform::String^ _WhitePlayer;
 			Platform::String^ _BlackPlayer;
 		};

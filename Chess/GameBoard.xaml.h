@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "Board.h"
 #include "Field.h"
+#include "Player.h"
 
 namespace Chess
 {
@@ -28,7 +29,7 @@ namespace Chess
 		GameBoard();
 		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 	private:
-		Chess::Navigation::GameStartParameters^ players;
+		Chess::Navigation::GameStartParameters^ startingParameters;
 		Game* game;
 		Platform::Array<FieldViewModel^>^ fieldViewModels;
 		Platform::Array<PlayerViewModel^>^ playerViewModels;
@@ -37,7 +38,6 @@ namespace Chess
 		Platform::Array<CapturedPiecesViewModel^>^ blackPlayerCapturedPieceViewModels;
 		std::vector<std::vector<Field*>> fieldModels;
 		std::vector<std::vector<Piece*>> capturedPieceModels;
-
 		Windows::UI::Xaml::Controls::Image^ promotionQueen;
 		Windows::UI::Xaml::Controls::Image^ promotionKnight;
 		Windows::UI::Xaml::Controls::Image^ promotionRook;
@@ -53,7 +53,8 @@ namespace Chess
 		void Rectangle_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		void Image_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		//void TextBlock_PointerPressed(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
-		void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void saveGameButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void PromotionChosen(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		void refreshBoard();
 	};
 }

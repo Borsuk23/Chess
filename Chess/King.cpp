@@ -60,3 +60,28 @@ void King::pieceMoved()
 
 	}
 }
+
+
+std::string King::toString(int color)
+{
+	std::string returnString = "";
+	std::ostringstream stringNumberOfMoves;
+
+	stringNumberOfMoves << numberOfMoves;
+
+	if (color == 0)
+	{
+		returnString = "white_king";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+	else
+	{
+		returnString = "black_king";
+		returnString.append(" ");
+		returnString.append(stringNumberOfMoves.str());
+	}
+
+	return returnString;
+
+}

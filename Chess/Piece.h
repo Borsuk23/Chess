@@ -1,5 +1,6 @@
 #pragma once
 #include "Translation.h"
+#include "sstream"
 
 class Piece
 {
@@ -12,6 +13,7 @@ public:
 	virtual Platform::String^ getName() = 0;
 	virtual std::string getStringName() = 0;
 	virtual void pieceMoved();
+	virtual std::string toString(int color) = 0;
 	int color;
 protected:
 	
