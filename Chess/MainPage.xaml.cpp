@@ -59,8 +59,7 @@ void Chess::MainPage::resumeGameButton_Click(Platform::Object^ sender, Windows::
 		startingParameters->WhitePlayer = whitePlayerNick->Text;
 		startingParameters->BlackPlayer = blackPlayerNick->Text;
 		startingParameters->Resume = true;
-		//players->BlackPlayer=wyciagnac text z textbox black playera
-		//tak samo dla bialego
+		
 
 		this->Frame->Navigate(TypeName(GameBoard::typeid), startingParameters);
 	}

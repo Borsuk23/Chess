@@ -103,7 +103,7 @@ private:
 	* \param column kolumna
 	* \param player gracz
 	*/
-	void calculatePossibleMovements(int x, int y, Player* player);
+	void calculatePossibleMovements(int row, int column, Player* player);
 	/*!
 	* \brief calculateCheckmateMovements metoda sprawdzajaca czy sa mozliwe ruchy do wykonania, sprawdza czy jest mat
 	* \param row wiersz
